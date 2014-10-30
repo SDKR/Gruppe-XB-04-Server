@@ -142,13 +142,14 @@ public class SwitchMethods extends Model
 	 * @throws Exception
 	 */
 	public String authenticate(String email, String password, boolean isAdmin) throws Exception {
-
+		
 		String[] keys = {"userid", "email", "active", "password"};
 
 		qb = new QueryBuilder();
 
 		// Henter info om bruger fra database via querybuilder
-		resultSet = qb.selectFrom(keys, "users").where("email", "=", email).ExecuteQuery();
+		System.out.println("So far so good");
+		resultSet = qb.selectFrom(keys, "users").where("email", "='", email+"'").ExecuteQuery();
 
 		// Hvis en bruger med forespurgt email findes
 		if (resultSet.next()){

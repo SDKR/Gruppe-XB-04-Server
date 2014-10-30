@@ -20,7 +20,6 @@ public class GiantSwitch {
 		//ForecastModel forecastKlasse = new ForecastModel();
 		QOTDModel QOTDKlasse = new QOTDModel();
 		SwitchMethods SW = new SwitchMethods();
-		
 		Gson gson = new GsonBuilder().create();
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
