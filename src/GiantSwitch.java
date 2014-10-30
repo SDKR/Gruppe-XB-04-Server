@@ -1,5 +1,4 @@
 import java.sql.*;
-
 import model.QOTD.QOTDModel;
 import model.calendar.Event;
 import model.note.Note;
@@ -13,9 +12,6 @@ import com.google.gson.*;
 import databaseMethods.SwitchMethods;
 
 public class GiantSwitch {
-	
-	
-	
 	public String GiantSwitchMethod(String jsonString) throws Exception {
 
 		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
@@ -23,6 +19,7 @@ public class GiantSwitch {
 		Note noteKlasse = new Note();
 		//ForecastModel forecastKlasse = new ForecastModel();
 		QOTDModel QOTDKlasse = new QOTDModel();
+		System.out.println("Hello Flotte fyre!");
 		SwitchMethods SW = new SwitchMethods();
 		
 		Gson gson = new GsonBuilder().create();
