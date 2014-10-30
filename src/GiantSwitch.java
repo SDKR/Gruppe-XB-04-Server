@@ -19,7 +19,6 @@ public class GiantSwitch {
 		Note noteKlasse = new Note();
 		//ForecastModel forecastKlasse = new ForecastModel();
 		QOTDModel QOTDKlasse = new QOTDModel();
-		System.out.println("Hello Flotte fyre!");
 		SwitchMethods SW = new SwitchMethods();
 		
 		Gson gson = new GsonBuilder().create();
