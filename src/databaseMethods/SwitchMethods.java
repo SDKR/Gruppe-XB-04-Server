@@ -3,11 +3,13 @@ import java.sql.SQLException;
 import model.Model;
 import model.QOTD.QOTDModel;
 import model.QueryBuild.QueryBuilder;
+import DatabaseLogic.DatabaseConnection;
 
 public class SwitchMethods extends Model
 {
 	QueryBuilder qb = new QueryBuilder();
 	QOTDModel qm = new QOTDModel();
+	DatabaseConnection DC = new DatabaseConnection();
 	
 
 	
@@ -141,6 +143,19 @@ public class SwitchMethods extends Model
 	 * @return
 	 * @throws Exception
 	 */
+	public String loginAuthenticate (String email, String isActive, String password)
+	{
+		String stringToBeReturned = "";
+		if(DC.userAuthenticating(email, password, isActive))
+		{
+			stringToBeReturned = "Brugeren eksisterer";
+		}
+		else
+		{
+			stringToBeReturned = "The user does not exists!";
+		}
+		return stringToBeReturned;
+	}
 	public String authenticate(String email, String password, boolean isAdmin) throws Exception {
 		
 		String[] keys = {"userid", "email", "active", "password"};

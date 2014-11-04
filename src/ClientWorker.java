@@ -29,7 +29,7 @@ public class ClientWorker implements  Runnable{
 			System.out.println("Outtoclient oprettet!");
 			//Sets client sentence equals input from client
 			//incomingJson = inFromClient.readLine();	
-			String ny1 = new String(b, "UTF-8").trim();;
+			String ny1 = new String(b, "UTF-8").trim();
 			System.out.println(ny1);
 			String ny = encryption.xor_decrypt(ny1, "3.1470");
 			//String ny = cryp.decrypt(b);
