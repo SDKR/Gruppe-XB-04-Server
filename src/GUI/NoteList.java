@@ -2,10 +2,8 @@ package GUI;
 
 import javax.swing.JPanel;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JLabel;
@@ -61,7 +59,7 @@ public class NoteList extends JPanel {
 		scrollPane.setBorder(new CompoundBorder(new BevelBorder(
 				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
 						255), new Color(0, 0, 205), new Color(255, 255, 255)),
-				new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255))));
+				new MatteBorder(1, 1, 1, 1, new Color(255, 255, 255))));
 		scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(
 				BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
 						255), new Color(0, 0, 205), new Color(255, 255, 255)),
@@ -80,14 +78,14 @@ public class NoteList extends JPanel {
 		btnDelete = new JButton("Delete");
 		btnDelete.setOpaque(true);
 		btnDelete.setForeground(new Color(0, 0, 205));
-		btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+		btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
 		btnDelete.setBounds(1222, 227, 118, 29);
 		add(btnDelete);
 		
 		btnAdd = new JButton("Add");
 		btnAdd.setOpaque(true);
 		btnAdd.setForeground(new Color(0, 0, 205));
-		btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+		btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
 		btnAdd.setBounds(1222, 193, 118, 29);
 		add(btnAdd);
 		

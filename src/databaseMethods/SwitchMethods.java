@@ -145,14 +145,14 @@ public class SwitchMethods extends Model
 		
 		String[] keys = {"userid", "email", "active", "password"};
 
-		qb = new QueryBuilder();
+		//qb = new QueryBuilder();
 
 		// Henter info om bruger fra database via querybuilder
 		System.out.println("So far so good");
 		resultSet = qb.selectFrom(keys, "users").where("email", "='", email+"'").ExecuteQuery();
 
 		// Hvis en bruger med forespurgt email findes
-		if (resultSet.next()){
+		if (resultSet.isBeforeFirst()){
 
 			// Hvis brugeren er aktiv
 			if(resultSet.getInt("active")==1)
@@ -183,4 +183,9 @@ public class SwitchMethods extends Model
 			return "1"; // returnerer fejlkoden "1" hvis email ikke findes
 		}
 	}
-}
+	public String authenticate2(String email, String password, boolean isAdmin) throws Exception {
+		System.out.println(email + password + isAdmin);
+		return "Det virker!";
+	}
+		
+	}

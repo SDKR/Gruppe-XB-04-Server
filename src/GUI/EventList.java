@@ -7,25 +7,18 @@
 	import javax.swing.JLabel;
 	import javax.swing.ImageIcon;
 	import javax.swing.JTable;
-	import javax.swing.JTextField;
-
 	import java.awt.Font;
 
-	import javax.swing.SwingConstants;
 	import javax.swing.JButton;
 
 	import java.awt.Color;
 
 	import javax.swing.JScrollPane;
 
-	import java.awt.Component;
-
 	import javax.swing.border.CompoundBorder;
 	import javax.swing.border.BevelBorder;
 	import javax.swing.border.MatteBorder;
-	import javax.swing.JTextPane;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+	import java.awt.event.ActionListener;
 
 
 	public class EventList extends JPanel {
@@ -79,7 +72,7 @@ import java.awt.event.ActionEvent;
 			scrollPane.setBorder(new CompoundBorder(new BevelBorder(
 					BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
 							255), new Color(0, 0, 205), new Color(255, 255, 255)),
-					new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255))));
+					new MatteBorder(1, 1, 1, 1, new Color(255, 255, 255))));
 			scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(
 					BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255,
 							255), new Color(0, 0, 205), new Color(255, 255, 255)),
@@ -108,14 +101,14 @@ import java.awt.event.ActionEvent;
 						JButton btnDelete = new JButton("Delete");
 						btnDelete.setOpaque(true);
 						btnDelete.setForeground(new Color(0, 0, 205));
-						btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+						btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
 						btnDelete.setBounds(988, 194, 118, 29);
 						add(btnDelete);
 						
 						JButton btnAdd = new JButton("Add");
 						btnAdd.setOpaque(true);
 						btnAdd.setForeground(new Color(0, 0, 205));
-						btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+						btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
 						btnAdd.setBounds(988, 234, 118, 29);
 						add(btnAdd);
 			

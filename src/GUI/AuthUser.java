@@ -1,9 +1,5 @@
 package GUI;
 
-import java.sql.ResultSet;
-
-import GUI.UserInformation;
-
 public class AuthUser {
 	public boolean login(String userName, String password)
 	{

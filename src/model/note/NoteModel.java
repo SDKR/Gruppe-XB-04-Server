@@ -1,7 +1,5 @@
 package model.note;
 
-import java.sql.SQLException;
-
 /*
  * 		Mangler:
  * 			- Identifikation på brugeren der har lavet noten

@@ -1,8 +1,6 @@
 package model.note;
 import java.sql.SQLException;
 
-import model.*;
-
 public class Testnote {
 	public static void main (String [] args) throws SQLException{
 		int nID = 3;

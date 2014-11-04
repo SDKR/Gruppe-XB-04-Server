@@ -3,7 +3,6 @@ package GUI;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
-import javax.swing.JRadioButton;
 import java.awt.Font;
 import java.awt.Color;
 import javax.swing.JButton;
@@ -14,8 +13,6 @@ import java.awt.event.ActionEvent;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Cursor;
-import java.awt.event.KeyEvent;
-import java.awt.SystemColor;
 
 public class AddUser extends JPanel {
 	private JTextField textField_Email;
@@ -93,6 +90,7 @@ public class AddUser extends JPanel {
 		btnSubmit.setForeground(new Color(255, 255, 255));
 		btnSubmit.setFont(new Font("Arial", Font.BOLD, 30));
 		btnSubmit.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			//Submit changes to databases
 			//hvad sker der n�r �ndringer ved en bruger submittes

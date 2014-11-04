@@ -4,7 +4,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.sql.SQLException;
 
-import GUI.UserInformation;
 import GUI.AuthUser;
 
 import javax.swing.JOptionPane;
@@ -43,6 +42,7 @@ public class GUILogic {
 	}
 	
 	private class LoginActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			try{
 				
@@ -70,6 +70,7 @@ public class GUILogic {
 		}	
 	}
 	private class MainMenuActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == screen.getMainMenu().getBtnLogOut()){
 				screen.show(Screen.LOGIN);
@@ -88,6 +89,7 @@ public class GUILogic {
 		}
 	}
 	private class AddEventGUIActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == screen.getAddEventGUI().getBtnLogout()){
 				screen.show(Screen.LOGIN);
@@ -128,6 +130,7 @@ public class GUILogic {
 		}
 	}
 	private class AddUserActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == screen.getAddUser().getBtnLogout()){
 				screen.show(Screen.LOGIN);
@@ -167,6 +170,7 @@ public class GUILogic {
 		}
 	}
 	private class UserInfoActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == screen.getUserInfo().getBtnMainMenu()){
 				screen.show(Screen.MAINMENU);
@@ -181,6 +185,7 @@ public class GUILogic {
 	}
 	
 	private class NoteListActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == screen.getNoteList().getBtnMainMenu()){
@@ -193,6 +198,7 @@ public class GUILogic {
 	}
 	
 	private class UserListActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 			
 			if (e.getSource() == screen.getUserList().getBtnMainMenu()){
@@ -212,6 +218,7 @@ public class GUILogic {
 	}
 	
 	private class EventListActionListener implements ActionListener {
+		@Override
 		public void actionPerformed(ActionEvent e) {
 
 			if (e.getSource() == screen.getEventlist().getBtnMainMenu()){

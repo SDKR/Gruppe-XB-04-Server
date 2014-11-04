@@ -15,13 +15,14 @@ public class ClientWorker implements  Runnable{
 		this.connectionSocketConected = connectionSocket;
 	}
 	
+	@Override
 	public void run(){
 		try{
 			System.out.println("forbindelse Oprettet!");
 			//BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			byte[] b = new byte[500];
-			int count = connectionSocketConected.getInputStream().read(b);
-			ByteArrayInputStream bais = new ByteArrayInputStream(b);
+			//int count = connectionSocketConected.getInputStream().read(b);
+			//ByteArrayInputStream bais = new ByteArrayInputStream(b);
 			DataInputStream inFromClient = new DataInputStream(connectionSocketConected.getInputStream());		
 			//Creates an object of the data which is to be send back to the client, via the connectionSocket
 			DataOutputStream outToClient = new DataOutputStream(connectionSocketConected.getOutputStream());
@@ -30,7 +31,7 @@ public class ClientWorker implements  Runnable{
 			//incomingJson = inFromClient.readLine();	
 			String ny1 = new String(b, "UTF-8").trim();;
 			System.out.println(ny1);
-			String ny = cryp.xor_decrypt(ny1, "3.1470");
+			String ny = encryption.xor_decrypt(ny1, "3.1470");
 			//String ny = cryp.decrypt(b);
 			//String ny = new String(b).trim();
 			//cryp.StringEncryption(inFromClient.readLine());

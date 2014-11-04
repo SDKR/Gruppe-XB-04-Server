@@ -116,7 +116,7 @@ public class ForecastModel {
 	     		try {
 	     			forecast = qb.selectFrom("dailyupdate").where("msg_type", "=", "forecast").ExecuteQuery();
 					// Method to add these ResultSet values to ArrayList needs to be created
-					return (ArrayList<Forecast>) forecastFromDB;
+					return forecastFromDB;
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

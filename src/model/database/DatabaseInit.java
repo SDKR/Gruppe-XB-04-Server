@@ -4,7 +4,6 @@ import model.Model;
 import model.QueryBuild.QueryBuilder;
 
 import java.io.IOException;
-import java.sql.DatabaseMetaData;
 import java.sql.SQLException;
 
 public class DatabaseInit extends Model {

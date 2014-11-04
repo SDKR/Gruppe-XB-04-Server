@@ -18,8 +18,6 @@ import javax.swing.border.BevelBorder;
 
 import java.awt.Color;
 
-import javax.swing.border.MatteBorder;
-
 import java.awt.Cursor;
 
 import javax.swing.SwingConstants;
@@ -71,6 +69,7 @@ public class Login extends JPanel {
 		btnLogIn.setBackground(Color.WHITE);
 		btnLogIn.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnLogIn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
@@ -87,6 +86,7 @@ public class Login extends JPanel {
 		
 		add(btnLogIn);
 		btnForgotLogIn.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			JOptionPane.showInputDialog("Bad Luck!");
 			}

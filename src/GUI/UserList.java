@@ -80,7 +80,8 @@ public class UserList extends JPanel {
  
         if (DEBUG) {
             table.addMouseListener(new MouseAdapter() {
-                public void mouseClicked(MouseEvent e) {
+                @Override
+				public void mouseClicked(MouseEvent e) {
                     printDebugData(table);
                 }
             });
@@ -89,7 +90,7 @@ public class UserList extends JPanel {
  
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), new MatteBorder(1, 1, 1, 1, (Color) new Color(255, 255, 255))));
+        scrollPane.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), new MatteBorder(1, 1, 1, 1, new Color(255, 255, 255))));
         scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), null));
 
         scrollPane.setBounds(417, 225, 590, 360);
@@ -101,11 +102,12 @@ public class UserList extends JPanel {
         add(scrollPane);
         
         JButton btnAdd = new JButton("Add");
-        btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+        btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
         btnAdd.setForeground(new Color(0, 0, 205));
         btnAdd.setOpaque(true);
         btnAdd.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
+        	@Override
+			public void actionPerformed(ActionEvent arg0) {
 
           String firstName = JOptionPane.showInputDialog(null, "UserID", null);
           String lastName = JOptionPane.showInputDialog(null, "Email", null);
@@ -128,7 +130,8 @@ public class UserList extends JPanel {
         
         JButton btnMainMenu = new JButton("Main Menu");
         btnMainMenu.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent arg0) {
+        	@Override
+			public void actionPerformed(ActionEvent arg0) {
         	}
         });
         btnMainMenu.setForeground(Color.WHITE);
@@ -151,7 +154,7 @@ public class UserList extends JPanel {
         JButton btnDelete = new JButton("Delete");
         btnDelete.setOpaque(true);
         btnDelete.setForeground(new Color(0, 0, 205));
-        btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, (Color) new Color(0, 0, 255)));
+        btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
         btnDelete.setBounds(1019, 515, 118, 29);
         add(btnDelete);
         
@@ -210,7 +213,8 @@ public class UserList extends JPanel {
         //Schedule a job for the event-dispatching thread:
         //creating and showing this application's GUI.
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
+            @Override
+			public void run() {
                 createAndShowGUI();
      
 

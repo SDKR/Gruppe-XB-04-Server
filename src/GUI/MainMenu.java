@@ -4,7 +4,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTextField;
 import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -38,6 +37,7 @@ public class MainMenu extends JPanel {
 		btnUserlist.setContentAreaFilled(false);
 		btnUserlist = new JButton("User-list");
 		btnUserlist.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
