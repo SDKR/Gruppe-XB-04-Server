@@ -42,8 +42,16 @@ public class ClientWorker implements  Runnable{
 			System.out.println("Received: " + ny);
 			String returnSvar = GS.GiantSwitchMethod(ny);
 			System.out.println(returnSvar);
+			String stringToClient = encryption.xor_decrypt(returnSvar, "3.1470");
 			//Sends the capitalized message back to client!!
-			outToClient.writeBytes(returnSvar + "\n");
+			System.out.println(stringToClient);
+			outToClient.writeBytes(stringToClient+"\n");
+			System.out.println("Vi er ved fluuush");
+			outToClient.flush();
+			System.out.println("Vi er ved cloosoe!");
+			
+			
+			//outToClient.close();
 			System.out.println("svar sendt");
 			//BufferedWriter writer = new BufferedWriter(arg0)
 		}catch(Exception exception){
