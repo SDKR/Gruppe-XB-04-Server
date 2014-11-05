@@ -1,12 +1,12 @@
+package SwitchLogic;
 import model.QOTD.QOTDModel;
 import model.note.Note;
-import JsonClasses.AuthUser;
-import JsonClasses.CreateCalender;
-import JsonClasses.DeleteCalendar;
+import JsonClasses.AuthUserJson;
+import JsonClasses.CreateCalendarJson;
+import JsonClasses.DeleteCalendarJson;
+import SwitchLogic.Methods.*;
 
 import com.google.gson.*;
-
-import databaseMethods.SwitchMethods;
 
 public class GiantSwitch {
 	public String GiantSwitchMethod(String jsonString) throws Exception {
@@ -16,8 +16,10 @@ public class GiantSwitch {
 		Note noteKlasse = new Note();
 		//ForecastModel forecastKlasse = new ForecastModel();
 		QOTDModel QOTDKlasse = new QOTDModel();
-		SwitchMethods SW = new SwitchMethods();
 		Gson gson = new GsonBuilder().create();
+		CreateCalendar CC = new CreateCalendar();
+		DeleteCalendar DC = new DeleteCalendar();
+		UserLogin UL = new UserLogin();
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
 		switch (Determine(jsonString)) {
@@ -35,9 +37,12 @@ public class GiantSwitch {
 		 ** LOGIN **
 		 **********/
 		case "logIn":
-			AuthUser AU = gson.fromJson(jsonString, AuthUser.class);
+			AuthUserJson AU = gson.fromJson(jsonString, AuthUserJson.class);
 			System.out.println("Recieved logIn");
-			answer = SW.loginAuthenticate(AU.getAuthUserEmail(), AU.getAuthUserIsActive(), AU.getAuthUserPassword());
+			System.out.println("Vi kan køre det!");
+			answer = UL.authenticateUser(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsActive());
+			
+			//answer = SW.loginAuthenticate(AU.getAuthUserEmail(), AU.getAuthUserIsActive(), AU.getAuthUserPassword());
 			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
 			break;
 
@@ -49,17 +54,17 @@ public class GiantSwitch {
 		 ** CALENDAR **
 		 *************/
 		case "createCalendar":
-			CreateCalender CC = gson.fromJson(jsonString, CreateCalender.class);
+			CreateCalendarJson CCJ = gson.fromJson(jsonString, CreateCalendarJson.class);
 			
-			System.out.println(CC.getCalenderName()+ " Den har lagt det nye ind i klassen");
-			answer = SW.createNewCalender(CC.getUserName(), CC.getCalenderName(), CC.getPublicOrPrivate());
+			System.out.println(CCJ.getCalenderName()+ " Den har lagt det nye ind i klassen");
+			answer = CC.createNewCalender(CCJ.getUserName(), CCJ.getCalenderName(), CCJ.getPublicOrPrivate());
 			System.out.println(answer);
 			break;
 		
 		case "deleteCalendar":
-			DeleteCalendar DC = gson.fromJson(jsonString, DeleteCalendar.class);
-			System.out.println(DC.getCalenderName()+ "Den har lagt det nye ind i klassen");
-			answer = SW.deleteCalender(DC.getUserName(), DC.getCalenderName());
+			DeleteCalendarJson DCJ = gson.fromJson(jsonString, DeleteCalendarJson.class);
+			System.out.println(DCJ.getCalenderName()+ "Den har lagt det nye ind i klassen");
+			answer = DC.deleteCalender(DCJ.getUserName(), DCJ.getCalenderName());
 			break;
 		
 		case "saveImportedCalender":

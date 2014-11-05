@@ -5,8 +5,6 @@ import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
-import com.mysql.jdbc.Statement;
-
 public class DatabaseConnection {
 
 	//Creates the needed information to connect to the database
@@ -43,9 +41,10 @@ public class DatabaseConnection {
 		boolean booleanToBeReturned = false;
 		try
 		{
+			System.out.println("Intet virker, og derudaf!");
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select password, active from users where email = '"+userName+"';");
+			rs = stmt.executeQuery("select password, active from cbscalendar.users where email = '"+userName+"';");
 			while(rs.next())
 			{
 				booleanToBeReturned = true;
@@ -56,6 +55,54 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		return booleanToBeReturned;
+	}
+	
+	public boolean userIsActive(String userName, String isActive) {
+		boolean activeChecker = false;
+		try {
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select active from cbscalendar.users where email = '"+userName+"';");
+			while(rs.next())
+			{
+				String isAccountActive = rs.getString("Active");
+				if(isAccountActive.equals("1"))
+				{
+					activeChecker = true;
+				}
+				else
+				{
+					System.out.println("Din bruger virker ikke fuckhovede!");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return activeChecker;
+	}
+	
+	public boolean userPasswordCheck(String userName, String password) {
+		boolean passwordChecker = false;
+		try {
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select password from cbscalendar.users where email = '"+userName+"';");
+			while(rs.next())
+			{
+				String accountPassword = rs.getString("password");
+				if(accountPassword.equals(password))
+				{
+					passwordChecker = true;
+				}
+				else
+				{
+					System.out.println("Password'et var forkert tard!");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return passwordChecker;
 	}
 	//Creates a public String, which recieves 1 String input
 	public String getAdminID(String username) {
@@ -924,6 +971,10 @@ public class DatabaseConnection {
 		rs.close();
 		stmt.close();
 	}
+
+	
+
+	
 	
 
 }

@@ -3,10 +3,11 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.net.Socket;
 
+import Encryption.encryption;
+import SwitchLogic.GiantSwitch;
 
 public class ClientWorker implements  Runnable{
 	private Socket connectionSocketConected;
-	private CalendarInfo CI = new CalendarInfo();
 	private GiantSwitch GS = new GiantSwitch();
 	private encryption cryp = new encryption();
 	private String incomingJson;
@@ -21,8 +22,8 @@ public class ClientWorker implements  Runnable{
 			System.out.println("forbindelse Oprettet!");
 			//BufferedReader inFromClient = new BufferedReader(new InputStreamReader(connectionSocket.getInputStream()));
 			byte[] b = new byte[500];
-			//int count = connectionSocketConected.getInputStream().read(b);
-			//ByteArrayInputStream bais = new ByteArrayInputStream(b);
+			int count = connectionSocketConected.getInputStream().read(b);
+			ByteArrayInputStream bais = new ByteArrayInputStream(b);
 			DataInputStream inFromClient = new DataInputStream(connectionSocketConected.getInputStream());		
 			//Creates an object of the data which is to be send back to the client, via the connectionSocket
 			DataOutputStream outToClient = new DataOutputStream(connectionSocketConected.getOutputStream());
@@ -36,6 +37,7 @@ public class ClientWorker implements  Runnable{
 			//String ny = new String(b).trim();
 			//cryp.StringEncryption(inFromClient.readLine());
 			System.out.println("Besked modtaget!");
+			System.out.println("Modtager vi ikke noget?");
 			//Sysout recieved message
 			System.out.println("Received: " + ny);
 			String returnSvar = GS.GiantSwitchMethod(ny);
