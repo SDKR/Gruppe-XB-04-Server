@@ -5,7 +5,6 @@ import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
 import SwitchLogic.Methods.*;
-
 import com.google.gson.*;
 
 public class GiantSwitch {
