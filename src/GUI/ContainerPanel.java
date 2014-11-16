@@ -9,26 +9,23 @@ public class ContainerPanel extends JFrame {
 	public static final String loginScreen = "LoginScreen";
 	public static final String mainMenu = "MainMenu";
 	public static final String userView = "UserView";
-	public static final String calendarView = "CalendarView";
 	public static final String eventView = "EventView";
 	public static final String noteView = "NoteView";
 	
 	private static JPanel contentPane;
 	CardLayout c;
 	
-	private AddEventGUI AEG;
-	private ViewCalendars VC;
 	private Login LI;
 	private EventList eList;
 	private MainMenu MM;
 	private NoteList NL;
-	private UserInfo UI;
+	private UserList UL;
 	
 	public ContainerPanel()
 	{
 		setTitle("Doek Calendar System");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 1366, 768);
+		setBounds(100, 100, 1366, 799);
 		setResizable(false);
 		
 		contentPane = new JPanel();
@@ -39,11 +36,6 @@ public class ContainerPanel extends JFrame {
 		
 		LI = new Login();
 		contentPane.add(LI,loginScreen);
-		AEG = new AddEventGUI();
-		contentPane.add(AEG, eventView);
-		
-		VC = new ViewCalendars();
-		contentPane.add(VC, calendarView);
 		
 		eList = new EventList();
 		contentPane.add(eList, eventView);
@@ -54,16 +46,8 @@ public class ContainerPanel extends JFrame {
 		NL = new NoteList();
 		contentPane.add(NL, noteView);
 		
-		UI = new UserInfo();
-		contentPane.add(UI, userView);
-	}
-
-	public AddEventGUI getAEG() {
-		return AEG;
-	}
-
-	public ViewCalendars getVC() {
-		return VC;
+		UL = new UserList();
+		contentPane.add(UL, userView);
 	}
 
 	public EventList geteList() {
@@ -78,8 +62,8 @@ public class ContainerPanel extends JFrame {
 		return NL;
 	}
 
-	public UserInfo getUI() {
-		return UI;
+	public UserList getUI() {
+		return UL;
 	}
 	
 	public Login getLI() {

@@ -24,8 +24,7 @@ public class NoteList extends JPanel {
 	private JLabel lblHeader;
 	private JButton btnDelete;
 	private JButton btnAdd;
-	private JButton btnMainMenu;
-	private JButton btnLogout;
+	private JButton btnMainMenu = new JButton("Main Menu");
 	private JLabel label;
 	
 
@@ -89,21 +88,13 @@ public class NoteList extends JPanel {
 		btnAdd.setBounds(1222, 193, 118, 29);
 		add(btnAdd);
 		
-		btnMainMenu = new JButton("Main Menu");
+		
 		btnMainMenu.setForeground(Color.WHITE);
 		btnMainMenu.setFont(new Font("Arial", Font.BOLD, 30));
 		btnMainMenu.setContentAreaFilled(false);
 		btnMainMenu.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnMainMenu.setBounds(601, 553, 163, 43);
 		add(btnMainMenu);
-		
-		btnLogout = new JButton("Log out");
-		btnLogout.setForeground(Color.WHITE);
-		btnLogout.setFont(new Font("Arial", Font.BOLD, 30));
-		btnLogout.setContentAreaFilled(false);
-		btnLogout.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
-		btnLogout.setBounds(624, 627, 117, 43);
-		add(btnLogout);
 		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(NoteList.class.getResource("/Images/CBSLogo3.png")));
@@ -118,7 +109,9 @@ public class NoteList extends JPanel {
 	public void addActionListener(ActionListener l) {
 		btnAdd.addActionListener(l);
 		btnDelete.addActionListener(l);
-		btnLogout.addActionListener(l);
+	}
+	
+	public void goToMainMenu(ActionListener l) {
 		btnMainMenu.addActionListener(l);
 	}
 
@@ -133,9 +126,4 @@ public class NoteList extends JPanel {
 	public JButton getBtnMainMenu() {
 		return btnMainMenu;
 	}
-
-	public JButton getBtnLogout() {
-		return btnLogout;
-	}
-	
 }
