@@ -39,7 +39,7 @@ public class MainMenu extends JPanel {
 		
 		lblCBSlogo = new JLabel("");
 		lblCBSlogo.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/CBSLogo3.png")));
-		lblCBSlogo.setBounds(10, 698, 250, 59);
+		lblCBSlogo.setBounds(36, 695, 223, 67);
 		add(lblCBSlogo);
 		
 		/*

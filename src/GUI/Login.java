@@ -41,8 +41,6 @@ public class Login extends JPanel {
 	 * Create the panel.
 	 */
 	public Login() {
-		setForeground(new Color(255, 255, 255));
-		setBackground(new Color(105, 105, 105));
 		setLayout(null);
 		
 		//Login button
@@ -95,7 +93,7 @@ public class Login extends JPanel {
 		
 		add(btnForgotLogIn);
 		lblCBSlogo.setIcon(new ImageIcon(Login.class.getResource("/Images/CBSLogo3.png")));
-		lblCBSlogo.setBounds(10, 698, 250, 59);
+		lblCBSlogo.setBounds(36, 695, 223, 67);
 		
 		add(lblCBSlogo);
 		setFont(new Font("Lucida Grande", Font.PLAIN, 17));

@@ -98,7 +98,7 @@ public class NoteList extends JPanel {
 		
 		label = new JLabel("");
 		label.setIcon(new ImageIcon(NoteList.class.getResource("/Images/CBSLogo3.png")));
-		label.setBounds(10, 698, 250, 59);
+		label.setBounds(36, 695, 223, 67);
 		add(label);
 		lblBackground.setIcon(new ImageIcon(NoteList.class.getResource("/Images/MetalBackground.jpg")));
 		lblBackground.setBounds(0, 0, 1366, 768);

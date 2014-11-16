@@ -34,7 +34,7 @@
 		
 		
 		public EventList() {
-			setSize(new Dimension(1366, 768));
+			setSize(new Dimension(1336, 768));
 			setLayout(null);
 
 			JLabel lblEvents = new JLabel("Eventlist");
@@ -103,11 +103,16 @@
 						btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
 						btnAdd.setBounds(988, 234, 118, 29);
 						add(btnAdd);
+						
+						JLabel lblNewLabel = new JLabel("");
+						lblNewLabel.setIcon(new ImageIcon(UserList.class.getResource("/Images/CBSLogo3.png")));
+						lblNewLabel.setBounds(36, 695, 223, 67);
+						add(lblNewLabel);
 			
 						JLabel label = new JLabel("");
 						label.setIcon(new ImageIcon(EventList.class
 								.getResource("/Images/MetalBackground.jpg")));
-						label.setBounds(-26, -28, 1366, 768);
+						label.setBounds(0, 0, 1366, 768);
 						add(label);
 
 		}
