@@ -54,7 +54,8 @@ public class UserList extends JPanel {
 	
     
         try {
-			QueryBuilder qb = new QueryBuilder();
+        	System.out.println("Et eller andet");
+			/*QueryBuilder qb = new QueryBuilder();
 			rs = qb.selectFrom("users").all().ExecuteQuery();
 			
 	        int count = 0;
@@ -66,8 +67,8 @@ public class UserList extends JPanel {
 	        	data[count][4] = rs.getString("password");
 
 	        	count++;
-	        }
-		} catch (SQLException e1) {
+	        }*/
+		} catch (Exception e1) {
 			e1.printStackTrace();
 		}
 
