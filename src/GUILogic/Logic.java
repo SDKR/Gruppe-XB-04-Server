@@ -16,7 +16,7 @@ public class Logic {
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}
-	private class WelcomeLoginBtn implements ActionListener {
+	private class btnToMainMenu implements ActionListener {
 		//When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.mainMenu);
@@ -44,9 +44,12 @@ public class Logic {
 				break;
 		}
 	}
-		}
+}
 	private void initializeListeners() {
-		CP.getLI().addActionListenerWelcomeScreen(new WelcomeLoginBtn());
+		CP.getLI().addActionListenerWelcomeScreen(new btnToMainMenu());
 		CP.getMM().addActionListenerMainMenu(new LogOut());
+		CP.getUI().goToMainMenu(new btnToMainMenu());
+		CP.geteList().goToMainMenu(new btnToMainMenu());
+		CP.getNL().goToMainMenu(new btnToMainMenu());
 	}
 }

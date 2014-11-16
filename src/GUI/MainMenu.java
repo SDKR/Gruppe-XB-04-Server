@@ -11,14 +11,16 @@ import java.awt.Color;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import java.awt.Dimension;
+import javax.swing.SwingConstants;
 
 public class MainMenu extends JPanel {
 	private JLabel label;
 	private JLabel lblMainMenu;
 	private JButton btnLogOut = new JButton("Log Out");
-	private JButton btnUserlist = new JButton("Userlist");
-	private JButton btnEventlist = new JButton("Eventlist");
-	private JButton btnNotelist = new JButton("Notelist");
+	private JButton btnUserlist = new JButton("View Users");
+	private JButton btnEventlist = new JButton("View Events/Calendars");
+	private JButton btnNotelist = new JButton("View Notes");
+	private JButton btnCalendarList = new JButton("CalendarList");
 	private JLabel lblCBSlogo;
 	
 	public MainMenu() {
@@ -29,9 +31,10 @@ public class MainMenu extends JPanel {
 		 * Labels
 		 */
 		lblMainMenu = new JLabel("Main Menu");
+		lblMainMenu.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMainMenu.setForeground(Color.WHITE);
 		lblMainMenu.setFont(new Font("Arial", Font.BOLD, 78));
-		lblMainMenu.setBounds(481, 90, 404, 90);
+		lblMainMenu.setBounds(458, 62, 449, 90);
 		add(lblMainMenu);
 		
 		lblCBSlogo = new JLabel("");
@@ -47,7 +50,7 @@ public class MainMenu extends JPanel {
 		btnUserlist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnUserlist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnUserlist.setBackground(Color.WHITE);
-		btnUserlist.setBounds(610, 330, 145, 50);
+		btnUserlist.setBounds(494, 192, 378, 88);
 		btnUserlist.setActionCommand("UserList");
 		add(btnUserlist);
 		
@@ -56,7 +59,7 @@ public class MainMenu extends JPanel {
 		btnEventlist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnEventlist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnEventlist.setBackground(Color.WHITE);
-		btnEventlist.setBounds(610, 422, 145, 50);
+		btnEventlist.setBounds(494, 313, 378, 88);
 		btnEventlist.setActionCommand("EventList");
 		add(btnEventlist);
 		
@@ -65,7 +68,7 @@ public class MainMenu extends JPanel {
 		btnNotelist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnNotelist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnNotelist.setBackground(Color.WHITE);
-		btnNotelist.setBounds(610, 243, 145, 50);
+		btnNotelist.setBounds(494, 437, 378, 90);
 		btnNotelist.setActionCommand("NoteList");
 		add(btnNotelist);
 		
@@ -74,7 +77,7 @@ public class MainMenu extends JPanel {
 		btnLogOut.setFont(new Font("Arial", Font.BOLD, 30));
 		btnLogOut.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnLogOut.setBackground(Color.WHITE);
-		btnLogOut.setBounds(610, 541, 145, 50);
+		btnLogOut.setBounds(494, 644, 378, 88);
 		btnLogOut.setActionCommand("LogOut");
 		add(btnLogOut);
 		
@@ -93,6 +96,7 @@ public class MainMenu extends JPanel {
 		btnEventlist.addActionListener(l);
 		btnNotelist.addActionListener(l);
 		btnUserlist.addActionListener(l);
+		btnCalendarList.addActionListener(l);
 	}
 	//Getters
 	public JButton getBtnUserlist() {

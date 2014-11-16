@@ -37,8 +37,6 @@ public class Login extends JPanel {
 	private final JLabel lblBackground = new JLabel("");
 	private final JPasswordField textFieldPassword = new JPasswordField();
 	
-
-
 	/**
 	 * Create the panel.
 	 */
