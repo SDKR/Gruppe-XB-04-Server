@@ -27,7 +27,7 @@ public class ContainerPanel extends JFrame {
 	{
 		setTitle("Doek Calendar System");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setBounds(100, 100, 13+66, 768);
+		setBounds(100, 100, 1366, 768);
 		setResizable(false);
 		
 		contentPane = new JPanel();
@@ -53,8 +53,6 @@ public class ContainerPanel extends JFrame {
 		
 		UI = new UserInfo();
 		contentPane.add(UI, userView);
-		
-		
 	}
 
 	public AddEventGUI getAEG() {
