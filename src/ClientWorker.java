@@ -4,6 +4,7 @@ import java.io.DataOutputStream;
 import java.net.Socket;
 
 import Encryption.encryption;
+import GUILogic.Logic;
 import SwitchLogic.GiantSwitch;
 
 public class ClientWorker implements  Runnable{

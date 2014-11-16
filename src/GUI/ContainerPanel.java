@@ -18,6 +18,7 @@ public class ContainerPanel extends JFrame {
 	
 	private AddEventGUI AEG;
 	private ViewCalendars VC;
+	private Login LI;
 	private EventList eList;
 	private MainMenu MM;
 	private NoteList NL;
@@ -36,6 +37,8 @@ public class ContainerPanel extends JFrame {
 		
 		c = (CardLayout) getContentPane().getLayout();
 		
+		LI = new Login();
+		contentPane.add(LI,loginScreen);
 		AEG = new AddEventGUI();
 		contentPane.add(AEG, eventView);
 		
@@ -79,6 +82,10 @@ public class ContainerPanel extends JFrame {
 		return UI;
 	}
 	
+	public Login getLI() {
+		return LI;
+	}
+
 	public void show(String card){
 		c.show(getContentPane(), card);
 	}

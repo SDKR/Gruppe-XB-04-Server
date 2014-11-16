@@ -1,10 +1,14 @@
 import java.net.*;
 
+import GUILogic.Logic;
+
 class TCPServer{    
 	
 	public static void main(String argv[]) throws Exception       {
 
 		AdminWorker admin = new AdminWorker();
+		Logic GUILogic = new Logic();
+		GUILogic.startApp();
 		//Creates a socket to send and recieve messages in port 8888
 		ServerSocket welcomeSocket = new ServerSocket(8888);
 		
