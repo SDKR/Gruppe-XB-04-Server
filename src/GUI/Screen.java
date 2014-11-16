@@ -36,7 +36,7 @@ public class Screen extends JFrame {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			@Override
-			public void run() {
+			public void run() {	
 				try {
 					Screen frame = new Screen();
 					frame.setVisible(true);
