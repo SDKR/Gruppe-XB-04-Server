@@ -2,9 +2,13 @@ package GUILogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.JOptionPane;
+
+import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
 public class Logic {
+	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
 	public Logic()
 	{
@@ -16,6 +20,33 @@ public class Logic {
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}
+	private class loginBtn implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			String emailInput = CP.getLI().getTextFieldUsername().getText();
+			String passwordInput = CP.getLI().getTextFieldPassword().getText();
+			if(DC.checkPassword(emailInput, passwordInput)==true)
+			{
+				if(DC.checkIfAdmin(emailInput)==true)
+				{
+					JOptionPane.showMessageDialog( CP, "Login succesfull!");
+					CP.show(ContainerPanel.mainMenu);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog( CP, "You do not have sufficient access to login");
+				}
+				
+			}
+			else
+			{
+				JOptionPane.showMessageDialog( CP, "The entered password was incorrect");
+			}
+			
+		}
+	}
+	
 	private class btnToMainMenu implements ActionListener {
 		//When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
@@ -46,7 +77,7 @@ public class Logic {
 	}
 }
 	private void initializeListeners() {
-		CP.getLI().addActionListenerWelcomeScreen(new btnToMainMenu());
+		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
 		CP.getMM().addActionListenerMainMenu(new LogOut());
 		CP.getUI().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToMainMenu(new btnToMainMenu());

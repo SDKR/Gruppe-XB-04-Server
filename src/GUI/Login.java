@@ -64,19 +64,8 @@ public class Login extends JPanel {
 		lblPassword.setForeground(new Color(255, 255, 255));
 		lblPassword.setFont(new Font("Arial", Font.BOLD, 26));
 		lblPassword.setBounds(499, 378, 123, 30);
-		
 		add(lblPassword);
-
-	
-		textFieldUsername.setOpaque(false);
-		textFieldUsername.setHorizontalAlignment(SwingConstants.CENTER);
-		textFieldUsername.setForeground(Color.BLACK);
-		textFieldUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
-		textFieldUsername.setColumns(10);
-		textFieldUsername.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255)));
-		textFieldUsername.setBounds(705, 334, 164, 37);
 		
-		add(textFieldUsername);
 		btnLogIn.setBounds(572, 449, 222, 51);
 		
 		add(btnLogIn);
@@ -97,11 +86,24 @@ public class Login extends JPanel {
 		
 		add(lblCBSlogo);
 		setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		
+		/*
+		 * Login Fields
+		 */
 		textFieldPassword.setOpaque(false);
 		textFieldPassword.setHorizontalAlignment(SwingConstants.CENTER);
 		textFieldPassword.setColumns(10);
 		textFieldPassword.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255)));
 		textFieldPassword.setBounds(705, 372, 164, 37);
+		
+		textFieldUsername.setOpaque(false);
+		textFieldUsername.setHorizontalAlignment(SwingConstants.CENTER);
+		textFieldUsername.setForeground(Color.BLACK);
+		textFieldUsername.setFont(new Font("Lucida Grande", Font.PLAIN, 17));
+		textFieldUsername.setColumns(10);
+		textFieldUsername.setBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255)));
+		textFieldUsername.setBounds(705, 334, 164, 37);
+		add(textFieldUsername);
 		
 		add(textFieldPassword);
 		lblBackground.setHorizontalAlignment(SwingConstants.CENTER);

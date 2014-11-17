@@ -662,6 +662,53 @@ public class DatabaseConnection {
 		stmt.close();
 	}
 
+	public boolean checkPassword(String emailInput, String passwordInput) {
+		boolean passwordChecker = false;
+		try {
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select password from cbscalendar.users where email = '"+emailInput+"';");
+			while(rs.next())
+			{
+				String accountPassword = rs.getString("password");
+				if(accountPassword.equals(passwordInput))
+				{
+					passwordChecker = true;
+				}
+				else
+				{
+					System.out.println("Password'et var forkert tard!");
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return passwordChecker;
+	}
+
+	public boolean checkIfAdmin(String emailInput) {
+		boolean isAdmin = false;
+		try
+		{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select Admin from cbscalendar.users where email = '"+emailInput+"';");
+			if(rs.getString("Admin").equals("1"))
+			{
+				isAdmin = true;
+			}
+			else
+			{
+				isAdmin = false;
+			}
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return isAdmin;
+	}
+
 	
 
 	
