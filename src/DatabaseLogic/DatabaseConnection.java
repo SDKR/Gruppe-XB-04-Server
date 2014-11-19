@@ -11,8 +11,8 @@ public class DatabaseConnection {
 
 	//Creates the needed information to connect to the database
 	private static String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private static String sqlUser = "Asger";
-	private static String sqlPasswd = "1darkeldar";
+	private static String sqlUser = "root";
+	private static String sqlPasswd = "";
 
 	//Creates a statement, resultest and connection
 	private java.sql.Statement stmt;

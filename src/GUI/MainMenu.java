@@ -83,14 +83,6 @@ public class MainMenu extends JPanel {
 		btnLogOut.setActionCommand("LogOut");
 		add(btnLogOut);
 		
-		/*
-		 * Background
-		 */
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/MetalBackground.jpg")));
-		lblBackground.setBounds(0, 0, 1366, 768);
-		lblBackground.isForegroundSet();
-		
 		btnQuoteAndWeather = new JButton("Quote and Weather");
 		btnQuoteAndWeather.setActionCommand("quoteAndWeather");
 		btnQuoteAndWeather.setForeground(Color.WHITE);
@@ -100,6 +92,16 @@ public class MainMenu extends JPanel {
 		btnQuoteAndWeather.setBackground(Color.WHITE);
 		btnQuoteAndWeather.setBounds(494, 460, 378, 75);
 		add(btnQuoteAndWeather);
+		
+		/*
+		 * Background
+		 */
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/MetalBackground.jpg")));
+		lblBackground.setBounds(0, 0, 1366, 768);
+		lblBackground.isForegroundSet();
+		
+	
 		add(lblBackground);
 	}
 	//Adding actionlisteners
