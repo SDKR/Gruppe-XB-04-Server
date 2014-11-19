@@ -56,7 +56,7 @@ public class UserList extends JPanel {
         /*
          * JTable and Scrollpanel
          */
-        String[] columnNames = {"UserID", "Email", "Active", "Created datetime", "Password"};
+        String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
         Object[][] data = {};
         final JTable table = new JTable(data, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
