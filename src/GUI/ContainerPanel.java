@@ -51,6 +51,9 @@ public class ContainerPanel extends JFrame {
 		
 		UL = new UserList();
 		contentPane.add(UL, userView);
+		
+		QAW = new QuoteAndWeather();
+		contentPane.add(QAW, quoteAndWeather);
 	}
 
 	public EventList geteList() {
@@ -71,6 +74,9 @@ public class ContainerPanel extends JFrame {
 	
 	public Login getLI() {
 		return LI;
+	}
+	public QuoteAndWeather getQAW(){
+		return QAW;
 	}
 
 	public void show(String card){
