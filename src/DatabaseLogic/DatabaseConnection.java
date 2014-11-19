@@ -688,12 +688,18 @@ public class DatabaseConnection {
 
 	public boolean checkIfAdmin(String emailInput) {
 		boolean isAdmin = false;
+		String adminID = "";
 		try
 		{
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select Admin from cbscalendar.users where email = '"+emailInput+"';");
-			if(rs.getString("Admin").equals("1"))
+			while(rs.next())
+			{
+				adminID = rs.getString("Admin");
+				System.out.println(adminID);
+			}
+			if(adminID.equals("1"))
 			{
 				isAdmin = true;
 			}

@@ -26,6 +26,8 @@ public class Logic {
 		{
 			String emailInput = CP.getLI().getTextFieldUsername().getText();
 			String passwordInput = CP.getLI().getTextFieldPassword().getText();
+			if(!emailInput.equals("") || !passwordInput.equals(""))
+			{
 			if(DC.checkPassword(emailInput, passwordInput)==true)
 			{
 				if(DC.checkIfAdmin(emailInput)==true)
@@ -37,13 +39,16 @@ public class Logic {
 				{
 					JOptionPane.showMessageDialog( CP, "You do not have sufficient access to login");
 				}
-				
 			}
 			else
 			{
 				JOptionPane.showMessageDialog( CP, "The entered password was incorrect");
 			}
-			
+			}
+			else
+			{
+				JOptionPane.showMessageDialog( CP, "You have to enter both an username and password!");
+			}
 		}
 	}
 	
