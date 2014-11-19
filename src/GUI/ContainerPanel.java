@@ -11,6 +11,7 @@ public class ContainerPanel extends JFrame {
 	public static final String userView = "UserView";
 	public static final String eventView = "EventView";
 	public static final String noteView = "NoteView";
+	public static final String quoteAndWeather = "QuoteAndWeather";
 	
 	private static JPanel contentPane;
 	CardLayout c;
@@ -20,6 +21,8 @@ public class ContainerPanel extends JFrame {
 	private MainMenu MM;
 	private NoteList NL;
 	private UserList UL;
+	private QuoteAndWeather QAW;
+	
 	
 	public ContainerPanel()
 	{

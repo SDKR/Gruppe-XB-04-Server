@@ -19,6 +19,9 @@
 	import javax.swing.border.BevelBorder;
 	import javax.swing.border.MatteBorder;
 	import java.awt.event.ActionListener;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.SwingConstants;
 
 
 	public class EventList extends JPanel {
@@ -31,6 +34,8 @@
 		private JButton btnDelete;
 		private JButton btnLogout;
 		private JButton btnMainMenu = new JButton("Main Menu");
+		private JComboBox calendarComboBox;
+		private JLabel lblChooseCalendar;
 		
 		
 		public EventList() {
@@ -40,8 +45,32 @@
 			JLabel lblEvents = new JLabel("Eventlist");
 			lblEvents.setForeground(Color.WHITE);
 			lblEvents.setFont(new Font("Arial", Font.BOLD, 78));
-			lblEvents.setBounds(521, 90, 323, 90);
+			lblEvents.setBounds(521, 90, 325, 91);
 			add(lblEvents);
+			
+			lblChooseCalendar = new JLabel("Choose Calendar:");
+			lblChooseCalendar.setHorizontalAlignment(SwingConstants.CENTER);
+			lblChooseCalendar.setForeground(Color.WHITE);
+			lblChooseCalendar.setFont(new Font("Arial", Font.BOLD, 16));
+			lblChooseCalendar.setBounds(990, 331, 174, 19);
+			add(lblChooseCalendar);
+			
+			calendarComboBox = new JComboBox();
+			calendarComboBox.setBounds(990, 336, 174, 82);
+			add(calendarComboBox);
+			calendarComboBox.addItem("0: Finansiering");
+			calendarComboBox.addItem("1: Makro");
+			calendarComboBox.addItem("2: DIS");
+			calendarComboBox.addItem("3: Ledelse IS");
+			calendarComboBox.addItem("0: Finansiering-Ex.");
+			calendarComboBox.addItem("1: Makro-Ex");
+			calendarComboBox.addItem("2: DIS-Ex");
+			calendarComboBox.addItem("3: Ledelse IS-Ex");
+			
+			
+			
+			
+			
 
 			JLabel lblUpcomingEvent = new JLabel("Upcomming Events:");
 			lblUpcomingEvent.setFont(new Font("Arial", Font.BOLD, 27));
@@ -55,11 +84,11 @@
 
 			Object[][] data = {
 
-					{ "DØK Julefrokost", "11.11.2022", "Game on!", new Boolean(false) },
-					{ "DØK Julefrokost", "11.11.2022", "Game on!", new Boolean(true) },
-					{ "DØK Julefrokost", "11.11.2022", "Game on!", new Boolean(false) },
-					{ "DØK Julefrokost", "11.11.2022", "Game on!", new Boolean(true) },
-					{ "DØK Julefrokost", "11.11.2022", "Game on!", new Boolean(false) } };
+					{ "Dï¿½K Julefrokost", "11.11.2022", "Game on!", new Boolean(false) },
+					{ "Dï¿½K Julefrokost", "11.11.2022", "Game on!", new Boolean(true) },
+					{ "Dï¿½K Julefrokost", "11.11.2022", "Game on!", new Boolean(false) },
+					{ "Dï¿½K Julefrokost", "11.11.2022", "Game on!", new Boolean(true) },
+					{ "Dï¿½K Julefrokost", "11.11.2022", "Game on!", new Boolean(false) } };
 
 			final JTable table = new JTable(data, columnNames);
 			table.setSurrendersFocusOnKeystroke(true);
@@ -141,7 +170,5 @@
 		public JButton getBtnMainMenu() {
 			return btnMainMenu;
 		}
-		
-		
 	}
 
