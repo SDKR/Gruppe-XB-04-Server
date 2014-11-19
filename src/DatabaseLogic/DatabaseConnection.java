@@ -294,26 +294,28 @@ public class DatabaseConnection {
 		//return the boolean
 		return authenticatePassword;
 	}
-	
+	/*************************
+	 * FOR LOOP FOR JTABLE *
+	 ************************/
 	
 	
 	/*************************
 	 * Arraylist to bugtable *
 	 ************************/
 	//Creates a method returning a array list, and receives nothing
-	public ArrayList<String> arrayBugID()
+	public ArrayList<String> arrayUserEmail()
 	{
 		//Creates an empty arraylist
-		ArrayList<String> userID = new ArrayList<String>();
+		ArrayList<String> userEmail = new ArrayList<String>();
 		try {
 			//Establish connection to database
 			getConnection();
 			//Executes query
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select bugID from btcdatabase.bugTable");
+			rs = stmt.executeQuery("select email from cbscalendar.users");
 			//Adds every object from the resultset to the empty arraylist
 			while (rs.next()) {
-				userID.add(rs.getString("bugID"));
+				userEmail.add(rs.getString("email"));
 				
 			}
 			//Close connection
@@ -322,7 +324,7 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		//Returns the arraylist
-		return userID;
+		return userEmail;
 	}
 	
 	public ArrayList<String> arrayBugText()
