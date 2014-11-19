@@ -2,6 +2,8 @@ package DatabaseLogic;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -348,38 +350,66 @@ public class DatabaseConnection {
 	/********************************************
 	 * Methods which return all info about users*
 	 *******************************************/
-	public ArrayList<String> arrayUsername() {
-		ArrayList<String> userID = new ArrayList<String>();
-		try {
-			getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select CBSMail from btcdatabase.login_information");
-			while (rs.next()) {
-				userID.add(rs.getString("CBSMail"));
-				
+	public ArrayList<Object> arrayUsername() {
+		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
+		
+		ArrayList<Object> doubleArray = new ArrayList<Object>();
+		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
+		{
+			ArrayList<Object> resultArray = new ArrayList<Object>();
+			try {
+					getConnection();
+					System.out.println(headerNames[headerCounter]);
+					rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
+					while (rs.next()){
+						if(rs.getString(headerNames[headerCounter]).equals(null))
+						{
+							System.out.println("Der er ikke noget...");
+						}
+						else
+						{
+							resultArray.add(rs.getString(headerNames[headerCounter]));
+						}
+					}
+			} catch (SQLException e) {
+				e.printStackTrace();
 			}
-			closeConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
+		doubleArray.add(resultArray);
 		}
-		return userID;
+		return doubleArray;
+	}
+	
+	public static void main (String [] args)
+	{
+		DatabaseConnection DC = new DatabaseConnection();
+		//System.out.println(DC.arrayUsername().size());
+		System.out.println(DC.arrayID()[4][2]);
+		
 	}
 
 	
-	public ArrayList<String> arrayID() {
-		ArrayList<String> userID = new ArrayList<String>();
+	public String[][] arrayID() {
+		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
+		
+		String[ ][ ] doubleArray = new String[6][50000];
+		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
+		{
+			ArrayList<Object> resultArray = new ArrayList<Object>();
 		try {
+			int otherCounter = 0;
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select USERID from btcdatabase.login_information");
+			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
 			while (rs.next()) {
-				userID.add(rs.getString("USERID"));
+				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
+				otherCounter++;
 			}
 			closeConnection();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return userID;
+		}
+		return doubleArray;
 	}
 
 	public ArrayList<String> AdminID() {
