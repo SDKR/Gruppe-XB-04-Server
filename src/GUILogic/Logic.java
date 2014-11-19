@@ -2,9 +2,7 @@ package GUILogic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.JOptionPane;
-
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
@@ -50,6 +48,49 @@ public class Logic {
 		// When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.mainMenu);
+		}
+	}
+	
+	public void viewUser() {
+		// Creates an object of the class databaseconnection
+		DatabaseConnection DC = new DatabaseConnection();
+		// Get the size of an arraylist which a method from databaseConnection
+		// returns, and sets a int equals that
+		System.out.println(DC.arrayID()[3][2]);
+		// Creates an int equals to 0
+		int arrayChecker = 0;
+
+		// as long as reset is less than 30 do:
+		for (int reset = 0; reset < 30; reset++) {
+			// Sets every field in a Jtable equals nothing
+			CP.getUI().get
+			CP.getVU().getViewUserTable().setValueAt(null, reset, 1);
+			CP.getVU().getViewUserTable().setValueAt(null, reset, 2);
+			CP.getVU().getViewUserTable().setValueAt(null, reset, 3);
+			CP.getVU().getViewUserTable().setValueAt(null, reset, 4);
+		}
+
+		// As long as there is something in the arraylists, add it to the Jtable
+		while (arrayChecker < arrayCounter) {
+			CP.getVU()
+					.getViewUserTable()
+					.setValueAt(DC.arrayID().get(arrayChecker), arrayChecker, 0);
+			CP.getVU()
+					.getViewUserTable()
+					.setValueAt(DC.arrayUsername().get(arrayChecker),
+							arrayChecker, 1);
+			CP.getVU()
+					.getViewUserTable()
+					.setValueAt(DC.viewBalance().get(arrayChecker),
+							arrayChecker, 3);
+			CP.getVU()
+					.getViewUserTable()
+					.setValueAt(DC.password().get(arrayChecker), arrayChecker,
+							2);
+			CP.getVU()
+					.getViewUserTable()
+					.setValueAt(DC.AdminID().get(arrayChecker), arrayChecker, 4);
+			arrayChecker++;
 		}
 	}
 

@@ -350,35 +350,6 @@ public class DatabaseConnection {
 	/********************************************
 	 * Methods which return all info about users*
 	 *******************************************/
-	public ArrayList<Object> arrayUsername() {
-		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
-		
-		ArrayList<Object> doubleArray = new ArrayList<Object>();
-		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
-		{
-			ArrayList<Object> resultArray = new ArrayList<Object>();
-			try {
-					getConnection();
-					System.out.println(headerNames[headerCounter]);
-					rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
-					while (rs.next()){
-						if(rs.getString(headerNames[headerCounter]).equals(null))
-						{
-							System.out.println("Der er ikke noget...");
-						}
-						else
-						{
-							resultArray.add(rs.getString(headerNames[headerCounter]));
-						}
-					}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-		doubleArray.add(resultArray);
-		}
-		return doubleArray;
-	}
-	
 	public static void main (String [] args)
 	{
 		DatabaseConnection DC = new DatabaseConnection();
@@ -386,7 +357,6 @@ public class DatabaseConnection {
 		System.out.println(DC.arrayID()[4][2]);
 		
 	}
-
 	
 	public String[][] arrayID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
