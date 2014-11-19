@@ -350,14 +350,6 @@ public class DatabaseConnection {
 	/********************************************
 	 * Methods which return all info about users*
 	 *******************************************/
-	public static void main (String [] args)
-	{
-		DatabaseConnection DC = new DatabaseConnection();
-		//System.out.println(DC.arrayUsername().size());
-		System.out.println(DC.arrayID()[4][2]);
-		
-	}
-	
 	public String[][] arrayID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
 		

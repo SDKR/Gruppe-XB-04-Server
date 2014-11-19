@@ -56,40 +56,30 @@ public class Logic {
 		DatabaseConnection DC = new DatabaseConnection();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println(DC.arrayID()[3][2]);
+		String[][] test = DC.arrayID();
+		int arrayCounter = test[0].length;
 		// Creates an int equals to 0
 		int arrayChecker = 0;
-
-		// as long as reset is less than 30 do:
-		for (int reset = 0; reset < 30; reset++) {
-			// Sets every field in a Jtable equals nothing
-			CP.getUI().get
-			CP.getVU().getViewUserTable().setValueAt(null, reset, 1);
-			CP.getVU().getViewUserTable().setValueAt(null, reset, 2);
-			CP.getVU().getViewUserTable().setValueAt(null, reset, 3);
-			CP.getVU().getViewUserTable().setValueAt(null, reset, 4);
+		
+		for( int reset = 1; reset<arrayCounter; reset++)
+		{
+			//Sets every field in a Jtable equals nothing
+			CP.getUI().getTable().setValueAt(null, reset, 0);
+			CP.getUI().getTable().setValueAt(null, reset, 1);
+			CP.getUI().getTable().setValueAt(null, reset, 2);
+			CP.getUI().getTable().setValueAt(null, reset, 3);
+			CP.getUI().getTable().setValueAt(null, reset, 4);
+			CP.getUI().getTable().setValueAt(null, reset, 5);
 		}
 
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker < arrayCounter) {
-			CP.getVU()
-					.getViewUserTable()
-					.setValueAt(DC.arrayID().get(arrayChecker), arrayChecker, 0);
-			CP.getVU()
-					.getViewUserTable()
-					.setValueAt(DC.arrayUsername().get(arrayChecker),
-							arrayChecker, 1);
-			CP.getVU()
-					.getViewUserTable()
-					.setValueAt(DC.viewBalance().get(arrayChecker),
-							arrayChecker, 3);
-			CP.getVU()
-					.getViewUserTable()
-					.setValueAt(DC.password().get(arrayChecker), arrayChecker,
-							2);
-			CP.getVU()
-					.getViewUserTable()
-					.setValueAt(DC.AdminID().get(arrayChecker), arrayChecker, 4);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker], arrayChecker, arrayChecker);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker+1], arrayChecker, arrayChecker+1);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker+2], arrayChecker, arrayChecker+2);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker+3], arrayChecker, arrayChecker+3);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker+4], arrayChecker, arrayChecker+4);
+			CP.getUI().getTable().setValueAt(DC.arrayID()[arrayChecker][arrayChecker+5], arrayChecker, arrayChecker+5);
 			arrayChecker++;
 		}
 	}
@@ -104,6 +94,7 @@ public class Logic {
 				break;
 
 			case "UserList":
+				viewUser();
 				CP.show(ContainerPanel.userView);
 				break;
 
