@@ -31,6 +31,8 @@ public class Logic {
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
 						CP.show(ContainerPanel.mainMenu);
+						CP.getLI().getTextFieldUsername().setText("");
+						CP.getLI().getTextFieldPassword().setText("");
 					} else {
 						JOptionPane.showMessageDialog(CP,
 								"You do not have sufficient access to login");
