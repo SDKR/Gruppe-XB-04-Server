@@ -23,6 +23,7 @@ public class UserList extends JPanel {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnDelete = new JButton("Delete");
 	private JButton btnMainMenu = new JButton("Main Menu");
+	private 
 	
     public UserList() {
     	/*
@@ -58,7 +59,7 @@ public class UserList extends JPanel {
          */
         String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
         Object[][] data = {};
-        final JTable table = new JTable(data, columnNames);
+        JTable table = new JTable(data, columnNames);
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setRowSelectionAllowed(true);
