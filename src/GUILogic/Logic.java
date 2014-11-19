@@ -73,19 +73,18 @@ public class Logic {
 			case "NoteList":
 				CP.show(ContainerPanel.noteView);
 				break;
+				
+			case "QAWList":
+				CP.show(ContainerPanel.quoteAndWeather);
+				break;
 			}
 		}
 	}
 
 	private class QuoteAndWeather implements ActionListener {
-
 		public void actionPerformed(ActionEvent e) {
-		
-			CP.show(ContainerPanel.quoteAndWeather);
-			
+			CP.show(ContainerPanel.mainMenu);
 		}
-
-		
 	}
 
 	private void initializeListeners() {

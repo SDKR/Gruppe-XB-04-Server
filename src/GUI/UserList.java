@@ -23,9 +23,8 @@ public class UserList extends JPanel {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnDelete = new JButton("Delete");
 	private JButton btnMainMenu = new JButton("Main Menu");
-	private 
-	
-    public UserList() {
+
+    public UserList (){
     	/*
     	 * Panel layout
     	 */

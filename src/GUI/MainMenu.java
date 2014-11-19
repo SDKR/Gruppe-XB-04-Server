@@ -83,13 +83,12 @@ public class MainMenu extends JPanel {
 		btnLogOut.setActionCommand("LogOut");
 		add(btnLogOut);
 		
-		btnQuoteAndWeather = new JButton("Quote and Weather");
-		btnQuoteAndWeather.setActionCommand("quoteAndWeather");
 		btnQuoteAndWeather.setForeground(Color.WHITE);
 		btnQuoteAndWeather.setFont(new Font("Arial", Font.BOLD, 30));
 		btnQuoteAndWeather.setContentAreaFilled(false);
 		btnQuoteAndWeather.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnQuoteAndWeather.setBackground(Color.WHITE);
+		btnQuoteAndWeather.setActionCommand("QAWList");
 		btnQuoteAndWeather.setBounds(494, 460, 378, 75);
 		add(btnQuoteAndWeather);
 		
