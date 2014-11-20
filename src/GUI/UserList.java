@@ -58,8 +58,6 @@ public class UserList extends JPanel {
         /*
          * JTable and Scrollpanel
          */
-        String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
-        Object[][] data = {};
         table.setModel(new DefaultTableModel(
         	new Object[][] {
         		{null, null, null, null, null, null},
@@ -97,7 +95,7 @@ public class UserList extends JPanel {
         		{null, null, null, null, null, null},
         	},
         	new String[] {
-        		"New column", "New column", "New column", "New column", "New column", "New column"
+        			"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"
         	}
         ));
         
