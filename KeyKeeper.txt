@@ -2,10 +2,10 @@
 jdbc:mysql://localhost:3306/
 
 //comment// SqlUser:
-Asger
+Emil
 
 //comment// SqlPassword:
-1darkeldar
+wak40336
 
 //comment// Encryption xor code:
 3.1470
