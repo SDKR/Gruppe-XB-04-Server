@@ -18,11 +18,13 @@ import java.awt.Font;
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
+import javax.swing.table.DefaultTableModel;
  
 public class UserList extends JPanel {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnDelete = new JButton("Delete");
 	private JButton btnMainMenu = new JButton("Main Menu");
+	private JTable table = new JTable();
 
     public UserList (){
     	/*
@@ -58,7 +60,47 @@ public class UserList extends JPanel {
          */
         String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
         Object[][] data = {};
-        JTable table = new JTable(data, columnNames);
+        table.setModel(new DefaultTableModel(
+        	new Object[][] {
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        		{null, null, null, null, null, null},
+        	},
+        	new String[] {
+        		"New column", "New column", "New column", "New column", "New column", "New column"
+        	}
+        ));
+        
         table.setPreferredScrollableViewportSize(new Dimension(500, 70));
         table.setFillsViewportHeight(true);
         table.setRowSelectionAllowed(true);
@@ -97,6 +139,14 @@ public class UserList extends JPanel {
     
     public void goToMainMenu(ActionListener l) {
 		btnMainMenu.addActionListener(l);
+	}
+    
+	public JTable getTable() {
+		return table;
+	}
+
+	public void setTable(JTable table) {
+		this.table = table;
 	}
 
 	public JButton getBtnAdd() {

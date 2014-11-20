@@ -1,6 +1,7 @@
 package GUI;
 
 import java.awt.CardLayout;
+import java.sql.SQLException;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -24,7 +25,7 @@ public class ContainerPanel extends JFrame {
 	private QuoteAndWeather QAW;
 	
 	
-	public ContainerPanel()
+	public ContainerPanel() throws SQLException
 	{
 		setTitle("Doek Calendar System");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);

@@ -350,6 +350,7 @@ public class DatabaseConnection {
 	/********************************************
 	 * Methods which return all info about user*
 	 *******************************************/
+
 	public ArrayList<Object> arrayUsername() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
 		
@@ -388,6 +389,7 @@ public class DatabaseConnection {
 	}
 
 	
+
 	public String[][] arrayID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
 		
