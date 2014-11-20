@@ -27,6 +27,7 @@ public class UserList extends JPanel {
 	private JTable table = new JTable();
 
     public UserList (){
+    	
     	/*
     	 * Panel layout
     	 */
@@ -39,25 +40,33 @@ public class UserList extends JPanel {
     	btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
         btnAdd.setForeground(new Color(0, 0, 205));
         btnAdd.setOpaque(true);
-        btnAdd.setBounds(1019, 556, 118, 29);
+        btnAdd.setBounds(1069, 544, 118, 29);
         add(btnAdd);
         
         btnMainMenu.setForeground(Color.WHITE);
         btnMainMenu.setFont(new Font("Arial", Font.BOLD, 30));
         btnMainMenu.setContentAreaFilled(false);
         btnMainMenu.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
-        btnMainMenu.setBounds(622, 646, 194, 44);
+        btnMainMenu.setBounds(586, 646, 194, 44);
         add(btnMainMenu);
         
         btnDelete.setOpaque(true);
         btnDelete.setForeground(new Color(0, 0, 205));
         btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
-        btnDelete.setBounds(1019, 515, 118, 29);
+        btnDelete.setBounds(1069, 502, 118, 29);
         add(btnDelete);
 
         /*
          * JTable and Scrollpanel
          */
+        
+        //Create the scroll pane and add the table to it.
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), new MatteBorder(1, 1, 1, 1, new Color(255, 255, 255))));
+        scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), null));
+        scrollPane.setBounds(333, 208, 700, 400);
+        add(scrollPane);
+        scrollPane.setViewportView(table);
         table.setModel(new DefaultTableModel(
         	new Object[][] {
         		{null, null, null, null, null, null},
@@ -95,21 +104,29 @@ public class UserList extends JPanel {
         		{null, null, null, null, null, null},
         	},
         	new String[] {
-        			"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"
+        		"UserID", "Email", "Active", "Created datetime", "Password", "IsAdmin"
         	}
-        ));
-        
-        table.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        		) {
+        			boolean[] columnEditables = new boolean[] {
+        				false, false, false, false, false
+        			};
+        			public boolean isCellEditable(int row, int column) {
+        				return columnEditables[column];
+        			}
+        		});
+        table.getColumnModel().getColumn(0).setPreferredWidth(57);
+        table.getColumnModel().getColumn(0).setResizable(false);
+        table.getColumnModel().getColumn(1).setPreferredWidth(184);
+        table.getColumnModel().getColumn(1).setResizable(false);
+        table.getColumnModel().getColumn(2).setPreferredWidth(48);
+        table.getColumnModel().getColumn(2).setResizable(false);
+        table.getColumnModel().getColumn(3).setPreferredWidth(125);
+        table.getColumnModel().getColumn(3).setResizable(false);
+        table.getColumnModel().getColumn(4).setPreferredWidth(66);
+        table.getColumnModel().getColumn(5).setResizable(false);
+        table.getColumnModel().getColumn(5).setPreferredWidth(59);
         table.setFillsViewportHeight(true);
         table.setRowSelectionAllowed(true);
-        
-        //Create the scroll pane and add the table to it.
-        JScrollPane scrollPane = new JScrollPane(table);
-        scrollPane.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), new MatteBorder(1, 1, 1, 1, new Color(255, 255, 255))));
-        scrollPane.setViewportBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(0, 0, 205), new Color(255, 255, 255), new Color(0, 0, 205), new Color(255, 255, 255)), null));
-        scrollPane.setBounds(417, 225, 590, 360);
-        scrollPane.setBounds(388, 225, 591, 361);
-        add(scrollPane);
         
         /*
          * Jlables
@@ -117,8 +134,7 @@ public class UserList extends JPanel {
         JLabel lblUserlist = new JLabel("Userlist");
         lblUserlist.setForeground(Color.WHITE);
         lblUserlist.setFont(new Font("Arial", Font.BOLD, 78));
-        lblUserlist.setBounds(549, 118, 298, 90);
-        lblUserlist.setBounds(534, 90, 298, 90);
+        lblUserlist.setBounds(534, 118, 298, 90);
         add(lblUserlist);     
         
         JLabel lblNewLabel = new JLabel("");

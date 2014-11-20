@@ -352,8 +352,22 @@ public class DatabaseConnection {
 	 *******************************************/
 	public String[][] arrayID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
-		
-		String[ ][ ] doubleArray = new String[6][50000];
+		int rowCounter = 0;
+		try{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT userid FROM cbscalendar.users;");
+			while(rs.next())
+			{
+				rowCounter++;
+			}
+		}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		System.out.println(rowCounter);
+		String[ ][ ] doubleArray = new String[6][rowCounter];
 		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
 		{
 			ArrayList<Object> resultArray = new ArrayList<Object>();

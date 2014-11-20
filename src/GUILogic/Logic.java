@@ -57,7 +57,7 @@ public class Logic {
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
 		String[][] test = DC.arrayID();
-		int arrayCounter = test[0].length-1;
+		int arrayCounter = test[0].length;
 		// Creates an int equals to 0
 		int arrayChecker = 0;
 		
@@ -73,14 +73,14 @@ public class Logic {
 		}
 
 		// As long as there is something in the arraylists, add it to the Jtable
-		while (arrayChecker <= arrayCounter) {
-			System.out.println(arrayChecker);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][0], arrayChecker, 0);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][1], arrayChecker, 1);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][2], arrayChecker, 2);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][3], arrayChecker, 3);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][4], arrayChecker, 4);
-			CP.getUI().getTable().setValueAt(test[arrayChecker][5], arrayChecker, 5);
+		while (arrayChecker <= arrayCounter-2) {
+			System.out.println(arrayChecker+ " "+arrayCounter);
+			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
+			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
+			CP.getUI().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
+			CP.getUI().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
+			CP.getUI().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
+			CP.getUI().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
 			arrayChecker++;
 		}
 	}
