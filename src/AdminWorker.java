@@ -1,7 +1,8 @@
+import java.sql.SQLException;
+
 import GUILogic.Logic;
 public class AdminWorker implements Runnable{
 	public void run(){
-		Logic GUILogic = new Logic();
-		GUILogic.startApp();
+		System.out.println("Vi kører adminworker?");
 	}
 }

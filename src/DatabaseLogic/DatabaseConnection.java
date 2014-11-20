@@ -11,8 +11,8 @@ public class DatabaseConnection {
 
 	//Creates the needed information to connect to the database
 	private static String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private static String sqlUser = "Asger";
-	private static String sqlPasswd = "1darkeldar";
+	private static String sqlUser = "root";
+	private static String sqlPasswd = "";
 
 	//Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -46,7 +46,7 @@ public class DatabaseConnection {
 			System.out.println("Intet virker, og derudaf!");
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select password, active from cbscalendar.users where email = '"+userName+"';");
+			rs = stmt.executeQuery("select password, active from cbscalendar.user where email = '"+userName+"';");
 			while(rs.next())
 			{
 				booleanToBeReturned = true;
@@ -64,7 +64,7 @@ public class DatabaseConnection {
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select active from cbscalendar.users where email = '"+userName+"';");
+			rs = stmt.executeQuery("select active from cbscalendar.user where email = '"+userName+"';");
 			while(rs.next())
 			{
 				String isAccountActive = rs.getString("Active");
@@ -88,7 +88,7 @@ public class DatabaseConnection {
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select password from cbscalendar.users where email = '"+userName+"';");
+			rs = stmt.executeQuery("select password from cbscalendar.user where email = '"+userName+"';");
 			while(rs.next())
 			{
 				String accountPassword = rs.getString("password");
@@ -314,7 +314,7 @@ public class DatabaseConnection {
 			getConnection();
 			//Executes query
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select email from cbscalendar.users");
+			rs = stmt.executeQuery("select email from cbscalendar.user");
 			//Adds every object from the resultset to the empty arraylist
 			while (rs.next()) {
 				userEmail.add(rs.getString("email"));
@@ -348,8 +348,48 @@ public class DatabaseConnection {
 	}
 	
 	/********************************************
-	 * Methods which return all info about users*
+	 * Methods which return all info about user*
 	 *******************************************/
+
+	public ArrayList<Object> arrayUsername() {
+		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
+		
+		ArrayList<Object> doubleArray = new ArrayList<Object>();
+		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
+		{
+			ArrayList<Object> resultArray = new ArrayList<Object>();
+			try {
+					getConnection();
+					System.out.println(headerNames[headerCounter]);
+					rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.user");
+					while (rs.next()){
+						if(rs.getString(headerNames[headerCounter]).equals(null))
+						{
+							System.out.println("Der er ikke noget...");
+						}
+						else
+						{
+							resultArray.add(rs.getString(headerNames[headerCounter]));
+						}
+					}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		doubleArray.add(resultArray);
+		}
+		return doubleArray;
+	}
+	
+	public static void main (String [] args)
+	{
+		DatabaseConnection DC = new DatabaseConnection();
+		//System.out.println(DC.arrayUsername().size());
+		System.out.println(DC.arrayID()[4][2]);
+		
+	}
+
+	
+
 	public String[][] arrayID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
 		int rowCounter = 0;
@@ -375,7 +415,7 @@ public class DatabaseConnection {
 			int otherCounter = 0;
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
+			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.user");
 			while (rs.next()) {
 				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
 				otherCounter++;
@@ -675,7 +715,7 @@ public class DatabaseConnection {
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select password from cbscalendar.users where email = '"+emailInput+"';");
+			rs = stmt.executeQuery("select password from cbscalendar.user where email = '"+emailInput+"';");
 			while(rs.next())
 			{
 				String accountPassword = rs.getString("password");
@@ -701,7 +741,7 @@ public class DatabaseConnection {
 		{
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select Admin from cbscalendar.users where email = '"+emailInput+"';");
+			rs = stmt.executeQuery("select Admin from cbscalendar.user where email = '"+emailInput+"';");
 			while(rs.next())
 			{
 				adminID = rs.getString("Admin");

@@ -2,7 +2,10 @@ package GUILogic;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
+
 import javax.swing.JOptionPane;
+
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
@@ -10,7 +13,7 @@ public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
 
-	public Logic() {
+	public Logic() throws SQLException {
 		CP = new ContainerPanel();
 		initializeListeners();
 	}
@@ -29,6 +32,8 @@ public class Logic {
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
 						CP.show(ContainerPanel.mainMenu);
+						CP.getLI().getTextFieldUsername().setText("");
+						CP.getLI().getTextFieldPassword().setText("");
 					} else {
 						JOptionPane.showMessageDialog(CP,
 								"You do not have sufficient access to login");
@@ -61,7 +66,7 @@ public class Logic {
 		// Creates an int equals to 0
 		int arrayChecker = 0;
 		
-		for( int reset = 0; reset<30; reset++)
+		for( int reset = 1; reset<arrayCounter; reset++)
 		{
 			//Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
@@ -71,19 +76,15 @@ public class Logic {
 			CP.getUI().getTable().setValueAt(null, reset, 4);
 			CP.getUI().getTable().setValueAt(null, reset, 5);
 		}
-
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker <= arrayCounter-2) {
-			System.out.println(arrayChecker+ " "+arrayCounter);
 			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
 			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
 			CP.getUI().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
 			CP.getUI().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
 			CP.getUI().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
 			CP.getUI().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
-			arrayChecker++;
-		}
-	}
+	}}
 
 	private class LogOut implements ActionListener {
 		// When button pushed, show login screen
