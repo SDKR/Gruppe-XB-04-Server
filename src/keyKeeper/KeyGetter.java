@@ -45,16 +45,16 @@ public class KeyGetter {
             e.printStackTrace();
         }
         //printer mængden af linjer i txt filen og i arrayet, kan udkommenteres senere
-        int size = completeFile.size();
-        System.out.println("\n"+"Antal linjer sendt til array: "+size );
-        System.out.println("Antal linjer i txt filen: "+linecounter);
-        
+//        int size = completeFile.size();
+//        System.out.println("\n"+"Antal linjer sendt til array: "+size );
+//        System.out.println("Antal linjer i txt filen: "+linecounter);
+//        
         //Prints entire arraylist - Not nedded later
-        System.out.println("\n"+"Printer indholdet i arrayet:"+"\n");
-        Iterator printlist = completeFile.iterator();
-        while (printlist.hasNext()) {
-        System.out.println(printlist.next());
-        }
+//        System.out.println("\n"+"Printer indholdet i arrayet:"+"\n");
+//        Iterator printlist = completeFile.iterator();
+//        while (printlist.hasNext()) {
+//        System.out.println(printlist.next());
+//        }
 	}
 
 	public ArrayList<String> getCompleteFile() {
