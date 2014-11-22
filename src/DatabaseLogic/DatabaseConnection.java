@@ -7,17 +7,38 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import keyKeeper.KeyGetter;
+
 public class DatabaseConnection {
+	
+	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
+	keyKeeper.KeyChest KC = new keyKeeper.KeyChest();
 
 	//Creates the needed information to connect to the database
-	private static String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private static String sqlUser = "Asger";
-	private static String sqlPasswd = "1darkeldar";
-
+	private String sqlUrl;
+	private String sqlUser;
+	private String sqlPasswd;
+	
+	//Creates the needed information to connect to the database
+//	Brug til manuel indtastning af connect info.
+//	private String sqlUrl = "jdbc:mysql://localhost:3306/";
+//	private String sqlUser = "Asger";
+//	private String sqlPasswd = "1darkeldar";
+	
 	//Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
 	private ResultSet rs;
 	private Connection conn = null;
+	
+//	Imports login info keys
+	public void keyImporter()
+	{
+		KC.keyImporter();
+
+		setSqlUrl(KC.getSqlUrl());
+		setSqlUser(KC.getSqlUser());
+		setSqlPasswd(KC.getSqlPasswd());
+	}
 
 	//Method to test connection which returns false
 	public boolean TestConnection() {
@@ -707,6 +728,18 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		return isAdmin;
+	}
+
+	public void setSqlUrl(String sqlUrl) {
+		this.sqlUrl = sqlUrl;
+	}
+
+	public void setSqlUser(String sqlUser) {
+		this.sqlUser = sqlUser;
+	}
+
+	public void setSqlPasswd(String sqlPasswd) {
+		this.sqlPasswd = sqlPasswd;
 	}
 
 	

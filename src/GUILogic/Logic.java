@@ -16,6 +16,8 @@ public class Logic {
 	}
 
 	public void startApp() {
+		
+		DC.keyImporter();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}

@@ -18,27 +18,25 @@ public class KeyGetter {
 	public void getConfigInfo()
 	{
 		//Insert the filepath here // skal rettes til !
-		// "C:\\Users\\Emil Laptop\\workspace\\Guy on a buffalooo\\src\\KeyKeeper.txt"
-		String filePath = "KeyKeeper.txt";
-		
-		//int for linecounter
-		int linecounter = 0;
+		// "C:\\Users\\Emil Laptop\\Documents\\GitHub\\GitHub 2\\Gruppe-XB-04-Server\\KeyKeeper.txt"
+		String filePath = "KeyKeeperEmil.txt";
 		
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath),
                     Charset.defaultCharset());
             	
             for (String line : lines) {
-            	linecounter++;
             	if (line.startsWith("//comment//") || line.isEmpty() )
             	{
             	//ignore line 
             	}
+            	else if(line.startsWith("[NP]"))
+            	{
+            	completeFile.add("");
+            	}
             	else {
             	//Writes to arraylist
             	completeFile.add(line);
-            	//Prints content sent to arraylist, not nessesary, can be deleted
-                System.out.println(line);
             	}
             }
         } catch (IOException e) {
@@ -60,12 +58,5 @@ public class KeyGetter {
 	public ArrayList<String> getCompleteFile() {
 		return completeFile;
 	}
+	
 }
-
-
-//KeyGetter rd1 = new KeyGetter();
-//rd1.getConfigInfo();
-//for(int i = 0; i<4; i++)
-//{
-//	System.out.println("Vi printer rigtigt: "+rd1.getCompleteFile().get(i));
-//}
