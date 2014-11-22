@@ -69,7 +69,7 @@ public class Logic {
 		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.arrayID();
 		int arrayCounter = test[0].length;
-		// Creates an int equals to 0
+		// Creates an dint equals to 0
 		int arrayChecker = 0;
 		
 		for( int reset = 1; reset<arrayCounter; reset++)
@@ -84,7 +84,7 @@ public class Logic {
 			CP.getUI().getTable().setValueAt(null, reset, 5);
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
-		while (arrayChecker <= arrayCounter-2) {
+		while (arrayChecker < arrayCounter) {
 			System.out.println("Vi er inde i while-loop " +arrayChecker+". gang");
 			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
 			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
