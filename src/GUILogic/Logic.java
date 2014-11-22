@@ -63,8 +63,10 @@ public class Logic {
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
+		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
+		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.arrayID();
 		int arrayCounter = test[0].length;
 		// Creates an int equals to 0
@@ -72,6 +74,7 @@ public class Logic {
 		
 		for( int reset = 1; reset<arrayCounter; reset++)
 		{
+			System.out.println("Vi er inde i for-loop " +reset+". gang");
 			//Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
@@ -82,12 +85,14 @@ public class Logic {
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker <= arrayCounter-2) {
+			System.out.println("Vi er inde i while-loop " +arrayChecker+". gang");
 			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
 			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
 			CP.getUI().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
 			CP.getUI().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
 			CP.getUI().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
 			CP.getUI().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
+			arrayChecker++;
 	}}
 
 	private class LogOut implements ActionListener {
