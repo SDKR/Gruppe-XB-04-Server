@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -11,24 +12,36 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
+
 import java.awt.Color;
+
 import javax.swing.JLabel;
+
 import java.awt.Font;
+import java.sql.SQLException;
+
 import javax.swing.border.MatteBorder;
 import javax.swing.JButton;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
+import model.Forecast.ForecastModel;
+import model.Forecast.ForecastTest;
  
 public class QuoteAndWeather extends JPanel {
 	private JButton btnMainMenu = new JButton("Main Menu");
 	private JLabel lblQuoteAndWeather;
-	private final JLabel lblNewLabel = new JLabel("Weather");
-	private final JLabel lblQuote = new JLabel("Quote");
-	private JTextField textField;
-	private JTextField textField_1;
+	private final JLabel weatherLabel = new JLabel("Weather");
+	private final JLabel quoteLabel = new JLabel("Quote");
+	private JTextField quoteTextField;
+	private JTable weatherTable;
+	private final JTable table = new JTable();
 	
-    public QuoteAndWeather() {
+    public QuoteAndWeather() throws SQLException {
+    	
+    	ForecastModel FM = new ForecastModel();
+    	System.out.println(FM.getForecast());
     	/*
     	 * Panel layout
     	 */
@@ -48,6 +61,15 @@ public class QuoteAndWeather extends JPanel {
         String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
         Object[][] data = {};
         
+        weatherTable = new JTable();
+        weatherTable.setBounds(313, 504, 261, -138);
+        add(weatherTable);
+        
+        quoteTextField = new JTextField();
+        quoteTextField.setColumns(10);
+        quoteTextField.setBounds(906, 328, 162, 113);
+        add(quoteTextField);
+        
         lblQuoteAndWeather = new JLabel("Quote and Weather of the Day");
         lblQuoteAndWeather.setForeground(Color.WHITE);
         lblQuoteAndWeather.setHorizontalAlignment(SwingConstants.CENTER);
@@ -55,28 +77,21 @@ public class QuoteAndWeather extends JPanel {
         lblQuoteAndWeather.setBackground(Color.WHITE);
         lblQuoteAndWeather.setBounds(6, 102, 1354, 59);
         add(lblQuoteAndWeather);
-        lblNewLabel.setForeground(Color.WHITE);
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        lblNewLabel.setBounds(330, 258, 112, 69);
+        weatherLabel.setForeground(Color.WHITE);
+        weatherLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        weatherLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        weatherLabel.setBounds(330, 258, 112, 69);
         
-        add(lblNewLabel);
-        lblQuote.setForeground(Color.WHITE);
-        lblQuote.setHorizontalAlignment(SwingConstants.CENTER);
-        lblQuote.setFont(new Font("Arial", Font.BOLD, 25));
-        lblQuote.setBounds(931, 258, 112, 69);
+        add(weatherLabel);
+        quoteLabel.setForeground(Color.WHITE);
+        quoteLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        quoteLabel.setFont(new Font("Arial", Font.BOLD, 25));
+        quoteLabel.setBounds(931, 258, 112, 69);
         
-        add(lblQuote);
+        add(quoteLabel);
+        table.setBounds(396, 422, 112, -61);
         
-        textField = new JTextField();
-        textField.setBounds(305, 328, 162, 113);
-        add(textField);
-        textField.setColumns(10);
-        
-        textField_1 = new JTextField();
-        textField_1.setColumns(10);
-        textField_1.setBounds(906, 328, 162, 113);
-        add(textField_1);
+        add(table);
     
         JLabel lblBackground = new JLabel("Background");
         lblBackground.setIcon(new ImageIcon(UserList.class.getResource("/Images/MetalBackground.jpg")));

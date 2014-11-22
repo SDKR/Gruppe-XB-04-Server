@@ -56,7 +56,7 @@ import javax.swing.SwingConstants;
 			add(lblChooseCalendar);
 			
 			calendarComboBox = new JComboBox();
-			calendarComboBox.setBounds(990, 357, 174, 33);
+			calendarComboBox.setBounds(990, 336, 174, 82);
 			add(calendarComboBox);
 			calendarComboBox.addItem("0: Finansiering");
 			calendarComboBox.addItem("1: Makro");
