@@ -25,6 +25,9 @@ public class UserList extends JPanel {
 	private JButton btnDelete = new JButton("Delete");
 	private JButton btnMainMenu = new JButton("Main Menu");
 	private JTable table = new JTable();
+	private String[] headerNames = new String[]{
+			"UserID", "Email", "Active", "Created datetime", "Password", "IsAdmin"
+	};
 
     public UserList (){
     	
@@ -67,6 +70,9 @@ public class UserList extends JPanel {
         scrollPane.setBounds(333, 208, 700, 400);
         add(scrollPane);
         scrollPane.setViewportView(table);
+        String[] headerNames = new String[]{
+        		"UserID", "Email", "Active", "Created datetime", "Password", "IsAdmin"
+        };
         table.setModel(new DefaultTableModel(
         	new Object[][] {
         		{null, null, null, null, null, null},
@@ -103,9 +109,7 @@ public class UserList extends JPanel {
         		{null, null, null, null, null, null},
         		{null, null, null, null, null, null},
         	},
-        	new String[] {
-        		"UserID", "Email", "Active", "Created datetime", "Password", "IsAdmin"
-        	}
+        	headerNames
         		) {
         			boolean[] columnEditables = new boolean[] {
         				false, false, false, false, false
@@ -174,4 +178,5 @@ public class UserList extends JPanel {
 	public JButton getBtnMainMenu() {
 		return btnMainMenu;
 	}
+	
 }

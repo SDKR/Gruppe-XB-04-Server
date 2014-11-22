@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
@@ -12,6 +13,7 @@ import GUI.*;
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
+	UserList UL = new UserList();
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -120,6 +122,10 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
+
+	
+	
+
 
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());

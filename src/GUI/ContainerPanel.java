@@ -14,6 +14,7 @@ public class ContainerPanel extends JFrame {
 	public static final String noteView = "NoteView";
 	public static final String quoteAndWeather = "QuoteAndWeather";
 	
+	
 	private static JPanel contentPane;
 	CardLayout c;
 	
