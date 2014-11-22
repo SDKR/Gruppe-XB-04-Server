@@ -47,6 +47,18 @@ public class DatabaseConnection {
 		setSqlPasswd(KC.getSqlPasswd());
 	}
 
+	public void addingCalendarToDB(int type, int location, int createdBy, String start, String end, String name, String text, int customevent, int CalendarID)
+	{
+		try
+		{
+			getConnection();
+			doUpdate("insert into events (type, location, createdBy, start, end, name, text, customevent, CalendarID) values ('"+type+"', '"+location+"', '"+createdBy+"','"+start+"', '"+end+"', '"+name+"', '"+text+"', '"+customevent+"', '"+CalendarID+"'");
+		}
+		catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
 	//Method to test connection which returns false
 	public boolean TestConnection() {
 		try {

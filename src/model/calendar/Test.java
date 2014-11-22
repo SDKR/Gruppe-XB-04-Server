@@ -6,6 +6,13 @@ public class Test {
 	{
 		// TODO Auto-generated method stub
 		Events etest = new Events();
+		GetCalendarData GCD = new GetCalendarData();
+		try {
+			GCD.getDataFromCalendar();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		etest.getEvents();
 	}
 

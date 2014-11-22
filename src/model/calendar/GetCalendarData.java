@@ -1,6 +1,7 @@
 package model.calendar;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -41,21 +42,27 @@ public class GetCalendarData {
      */
     public void getDataFromCalendar() throws Exception {
 
+    	Gson gson1 = new GsonBuilder().create();
         /**
          * Get URL From calendar.cbs.dk -> Subscribe -> change URL to end with .json
          * Encrypt hash from
          */
-    	String userID = "1234";
-        String json = readUrl("http://calendar.cbs.dk/events.php/"+userID+"/"+e.getKey()+".json");
-//        String json = readUrl("http://calendar.cbs.dk/events.php/caha13ag/02a24d4e002e6e3571227c39e2f63784.json");
+    	String userID = "asth13ac";
+        String json = readUrl("http://calendar.cbs.dk/events.php/"+userID+"/"+"92a62decac8a6524ec6c382a0ca27419"+".json");
+    	Events event = gson1.fromJson(json, Events.class);
+    	
+    	System.out.println(event);
         
-
-        Gson gson = new Gson();
-        Events events = gson.fromJson(json, Events.class); 
-
-        //tester events activityID's
-        for (int i = 0; i < events.getEvents().size(); i++){
-            System.out.println(events.getEvents().get(i).getActivityid());
+        System.out.println(json);
+        System.out.println(event.getEvents().get(1).getActivityid());
+        System.out.println(event.getEvents().get(1).getCreatedby());
+        System.out.println(event.getEvents().get(1).getDescription());
+        System.out.println(event.getEvents().get(1).getStart().get(0));
+        System.out.println(event.getEvents().size());
+        
+        for(int rCount = 0 ; rCount < event.getEvents().size() ; rCount++)
+        {
+        	System.out.println(event.getEvents().get(rCount).getActivityid());
         }
     }
 }
