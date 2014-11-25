@@ -38,7 +38,6 @@ public class DatabaseConnection {
 	public void keyImporter()
 	{
 		KC.keyImporter();
-		KC.decrypt();
 
 		setSqlUrl(KC.getSqlUrl());
 		setSqlUser(KC.getSqlUser());
@@ -258,6 +257,47 @@ public class DatabaseConnection {
 	 ************************/
 	//Creates a method returning a array list, and receives nothing
 	public String[][] arrayID() {
+		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
+		int rowCounter = 0;
+		try{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT userid FROM cbscalendar.users;");
+			while(rs.next())
+			{
+				rowCounter++;
+			}
+		}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		System.out.println(rowCounter);
+		String[ ][ ] doubleArray = new String[6][rowCounter];
+		System.out.println("Lige efter String array er blevet oprettet");
+		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
+		{
+			System.out.println("inde I starten af for loopet "+headerCounter+". gang");
+			ArrayList<Object> resultArray = new ArrayList<Object>();
+		try {
+			int otherCounter = 0;
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
+			while (rs.next()) {
+				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
+				otherCounter++;
+			}
+			closeConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("inde I slutningen af for loopet "+headerCounter+". gang");
+		}
+		return doubleArray;
+	}
+	
+	public String[][] eventID() {
 		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
 		int rowCounter = 0;
 		try{
