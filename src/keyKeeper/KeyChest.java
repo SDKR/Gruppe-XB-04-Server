@@ -9,7 +9,6 @@ public class KeyChest {
 	private String sqlUser;
 	private String sqlPasswd;
 	private String sqlUrl;
-	private String encryptionKey;
 	
 	public void keyImporter()
 	{
@@ -17,7 +16,6 @@ public class KeyChest {
 		sqlUser = GK.getCompleteFile().get(1);
 		sqlPasswd = GK.getCompleteFile().get(2);
 		sqlUrl = GK.getCompleteFile().get(0);
-		encryptionKey = GK.getCompleteFile().get(3);
 	}
 
 	public String getSqlUser() {
@@ -30,10 +28,6 @@ public class KeyChest {
 
 	public String getSqlUrl() {
 		return sqlUrl;
-	}
-
-	public String getEncryption() {
-		return encryptionKey;
 	}
 
 }
