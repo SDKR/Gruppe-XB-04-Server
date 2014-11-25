@@ -167,5 +167,6 @@ public class QueryBuilder {
 		queryBuilder.setSoftDelete(false);
 		return new Where(queryBuilder);
 		
+		
 	}
 }

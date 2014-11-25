@@ -11,6 +11,8 @@ import GUI.*;
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
+	UserList UL = new UserList();
+	UserCreation UC = new UserCreation();
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -18,7 +20,7 @@ public class Logic {
 	}
 
 	public void startApp() {
-		
+
 		DC.keyImporter();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
@@ -56,7 +58,7 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
-	
+
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
@@ -68,11 +70,10 @@ public class Logic {
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
-		
-		for( int reset = 1; reset<arrayCounter; reset++)
-		{
-			System.out.println("Vi er inde i for-loop " +reset+". gang");
-			//Sets every field in a Jtable equals nothing
+
+		for (int reset = 1; reset < arrayCounter; reset++) {
+			System.out.println("Vi er inde i for-loop " + reset + ". gang");
+			// Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
 			CP.getUI().getTable().setValueAt(null, reset, 2);
@@ -82,16 +83,24 @@ public class Logic {
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker < arrayCounter) {
-			System.out.println("Vi er inde i while-loop " +arrayChecker+". gang");
-			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
-			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
-			CP.getUI().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
-			CP.getUI().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
-			CP.getUI().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
-			CP.getUI().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
+			System.out.println("Vi er inde i while-loop " + arrayChecker
+					+ ". gang");
+			CP.getUI().getTable()
+					.setValueAt(test[0][arrayChecker], arrayChecker, 0);
+			CP.getUI().getTable()
+					.setValueAt(test[1][arrayChecker], arrayChecker, 1);
+			CP.getUI().getTable()
+					.setValueAt(test[2][arrayChecker], arrayChecker, 2);
+			CP.getUI().getTable()
+					.setValueAt(test[3][arrayChecker], arrayChecker, 3);
+			CP.getUI().getTable()
+					.setValueAt(test[4][arrayChecker], arrayChecker, 4);
+			CP.getUI().getTable()
+					.setValueAt(test[5][arrayChecker], arrayChecker, 5);
 			arrayChecker++;
-	}}
-	
+		}
+	}
+
 	public void viewEvents() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
@@ -103,11 +112,10 @@ public class Logic {
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
-		
-		for( int reset = 1; reset<arrayCounter; reset++)
-		{
-			System.out.println("Vi er inde i for-loop " +reset+". gang");
-			//Sets every field in a Jtable equals nothing
+
+		for (int reset = 1; reset < arrayCounter; reset++) {
+			System.out.println("Vi er inde i for-loop " + reset + ". gang");
+			// Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
 			CP.getUI().getTable().setValueAt(null, reset, 2);
@@ -117,15 +125,23 @@ public class Logic {
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker < arrayCounter) {
-			System.out.println("Vi er inde i while-loop " +arrayChecker+". gang");
-			CP.getUI().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
-			CP.getUI().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
-			CP.getUI().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
-			CP.getUI().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
-			CP.getUI().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
-			CP.getUI().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
+			System.out.println("Vi er inde i while-loop " + arrayChecker
+					+ ". gang");
+			CP.getUI().getTable()
+					.setValueAt(test[0][arrayChecker], arrayChecker, 0);
+			CP.getUI().getTable()
+					.setValueAt(test[1][arrayChecker], arrayChecker, 1);
+			CP.getUI().getTable()
+					.setValueAt(test[2][arrayChecker], arrayChecker, 2);
+			CP.getUI().getTable()
+					.setValueAt(test[3][arrayChecker], arrayChecker, 3);
+			CP.getUI().getTable()
+					.setValueAt(test[4][arrayChecker], arrayChecker, 4);
+			CP.getUI().getTable()
+					.setValueAt(test[5][arrayChecker], arrayChecker, 5);
 			arrayChecker++;
-	}}
+		}
+	}
 
 	private class LogOut implements ActionListener {
 		// When button pushed, show login screen
@@ -148,7 +164,7 @@ public class Logic {
 			case "NoteList":
 				CP.show(ContainerPanel.noteView);
 				break;
-				
+
 			case "QAWList":
 				CP.show(ContainerPanel.quoteAndWeather);
 				break;
@@ -162,6 +178,15 @@ public class Logic {
 		}
 	}
 
+	private class UserCreation implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.mainMenu);
+			
+			
+		}
+
+	}
+
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
 		CP.getMM().addActionListenerMainMenu(new LogOut());
@@ -169,5 +194,6 @@ public class Logic {
 		CP.geteList().goToMainMenu(new btnToMainMenu());
 		CP.getNL().goToMainMenu(new btnToMainMenu());
 		CP.getQAW().goToMainMenu(new QuoteAndWeather());
+		CP.getUC().goToMainMenu(new btnToMainMenu());
 	}
 }
