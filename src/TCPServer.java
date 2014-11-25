@@ -4,13 +4,33 @@ import GUILogic.Logic;
 
 class TCPServer{    
 	
+	keyKeeper.KeyChest KC = new keyKeeper.KeyChest();
+	private String port;
+	private static int cPort;
+	
+//	Imports portNr key from external file
+	public void keyImporter()
+	{
+		KC.keyImporter();
+		setportNr(KC.getportNr());
+//		Converting string to int, which is apparently necessary
+		int cPort = Integer.parseInt(port);
+	}
+	
 	public static void main(String argv[]) throws Exception       {
-
+		
 		//AdminWorker admin = new AdminWorker();
 		Logic GUILogic = new Logic();
 		GUILogic.startApp();
+		
+//		Gets portNr from configuration file
+		
+		
 		//Creates a socket to send and recieve messages in port 8888
-		ServerSocket welcomeSocket = new ServerSocket(8888);
+//		Old port declaration
+//		ServerSocket welcomeSocket = new ServerSocket(8888);
+//		New read from file port declaration
+		ServerSocket welcomeSocket = new ServerSocket(cPort);
 		
 		//While something is true
 		while(true){
@@ -21,5 +41,11 @@ class TCPServer{
 			thread.start();
 			/*HUSK AT ÆNDRE DATABASE SCRIPTET, SÅ DET PASSER MED DEN NUVÆRENDE DATABASE STRUKTUR!*/
 		}
+		
+	}
+		
+		public void setportNr(String port) {
+			this.port = port;
+		
 	}
 }

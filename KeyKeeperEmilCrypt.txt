@@ -1,0 +1,18 @@
+//comment// key er 458.355
+
+//comment// SqlUrl: jdbc:mysql://localhost:3306/
+a60a90ff9f2bad52bec9f6d2a9c683626373ace7cb9409d8437ec3a200c41b8d
+
+//comment// SqlUser: Emil
+113088081088
+
+//comment// SqlPassword: wak40336
+da4c077bc7291e03030bee8c
+
+//comment// Encryption xor code: 3.1470
+bd843517b3d6012bec03
+
+//comment// ServerSocket: 8888
+9d2793700258e2d1
+
+//comment// 

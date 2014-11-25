@@ -13,14 +13,13 @@ public class DatabaseConnection {
 	
 	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
 	KeyChest KC = new KeyChest();
-
-	//Creates the needed information to connect to the database
 	
 	//Creates the needed information to connect to the database
 //	Brug til manuel indtastning af connect info.
 //	private String sqlUrl = "jdbc:mysql://localhost:3306/";
 //	private String sqlUser = "Asger";
 //	private String sqlPasswd = "1darkeldar";
+	
 	private String sqlUrl = "";
 	private String sqlUser = "";
 	private String sqlPasswd = "";
@@ -34,6 +33,8 @@ public class DatabaseConnection {
 	public void keyImporter()
 	{
 		KC.keyImporter();
+		KC.decrypt();
+
 
 		setSqlUrl(KC.getSqlUrl());
 		setSqlUser(KC.getSqlUser());

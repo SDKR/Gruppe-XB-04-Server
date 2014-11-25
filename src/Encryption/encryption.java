@@ -8,6 +8,7 @@ public class encryption {
 	keyKeeper.KeyChest KC = new keyKeeper.KeyChest();
 	private String encryptionKey = "";
 	
+//	Imports encryption key from external file
 	public void keyImporter()
 	{
 		KC.keyImporter();
@@ -15,6 +16,7 @@ public class encryption {
 	}
 	
 //	Decryption path
+	
 	public String decrypt(byte[] b)
 	{
 		//Configurations CF = new Configurations();
