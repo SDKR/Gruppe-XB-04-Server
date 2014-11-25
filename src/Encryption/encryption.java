@@ -5,6 +5,15 @@ package Encryption;
 
 
 public class encryption {
+	keyKeeper.KeyChest KC = new keyKeeper.KeyChest();
+	private String encryptionKey = "";
+	
+	public void keyImporter()
+	{
+		KC.keyImporter();
+		setEncryption(KC.getEncryption());
+	}
+	
 //	Decryption path
 	public String decrypt(byte[] b)
 	{
@@ -16,7 +25,13 @@ public class encryption {
 		////String crypKey = CF.getFfcryptkey();
 		//System.out.println(crypKey);
 		//double gladKo = Double.parseDouble(crypKey);
-		byte ff = (byte) 3.1470;
+		
+//		This is the old method for declaring encrpytkey
+//		byte ff = (byte) 3.1470;
+		
+//		Imports encryption key from external file
+		Byte ff = new Byte(encryptionKey);
+		
 //		Generates for loop containing decryption value
 		for(int i = 0 ; i<b.length ; i++)
 		{
@@ -48,4 +63,8 @@ public class encryption {
 	      return null;
 	    }  
 	  }
+	
+	public void setEncryption(String encryption) {
+		this.encryptionKey = encryption;
+	}
 }
