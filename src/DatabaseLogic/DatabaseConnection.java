@@ -38,7 +38,6 @@ public class DatabaseConnection {
 	public void keyImporter()
 	{
 		KC.keyImporter();
-		KC.decrypt();
 
 		setSqlUrl(KC.getSqlUrl());
 		setSqlUser(KC.getSqlUser());
