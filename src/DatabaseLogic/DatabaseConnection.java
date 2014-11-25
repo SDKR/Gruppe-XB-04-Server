@@ -33,6 +33,7 @@ public class DatabaseConnection {
 //	Imports login info keys
 	public void keyImporter()
 	{
+		KeyChest KC = new KeyChest();
 		KC.keyImporter();
 
 		setSqlUrl(KC.getSqlUrl());
@@ -40,18 +41,70 @@ public class DatabaseConnection {
 		setSqlPasswd(KC.getSqlPasswd());
 	}
 
-	public void addingCalendarToDB(int type, int location, int createdBy, String start, String end, String name, String text, int customevent, int CalendarID)
+	public void addingCBSCalendarToDB(int type, String location, String start, String end, String name, String text, int customevent, String description)
 	{
+		//Her skal være 2 switches til at bestemme Hvilken calendar event tilhører, og hvilken lokation.
+		int locationID = determineLocation(location);
+		int calendarID = determineCalendarID(description);
 		try
 		{
 			getConnection();
-			doUpdate("insert into events (type, location, createdBy, start, end, name, text, customevent, CalendarID) values ('"+type+"', '"+location+"', '"+createdBy+"','"+start+"', '"+end+"', '"+name+"', '"+text+"', '"+customevent+"', '"+CalendarID+"'");
+			doUpdate("insert into events (type, location, createdBy, start, end, name, text, customevent, CalendarID) values ('"+type+"', '"+locationID+"', 'admin@admin.dk','"+start+"', '"+end+"', '"+name+"', '"+text+"', '"+customevent+"', '"+calendarID+"'");
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	private int determineCalendarID(String course) {
+		int intToBeReturned = 0;
+		switch (course)
+		{
+			case "Distribuerede systemer (LA)": intToBeReturned = 11;
+			break;
+			case "Ledelse af IS - forandring, innovation og viden (XB)": intToBeReturned = 12;
+			break;
+			case "Ledelse af IS - forandring, innovation og viden (LA)": intToBeReturned = 14;
+			break;
+			case "Virksomhedens økonomiske styring (3)": intToBeReturned = 15;
+			break;
+			case "Makroøkonomi (XB)": intToBeReturned = 9;
+			break;
+			case "Makroøkonomi (XA)": intToBeReturned = 8;
+			break;
+			case "Ledelse af IS - forandring, innovation og viden (XA)": intToBeReturned = 13;
+			break;
+			case "Makroøkonomi (LA)": intToBeReturned = 10;
+			break;
+			default: intToBeReturned = 1;
+		}
+		return intToBeReturned;
+	}
+
+	private int determineLocation(String location) {
+		int intToBeReturned = 0;
+		char position1 = location.charAt(0);
+		char position2 = location.charAt(1);
+		String locationID = position1 +""+ position2;
+		switch (locationID)
+		{
+			case "KS": intToBeReturned = 7;
+			break;
+			case "FH": intToBeReturned = 3;
+			break;
+			case "SP": intToBeReturned = 4;
+			break;
+			case "HV": intToBeReturned = 5;
+			break;
+			case "PH": intToBeReturned = 6;
+			break;
+			case "DH": intToBeReturned = 8;
+			break;
+			default: intToBeReturned = 1;
+		}
+		return intToBeReturned;
+	}
+
 	//Method to test connection which returns false
 	public boolean TestConnection() {
 		try {
