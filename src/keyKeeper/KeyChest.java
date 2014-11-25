@@ -20,11 +20,23 @@ public class KeyChest {
 	public void keyImporter() {
 		GK.getConfigInfo();
 		encryption cryp = new encryption();
+
 		sqlUrl = GK.getCompleteFile().get(0);
 		sqlUser = cryp.xor_decrypt(GK.getCompleteFile().get(1),"458k");
 		sqlPasswd = cryp.xor_decrypt(GK.getCompleteFile().get(2),"458k");
 		encryptionKey = cryp.xor_decrypt(GK.getCompleteFile().get(3),"458k");
 		portNr = cryp.xor_decrypt(GK.getCompleteFile().get(4),"458");
+
+		keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
+		
+		GK.getConfigInfo();
+		String stringToCryp = GK.getCompleteFile().get(1);
+		System.out.println(stringToCryp);
+		
+		String emilCryp = cryp.xor_decrypt("wak40336", "458");
+		System.out.println(emilCryp);
+		System.out.println(cryp.xor_decrypt(emilCryp, "458"));
+
 		
 //		System.out.println(GK.getCompleteFile().get(0));
 //		System.out.println(GK.getCompleteFile().get(1));

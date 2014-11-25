@@ -113,7 +113,7 @@ public class Execute extends Model {
             }
 
         } else if(getQueryBuilder().isUpdate()) {
-            sql = UPDATE + getQueryBuilder().getTableName() + " SET " + getQueryBuilder().getFields() + "" + WHERE + getWhere().getWhereKey() + " " + getWhere().getWhereOperator() + " ?;";
+            sql = UPDATE + getQueryBuilder().getTableName() + " SET " + getQueryBuilder().getFields() + "" + WHERE + getWhere().getWhereKey() + " " + getWhere().getWhereOperator() + "'"+getWhere().getWhereValue()+"';";
             try {
                 getConnection(false);
                 getConn();
@@ -124,7 +124,9 @@ public class Execute extends Model {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else {
+        }
+        else if ()
+        else {
             System.out.println(sql);
             sql = INSERTINTO + getQueryBuilder().getTableName() + " (" + getQueryBuilder().getFields() + ")" + VALUES + "(";
             StringBuilder sb = new StringBuilder();

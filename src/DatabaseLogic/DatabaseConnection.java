@@ -46,10 +46,12 @@ public class DatabaseConnection {
 	public void clearOldCBSData()
 	{
 		try {
-			doUpdate("Delete from cbscalendar.events where customevent = 1");
+			QB.deleteFrom("events").where("customevent", "=", "1").Execute();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//doUpdate("Delete from cbscalendar.events where customevent = 1");
 	}
 	public void addingCBSCalendarToDB(String type, String location, String start, String end, String name, String text) throws SQLException
 	{
@@ -284,6 +286,47 @@ public class DatabaseConnection {
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
+			while (rs.next()) {
+				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
+				otherCounter++;
+			}
+			closeConnection();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("inde I slutningen af for loopet "+headerCounter+". gang");
+		}
+		return doubleArray;
+	}
+	
+	public String[][] eventID() {
+		String[] headerNames = {"eventid", "type", "location", "createdby", "start", "end", "name", "text", "customevent", "CalenderID"};  
+		int rowCounter = 0;
+		try{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("SELECT eventid FROM cbscalendar.events;");
+			while(rs.next())
+			{
+				rowCounter++;
+			}
+		}
+			catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		System.out.println(rowCounter);
+		String[ ][ ] doubleArray = new String[6][rowCounter];
+		System.out.println("Lige efter String array er blevet oprettet");
+		for(int headerCounter = 0 ; headerCounter < 10 ; headerCounter++)
+		{
+			System.out.println("inde I starten af for loopet "+headerCounter+". gang");
+			ArrayList<Object> resultArray = new ArrayList<Object>();
+		try {
+			int otherCounter = 0;
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.events");
 			while (rs.next()) {
 				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
 				otherCounter++;
