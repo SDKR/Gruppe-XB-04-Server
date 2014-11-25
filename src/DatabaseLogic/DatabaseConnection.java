@@ -46,7 +46,7 @@ public class DatabaseConnection {
 	public void clearOldCBSData()
 	{
 		try {
-			QB.deleteFrom("events").where("customevent", "=", "1").Execute();
+			QB.deleteHardFrom("events").where("customevent", "=", "1").Execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

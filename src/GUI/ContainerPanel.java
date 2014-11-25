@@ -13,6 +13,7 @@ public class ContainerPanel extends JFrame {
 	public static final String eventView = "EventView";
 	public static final String noteView = "NoteView";
 	public static final String quoteAndWeather = "QuoteAndWeather";
+	public static final String createEvent = "createEvent";
 	
 	
 	private static JPanel contentPane;
@@ -24,7 +25,7 @@ public class ContainerPanel extends JFrame {
 	private NoteList NL;
 	private UserList UL;
 	private QuoteAndWeather QAW;
-	
+	private AddEvent AE;
 	
 	public ContainerPanel() throws SQLException
 	{
@@ -41,6 +42,9 @@ public class ContainerPanel extends JFrame {
 		
 		LI = new Login();
 		contentPane.add(LI,loginScreen);
+		
+		AE = new AddEvent();
+		contentPane.add(AE, createEvent);
 		
 		eList = new EventList();
 		contentPane.add(eList, eventView);
@@ -79,6 +83,9 @@ public class ContainerPanel extends JFrame {
 	}
 	public QuoteAndWeather getQAW(){
 		return QAW;
+	}
+	public AddEvent getAE() {
+		return AE;
 	}
 
 	public void show(String card){

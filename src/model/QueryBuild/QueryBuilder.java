@@ -4,19 +4,28 @@ package model.QueryBuild;
  * Created by jesperbruun on 15/10/14.
  */
 public class QueryBuilder {
-	
+
 	private String selectValue;
 	private String tableName;
 	private String fields;
 	private boolean softDelete;
 	private boolean isUpdate;
+	private boolean hardDelete;
+
+	protected boolean isSoftDelete() {
+		return softDelete;
+	}
 
 	protected void setSoftDelete(boolean b) {
 		this.softDelete = b;
 	}
 
-	protected boolean isSoftDelete() {
-		return softDelete;
+	protected boolean isHardDelete() {
+		return hardDelete;
+	}
+
+	protected void setHardDelete(boolean b) {
+		this.hardDelete = b;
 	}
 
 	protected boolean isUpdate() {
@@ -85,7 +94,6 @@ public class QueryBuilder {
 	public Where selectFrom(String tableName) {
 
 		QueryBuilder queryBuilder = new QueryBuilder();
-
 		queryBuilder.setSelectValue("*");
 		queryBuilder.setTableName(tableName);
 		return new Where(queryBuilder);
@@ -112,7 +120,6 @@ public class QueryBuilder {
 		}
 		queryBuilder.setFields(sb.toString());
 		return new Values(queryBuilder);
-
 	}
 
 	/**
@@ -138,6 +145,7 @@ public class QueryBuilder {
 		}
 
 		queryBuilder.setFields(setQuery);
+
 		System.out.println(setQuery);
 
 		queryBuilder.setUpdate(true);
@@ -153,19 +161,17 @@ public class QueryBuilder {
 	 * @param tableName
 	 * @return
 	 */
-	public Where deleteFrom(String tableName) {
+	public Where deleteSoftFrom(String tableName) {
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder.setTableName(tableName);
 		queryBuilder.setSoftDelete(true);
 		return new Where(queryBuilder);
 	}
 
-	
 	public Where deleteHardFrom(String tableName) {
 		QueryBuilder queryBuilder = new QueryBuilder();
 		queryBuilder.setTableName(tableName);
-		queryBuilder.setSoftDelete(false);
+		queryBuilder.setHardDelete(true);
 		return new Where(queryBuilder);
-		
 	}
 }

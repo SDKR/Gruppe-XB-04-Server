@@ -17,6 +17,7 @@ public class Execute extends Model {
     private final String INSERTINTO = "INSERT INTO ";
     private final String UPDATE = "UPDATE ";
     private final String VALUES = " VALUES ";
+    private final String DELETE = " DELETE ";
 
     private QueryBuilder queryBuilder;
     private Where where;
@@ -125,7 +126,21 @@ public class Execute extends Model {
                 e.printStackTrace();
             }
         }
-        else if ()
+        else if (getQueryBuilder().isHardDelete())
+        {
+        	sql = DELETE + FROM +" "+ getQueryBuilder().getTableName()+" "+ WHERE +" "+ " customevent " +" "+ getWhere().getWhereOperator() +" "+ getWhere().getWhereValue()+";";
+        	try{
+        		getConnection(false);
+        		getConn();
+        		String cleanSql = StringEscapeUtils.escapeSql(sql);
+        		sqlStatement = getConn().prepareStatement(sql);
+        		
+        		
+        	} catch (SQLException e)
+        	{
+        		e.printStackTrace();
+        	}
+        }
         else {
             System.out.println(sql);
             sql = INSERTINTO + getQueryBuilder().getTableName() + " (" + getQueryBuilder().getFields() + ")" + VALUES + "(";
@@ -154,6 +169,4 @@ public class Execute extends Model {
 
         return sqlStatement.execute();
     }
-
-
 }

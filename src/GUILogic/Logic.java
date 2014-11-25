@@ -161,6 +161,12 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
+	
+	private class backToEventList implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.eventView);
+		}
+	}
 
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
@@ -169,5 +175,6 @@ public class Logic {
 		CP.geteList().goToMainMenu(new btnToMainMenu());
 		CP.getNL().goToMainMenu(new btnToMainMenu());
 		CP.getQAW().goToMainMenu(new QuoteAndWeather());
+		CP.getAE().backListener(new backToEventList());
 	}
 }
