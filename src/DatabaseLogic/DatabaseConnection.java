@@ -7,12 +7,12 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import keyKeeper.KeyGetter;
+import keyKeeper.*;
 
 public class DatabaseConnection {
 	
 	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
-	keyKeeper.KeyChest KC = new keyKeeper.KeyChest();
+	KeyChest KC = new KeyChest();
 
 	//Creates the needed information to connect to the database
 	
@@ -33,7 +33,6 @@ public class DatabaseConnection {
 //	Imports login info keys
 	public void keyImporter()
 	{
-		KeyChest KC = new KeyChest();
 		KC.keyImporter();
 
 		setSqlUrl(KC.getSqlUrl());
