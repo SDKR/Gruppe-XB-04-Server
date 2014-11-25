@@ -41,7 +41,7 @@ public class QuoteAndWeather extends JPanel {
     public QuoteAndWeather() throws SQLException {
     	
     	ForecastModel FM = new ForecastModel();
-    	System.out.println(FM.getForecast());
+//    	System.out.println(FM.getForecast());
     	/*
     	 * Panel layout
     	 */
