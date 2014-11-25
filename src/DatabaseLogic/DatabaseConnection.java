@@ -22,8 +22,8 @@ public class DatabaseConnection {
 //	private String sqlUser = "Asger";
 //	private String sqlPasswd = "1darkeldar";
 	private String sqlUrl = "";
-	private String sqlUser = "";
-	private String sqlPasswd = "";
+	private String sqlUser = "Asger";
+	private String sqlPasswd = "1darkeldar";
 
 	//Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -34,27 +34,52 @@ public class DatabaseConnection {
 	public void keyImporter()
 	{
 		KC.keyImporter();
-
 		setSqlUrl(KC.getSqlUrl());
 		setSqlUser(KC.getSqlUser());
 		setSqlPasswd(KC.getSqlPasswd());
 	}
-
-	public void addingCBSCalendarToDB(int type, String location, String start, String end, String name, String text, int customevent, String description)
+	public void clearOldCBSData()
+	{
+		try {
+			doUpdate("Delete from cbscalendar.events where customevent = 1");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void addingCBSCalendarToDB(String type, String location, String start, String end, String name, String text)
 	{
 		//Her skal være 2 switches til at bestemme Hvilken calendar event tilhører, og hvilken lokation.
-		int locationID = determineLocation(location);
-		int calendarID = determineCalendarID(description);
+		int locationID = determineLocationID(location);
+		int calendarID = determineCalendarID(type);
+		int typeID = determineTypeID(type);
 		try
 		{
+			
 			getConnection();
-			doUpdate("insert into events (type, location, createdBy, start, end, name, text, customevent, CalendarID) values ('"+type+"', '"+locationID+"', 'admin@admin.dk','"+start+"', '"+end+"', '"+name+"', '"+text+"', '"+customevent+"', '"+calendarID+"'");
+			doUpdate("insert into cbscalendar.events (type, location, createdBy, start, end, name, text, customevent, CalenderID) values ('"+typeID+"', '"+locationID+"', '1','"+start+"', '"+end+"', '"+name+"', '"+text+"', '1', '"+calendarID+"');");
+			conn.close();
+			stmt.close();
 		}
 		catch(SQLException e)
 		{
 			e.printStackTrace();
 		}
 	}
+	private int determineTypeID(String type) {
+		int intToBeReturned = 0;
+		switch (type)
+		{
+		case "Lecture": intToBeReturned = 1;
+		break;
+		case "Exercise": intToBeReturned = 2;
+		break;
+		default: intToBeReturned = 3;
+		break;
+		}
+		return intToBeReturned;
+	}
+
 	private int determineCalendarID(String course) {
 		int intToBeReturned = 0;
 		switch (course)
@@ -80,26 +105,42 @@ public class DatabaseConnection {
 		return intToBeReturned;
 	}
 
-	private int determineLocation(String location) {
+	private int determineLocationID(String location) {
 		int intToBeReturned = 0;
 		char position1 = location.charAt(0);
 		char position2 = location.charAt(1);
-		String locationID = position1 +""+ position2;
-		switch (locationID)
+		String locationID = position1+""+position2;
+		if(locationID.equals("Ks"))
 		{
-			case "KS": intToBeReturned = 7;
-			break;
-			case "FH": intToBeReturned = 3;
-			break;
-			case "SP": intToBeReturned = 4;
-			break;
-			case "HV": intToBeReturned = 5;
-			break;
-			case "PH": intToBeReturned = 6;
-			break;
-			case "DH": intToBeReturned = 8;
-			break;
-			default: intToBeReturned = 1;
+			intToBeReturned = 7;
+		}
+		else if(locationID.equals("FH"))
+		{
+			intToBeReturned = 3;
+		}
+		else if(locationID.equals("SP"))
+		{
+			intToBeReturned = 4;
+		}
+		else if(locationID.equals("HO"))
+		{
+			intToBeReturned = 5;
+		}
+		else if(locationID.equals("PH"))
+		{
+			intToBeReturned = 6;
+		}
+		else if(locationID.startsWith("D"))
+		{
+			intToBeReturned = 8;
+		}
+		else if(locationID.startsWith("Fa"))
+		{
+			intToBeReturned = 9;
+		}
+		else
+		{
+			intToBeReturned = 10;
 		}
 		return intToBeReturned;
 	}

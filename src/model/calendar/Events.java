@@ -53,16 +53,12 @@ public class Events {
 				ArrayList<String> alEnd = new ArrayList<String>();
 				alEnd.add(stringEndDate + "" + stringEndTime);
 				
-				
-				System.out.println(String.valueOf(startDate.getTime()));
-				
 				events.add(new Event(stringEventID, stringEventID, stringType, stringType, stringLocation, stringLocation,stringCreatedby, alStart, alEnd));				
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-    	
     	return events;
     }
 
