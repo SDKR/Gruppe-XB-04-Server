@@ -184,6 +184,18 @@ public class Logic {
 			
 			
 		}
+		private class CreateUser implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				CP.show(ContainerPanel.mainMenu);
+				DC.keyImporter();
+				
+				 CP.getUC().getEmailText().getText();
+				 CP.getUC().getPass().getText();
+				 CP.getUC().getRepeatPass().getText();
+				
+			}
+
+		}
 
 	}
 

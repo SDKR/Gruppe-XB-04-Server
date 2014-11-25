@@ -19,9 +19,9 @@ import javax.swing.border.BevelBorder;
 import javax.swing.JCheckBox;
 
 public class UserCreation extends JPanel {
-	private JTextField EmailText;
-	private JTextField Pass;
-	private JTextField RepeatPass;
+	private JTextField EmailText = new JTextField();
+	private JTextField Pass = new JTextField();
+	private JTextField RepeatPass = new JTextField();
 	private final JTable table = new JTable();
 	private JLabel lblCreateUser;
 	private JLabel lblUsername_1;
@@ -38,7 +38,7 @@ public class UserCreation extends JPanel {
 		setSize(new Dimension(1366, 768));
     	setLayout(null);
 		
-		EmailText = new JTextField();
+		
 		EmailText.setBounds(749, 151, 134, 28);
 		add(EmailText);
 		EmailText.setColumns(10);
@@ -127,4 +127,14 @@ public class UserCreation extends JPanel {
 		public JButton getBtnMainMenu() {
 			return btnMainMenu;
 		}
+		public JTextField getEmailText() {
+			return EmailText;
+		}
+		public JTextField getPass() {
+			return Pass;
+		}
+		public JTextField getRepeatPass() {
+			return RepeatPass;
+		}
+		
 }
