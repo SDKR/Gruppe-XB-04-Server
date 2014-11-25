@@ -46,6 +46,8 @@ public class DatabaseConnection {
 	public void clearOldCBSData()
 	{
 		try {
+			System.out.println("vi er inde ");
+			QB.deleteFrom("events") .where("customeven", "=", "1");
 			doUpdate("Delete from cbscalendar.events where customevent = 1");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -53,7 +55,7 @@ public class DatabaseConnection {
 	}
 	public void addingCBSCalendarToDB(String type, String location, String start, String end, String name, String text) throws SQLException
 	{
-		//Her skal være 2 switches til at bestemme Hvilken calendar event tilhører, og hvilken lokation.
+		//Her skal vï¿½re 2 switches til at bestemme Hvilken calendar event tilhï¿½rer, og hvilken lokation.
 		int locationID = determineLocationID(location);
 		int calendarID = determineCalendarID(type);
 		int typeID = determineTypeID(type);
@@ -109,15 +111,15 @@ public class DatabaseConnection {
 			break;
 			case "Ledelse af IS - forandring, innovation og viden (LA)": intToBeReturned = 14;
 			break;
-			case "Virksomhedens økonomiske styring (3)": intToBeReturned = 15;
+			case "Virksomhedens ï¿½konomiske styring (3)": intToBeReturned = 15;
 			break;
-			case "Makroøkonomi (XB)": intToBeReturned = 9;
+			case "Makroï¿½konomi (XB)": intToBeReturned = 9;
 			break;
-			case "Makroøkonomi (XA)": intToBeReturned = 8;
+			case "Makroï¿½konomi (XA)": intToBeReturned = 8;
 			break;
 			case "Ledelse af IS - forandring, innovation og viden (XA)": intToBeReturned = 13;
 			break;
-			case "Makroøkonomi (LA)": intToBeReturned = 10;
+			case "Makroï¿½konomi (LA)": intToBeReturned = 10;
 			break;
 			default: intToBeReturned = 1;
 		}
