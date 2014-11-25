@@ -3,8 +3,6 @@ package keyKeeper;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import org.opensaml.xml.encryption.Public;
-
 public class KeyChest {
 
 	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
@@ -42,8 +40,7 @@ public class KeyChest {
 //		encryption key 
 		Byte ff = (byte) 458;
 		
-//		byte[] b = GK.getCompleteFile().get(1).getBytes();
-		byte[] b = "Emil".getBytes();;
+		byte[] b = GK.getCompleteFile().get(1).getBytes();
 		System.out.println(GK.getCompleteFile().get(1));
 //		byte[] b = null;
 		
