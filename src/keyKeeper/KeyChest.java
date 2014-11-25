@@ -37,7 +37,7 @@ public class KeyChest {
 		String stringToCryp = GK.getCompleteFile().get(1);
 		System.out.println(stringToCryp);
 		
-		String emilCryp = cryp.xor_decrypt("emil", "458");
+		String emilCryp = cryp.xor_decrypt("wak40336", "458");
 		System.out.println(emilCryp);
 		System.out.println(cryp.xor_decrypt(emilCryp, "458"));
 		

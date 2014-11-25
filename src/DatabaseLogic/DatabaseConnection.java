@@ -46,16 +46,16 @@ public class DatabaseConnection {
 	public void clearOldCBSData()
 	{
 		try {
-			System.out.println("vi er inde ");
-			QB.deleteFrom("events") .where("customeven", "=", "1");
-			doUpdate("Delete from cbscalendar.events where customevent = 1");
+			QB.deleteFrom("events").where("customevent", "=", "1").Execute();
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		//doUpdate("Delete from cbscalendar.events where customevent = 1");
 	}
 	public void addingCBSCalendarToDB(String type, String location, String start, String end, String name, String text) throws SQLException
 	{
-		//Her skal vï¿½re 2 switches til at bestemme Hvilken calendar event tilhï¿½rer, og hvilken lokation.
+		//Her skal være 2 switches til at bestemme Hvilken calendar event tilhører, og hvilken lokation.
 		int locationID = determineLocationID(location);
 		int calendarID = determineCalendarID(type);
 		int typeID = determineTypeID(type);
@@ -111,15 +111,15 @@ public class DatabaseConnection {
 			break;
 			case "Ledelse af IS - forandring, innovation og viden (LA)": intToBeReturned = 14;
 			break;
-			case "Virksomhedens ï¿½konomiske styring (3)": intToBeReturned = 15;
+			case "Virksomhedens økonomiske styring (3)": intToBeReturned = 15;
 			break;
-			case "Makroï¿½konomi (XB)": intToBeReturned = 9;
+			case "Makroøkonomi (XB)": intToBeReturned = 9;
 			break;
-			case "Makroï¿½konomi (XA)": intToBeReturned = 8;
+			case "Makroøkonomi (XA)": intToBeReturned = 8;
 			break;
 			case "Ledelse af IS - forandring, innovation og viden (XA)": intToBeReturned = 13;
 			break;
-			case "Makroï¿½konomi (LA)": intToBeReturned = 10;
+			case "Makroøkonomi (LA)": intToBeReturned = 10;
 			break;
 			default: intToBeReturned = 1;
 		}
@@ -300,12 +300,12 @@ public class DatabaseConnection {
 	}
 	
 	public String[][] eventID() {
-		String[] headerNames = {"userid", "email", "active", "created", "password", "Admin"};  
+		String[] headerNames = {"eventid", "type", "location", "createdby", "start", "end", "name", "text", "customevent", "CalenderID"};  
 		int rowCounter = 0;
 		try{
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT userid FROM cbscalendar.users;");
+			rs = stmt.executeQuery("SELECT eventid FROM cbscalendar.events;");
 			while(rs.next())
 			{
 				rowCounter++;
@@ -318,7 +318,7 @@ public class DatabaseConnection {
 		System.out.println(rowCounter);
 		String[ ][ ] doubleArray = new String[6][rowCounter];
 		System.out.println("Lige efter String array er blevet oprettet");
-		for(int headerCounter = 0 ; headerCounter < 6 ; headerCounter++)
+		for(int headerCounter = 0 ; headerCounter < 10 ; headerCounter++)
 		{
 			System.out.println("inde I starten af for loopet "+headerCounter+". gang");
 			ArrayList<Object> resultArray = new ArrayList<Object>();
@@ -326,7 +326,7 @@ public class DatabaseConnection {
 			int otherCounter = 0;
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.users");
+			rs = stmt.executeQuery("select "+headerNames[headerCounter]+" from cbscalendar.events");
 			while (rs.next()) {
 				doubleArray[headerCounter][otherCounter]=rs.getString(headerNames[headerCounter]);
 				otherCounter++;

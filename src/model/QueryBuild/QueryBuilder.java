@@ -10,12 +10,16 @@ public class QueryBuilder {
     private String fields;
     private boolean softDelete;
     private boolean isUpdate;
+    private boolean hardDelete;
     
 
     protected void setSoftDelete(boolean b){
         this.softDelete = b;
     }
     protected boolean isSoftDelete(){
+        return softDelete;
+    }
+    protected boolean isHardDelete(){
         return softDelete;
     }
 
@@ -145,7 +149,7 @@ public class QueryBuilder {
     public Where deleteFrom(String tableName){
         QueryBuilder queryBuilder = new QueryBuilder();
         queryBuilder.setTableName(tableName);
-        queryBuilder.setSoftDelete(true);
+        queryBuilder.setSoftDelete(false);
         return new Where(queryBuilder);
     }
 
