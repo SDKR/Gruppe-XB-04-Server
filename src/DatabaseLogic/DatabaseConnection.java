@@ -25,9 +25,9 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
-	private String sqlPasswd = "";
+	private String sqlUrl = "jdbc:mysql://localhost:3306/";
+	private String sqlUser = "Asger";
+	private String sqlPasswd = "1darkeldar";
 
 	// Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -314,12 +314,11 @@ public class DatabaseConnection {
 			e.printStackTrace();
 		}
 		System.out.println(rowCounter);
-		String[][] doubleArray = new String[6][rowCounter];
+		String[][] doubleArray = new String[10][rowCounter];
 		System.out.println("Lige efter String array er blevet oprettet");
 		for (int headerCounter = 0; headerCounter < 10; headerCounter++) {
 			System.out.println("inde I starten af for loopet " + headerCounter
 					+ ". gang");
-			ArrayList<Object> resultArray = new ArrayList<Object>();
 			try {
 				int otherCounter = 0;
 				getConnection();

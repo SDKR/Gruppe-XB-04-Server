@@ -30,7 +30,7 @@ public class EventList extends JPanel {
 	 * Create the panel.
 	 */
 
-	private JButton btnAdd;
+	private JButton btnAdd = new JButton("Add");
 	private JButton btnDelete;
 	private JButton btnLogout;
 	private JButton btnMainMenu = new JButton("Main Menu");
@@ -546,7 +546,7 @@ public class EventList extends JPanel {
 		btnDelete.setBounds(988, 194, 118, 29);
 		add(btnDelete);
 
-		JButton btnAdd = new JButton("Add");
+		
 		btnAdd.setOpaque(true);
 		btnAdd.setForeground(new Color(0, 0, 205));
 		btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
@@ -567,12 +567,14 @@ public class EventList extends JPanel {
 
 	}
 
-	public void addActionListener(ActionListener l) {
-		btnAdd.addActionListener(l);
+	public void deleteEvent(ActionListener l) {
 		btnDelete.addActionListener(l);
-		btnLogout.addActionListener(l);
 	}
 
+	public void goToAddEvent(ActionListener l)
+	{
+		btnAdd.addActionListener(l);
+	}
 	public void goToMainMenu(ActionListener l) {
 		btnMainMenu.addActionListener(l);
 	}

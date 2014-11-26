@@ -184,12 +184,17 @@ public class Logic {
 		}
 	}
 
-	private class UserCreation implements ActionListener {
+	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			CP.show(ContainerPanel.mainMenu);
-			
-			
+			CP.show(ContainerPanel.createEvent);
 		}
+	}
+		
+		private class UserCreation implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				CP.show(ContainerPanel.mainMenu);
+			}
+		
 		private class CreateUser implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				CP.show(ContainerPanel.mainMenu);
@@ -214,5 +219,6 @@ public class Logic {
 		CP.getQAW().goToMainMenu(new QuoteAndWeather());
 		CP.getAE().backListener(new backToEventList());
 		CP.getUC().goToMainMenu(new btnToMainMenu());
+		CP.geteList().goToAddEvent(new goToCreateEvent());
 	}
 }
