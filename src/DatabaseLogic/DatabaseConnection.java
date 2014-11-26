@@ -143,19 +143,19 @@ public class DatabaseConnection {
 		case "Ledelse af IS - forandring, innovation og viden (LA)":
 			intToBeReturned = 14;
 			break;
-		case "Virksomhedens økonomiske styring (3)":
+		case "Virksomhedens ï¿½konomiske styring (3)":
 			intToBeReturned = 15;
 			break;
-		case "Makroøkonomi (XB)":
+		case "Makroï¿½konomi (XB)":
 			intToBeReturned = 9;
 			break;
-		case "Makroøkonomi (XA)":
+		case "Makroï¿½konomi (XA)":
 			intToBeReturned = 8;
 			break;
 		case "Ledelse af IS - forandring, innovation og viden (XA)":
 			intToBeReturned = 13;
 			break;
-		case "Makroøkonomi (LA)":
+		case "Makroï¿½konomi (LA)":
 			intToBeReturned = 10;
 			break;
 		default:
@@ -602,6 +602,48 @@ public class DatabaseConnection {
 			
 			doUpdate("update cbscalendar.users set active='1' where email='"+reActivate+"';");
 			JOptionPane.showMessageDialog (null, "The user is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
+			
+	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+return stringToBeReturned;
+		
+	}
+	public String activatesEvent(String reActivate){
+
+		
+		String stringResultChecker = "";
+		String stringIsAllreadyOn = "";
+		String stringToBeReturned = "";
+
+		try {
+
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select * from cbscalendar.events where EventID = '"
+					+ reActivate + "';");
+	while (rs.next()) {
+
+		stringResultChecker = rs.getString("EventID");
+		stringIsAllreadyOn = rs.getString("Active");
+		
+	}
+	
+	if (stringResultChecker.equals("")) {
+
+	JOptionPane.showMessageDialog (null, "The EventID doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}	
+	else if(stringIsAllreadyOn.equals("1")){
+		JOptionPane.showMessageDialog (null, "The Event is already active", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	else{
+			
+			doUpdate("update cbscalendar.event set active='1' where eventID='"+reActivate+"';");
+			JOptionPane.showMessageDialog (null, "The Event is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
 			
 	}
 		} catch (SQLException e) {

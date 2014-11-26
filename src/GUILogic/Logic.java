@@ -443,7 +443,22 @@ public class Logic {
 			
 		}
 	}
-	
+	//Activate Event 
+	private class activateEvent implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			JFrame frame = new JFrame("InputDialog");
+			String reActivate = JOptionPane.showInputDialog(frame, "Input EventID of the Event to activate");
+			
+			if (reActivate == null){
+				JOptionPane.showMessageDialog (null, "No EventID detected", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else{
+				DC.activatesEvent(reActivate);
+				
+			}
+			
+		}
+	}
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);
