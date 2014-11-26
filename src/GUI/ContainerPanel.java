@@ -16,7 +16,6 @@ public class ContainerPanel extends JFrame {
 	public static final String createEvent = "createEvent";
 	public static final String UserCreation = "UserCreation";
 	
-	
 	private static JPanel contentPane;
 	CardLayout c;
 	
@@ -92,7 +91,6 @@ public class ContainerPanel extends JFrame {
 	public AddEvent getAE() {
 		return AE;
 	}
-
 
 	public UserCreation getUC(){
 		return UC;

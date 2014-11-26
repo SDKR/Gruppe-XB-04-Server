@@ -177,32 +177,71 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
-	
+
 	private class backToEventList implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.eventView);
 		}
 	}
 
-	private class UserCreation implements ActionListener {
+	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+
 			CP.show(ContainerPanel.mainMenu);
-			
-			
+
 		}
+
+			CP.show(ContainerPanel.createEvent);
+		}
+	}
+		
+		private class UserCreation implements ActionListener {
+			public void actionPerformed(ActionEvent e) {
+				CP.show(ContainerPanel.mainMenu);
+			}
+		
+
 		private class CreateUser implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				CP.show(ContainerPanel.mainMenu);
 				DC.keyImporter();
-				
-				 CP.getUC().getEmailText().getText();
-				 CP.getUC().getPass().getText();
-				 CP.getUC().getRepeatPass().getText();
-				
+
+				CP.getUC().getEmailText().getText();
+				CP.getUC().getPass().getText();
+				CP.getUC().getRepeatPass().getText();
+
 			}
 
 		}
 
+	}
+
+	public void activeChecker() {
+		String Email = CP.getUC().getEmailText().getText();
+		String pass1 = CP.getUC().getPass().getText();
+		String pass2 = CP.getUC().getRepeatPass().getText();
+		boolean checkActive = CP.getUC().getChckbxActive().equals(false);
+		boolean checkAdmin = CP.getUC().getChckbxAdministrator().equals(false);
+
+		if (pass1.equals(pass2)) {
+
+			if (CP.getUC().getChckbxActive().equals(true)) {
+
+				int checkIfActive = 1;
+			} else {
+				int checkIfActive = 2;
+
+			}
+			if (CP.getUC().getChckbxAdministrator().equals(true)) {
+				int checkIfAdmin = 1;
+			} else {
+				int checkIfAdmin = 2;
+			}
+			DC.CreatedUser(Email, pass1, checkActive, checkAdmin);
+
+		} else {
+			System.out.println("Passwords Do not Match");
+		}
 	}
 
 	private void initializeListeners() {
@@ -214,5 +253,6 @@ public class Logic {
 		CP.getQAW().goToMainMenu(new QuoteAndWeather());
 		CP.getAE().backListener(new backToEventList());
 		CP.getUC().goToMainMenu(new btnToMainMenu());
+		CP.geteList().goToAddEvent(new goToCreateEvent());
 	}
 }

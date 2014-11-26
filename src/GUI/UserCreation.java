@@ -29,7 +29,7 @@ public class UserCreation extends JPanel {
 	private JLabel lblUsername;
 	private JButton btnMainMenu;
 	private JButton btnCreate;
-	private JCheckBox chckbxNewCheckBox;
+	private JCheckBox chckbxAdministrator;
 	private JCheckBox chckbxActive;
 	
 
@@ -105,11 +105,11 @@ public class UserCreation extends JPanel {
 		 btnCreate.setBounds(586, 468, 194, 44);
 		 add(btnCreate);
 		 
-		 chckbxNewCheckBox = new JCheckBox("Administrator");
-		 chckbxNewCheckBox.setForeground(Color.WHITE);
-		 chckbxNewCheckBox.setFont(new Font("Arial", Font.BOLD, 13));
-		 chckbxNewCheckBox.setBounds(619, 373, 128, 23);
-		 add(chckbxNewCheckBox);
+		 chckbxAdministrator = new JCheckBox("Administrator");
+		 chckbxAdministrator.setForeground(Color.WHITE);
+		 chckbxAdministrator.setFont(new Font("Arial", Font.BOLD, 13));
+		 chckbxAdministrator.setBounds(619, 373, 128, 23);
+		 add(chckbxAdministrator);
 
 		
 		 JLabel lblBackground = new JLabel("Background");
@@ -135,6 +135,12 @@ public class UserCreation extends JPanel {
 		}
 		public JTextField getRepeatPass() {
 			return RepeatPass;
+		}
+		public JCheckBox getChckbxAdministrator() {
+			return chckbxAdministrator;
+		}
+		public JCheckBox getChckbxActive() {
+			return chckbxActive;
 		}
 		
 }

@@ -174,9 +174,9 @@ public class QueryBuilder {
 		queryBuilder.setHardDelete(true);
 		return new Where(queryBuilder);
 <<<<<<< HEAD
+
+
 =======
-		
-		
->>>>>>> origin/master
+>>>>>>> FETCH_HEAD
 	}
 }

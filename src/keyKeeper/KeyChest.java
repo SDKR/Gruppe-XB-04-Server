@@ -50,8 +50,8 @@ public class KeyChest {
 //		System.out.println(encryptionKey);
 //		System.out.println(portNr);
 
-	}
-
+//	}
+//
 //	public static void main(String[] args) {
 //		encryption cryp = new encryption();
 //		keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
@@ -60,13 +60,13 @@ public class KeyChest {
 //		String stringToCryp = GK.getCompleteFile().get(2);
 //		System.out.println(stringToCryp);
 //
-//		String emilCryp = cryp.xor_decrypt("", "458");
+//		String emilCryp = cryp.xor_decrypt("", "458k");
 //		System.out.println(emilCryp);
 //		// System.out.println(cryp.xor_decrypt(emilCryp, "458"));
 //		String em = cryp.xor_decrypt(emilCryp, "458");
 //		System.out.println(em);
 //
-//	}
+	}
 
 	public ArrayList<String> getdecryptFile() {
 		return decryptFile;

@@ -12,7 +12,7 @@ class TCPServer{
 	public void keyImporter()
 	{
 		KC.keyImporter();
-		setportNr(KC.getportNr());
+		setportNr("8888");
 //		Converting string to int, which is apparently necessary
 		int cPort = Integer.parseInt(port);
 	}
