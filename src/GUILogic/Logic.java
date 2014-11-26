@@ -11,8 +11,6 @@ import GUI.*;
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
-	UserList UL = new UserList();
-	UserCreation UC = new UserCreation();
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -187,12 +185,13 @@ public class Logic {
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
+
 			CP.show(ContainerPanel.mainMenu);
 
-		}
-
+	
 			CP.show(ContainerPanel.createEvent);
 		}
+
 	}
 		
 		private class UserCreation implements ActionListener {

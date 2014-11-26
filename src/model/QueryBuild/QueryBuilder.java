@@ -174,8 +174,11 @@ public class QueryBuilder {
 		queryBuilder.setHardDelete(true);
 		return new Where(queryBuilder);
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 	}
