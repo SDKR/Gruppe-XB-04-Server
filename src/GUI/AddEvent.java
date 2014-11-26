@@ -215,6 +215,7 @@ public class AddEvent extends JPanel {
 		endMonth.setBounds(619, 295, 51, 22);
 		endMonth.addItem("MM");
 		add(endMonth);
+		calendarCombo.setModel(new DefaultComboBoxModel(new String[] {"Choose Calendar", "Ledelse af IS - forandring, innovation og viden (XB)", "Virksomhedens \u00F8konomiske styring (3) (LA)", "Distribuerede systemer (LA)", "Ledelse af IS - forandring, innovation og viden (LA)", "Ledelse af IS - forandring, innovation og viden (XA)", "Makro\u00F8konomi (LA)", "Makro\u00F8konomi (XB)", "Makro\u00F8konomi (XA)"}));
 		
 		calendarCombo.setBounds(560, 330, 266, 22);
 		calendarCombo.addItem("Choose Calendar");
