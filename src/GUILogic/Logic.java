@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -375,7 +376,23 @@ public class Logic {
 			}
 		}
 	}
-
+//	Delete user 
+	private class deleteUser implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			JFrame frame = new JFrame("InputDialog");
+			String killUser = JOptionPane.showInputDialog(frame, "Input Email of user to delete");
+			
+			if (killUser == null){
+				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else{
+			DC.deletesUser(killUser);
+			viewUser();
+			}
+		}
+	}
+	
+	
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);
@@ -394,5 +411,6 @@ public class Logic {
 		CP.getUC().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
 		CP.getUC().createUser(new activeChecker());
+		CP.getUI().deluser(new deleteUser());
 	}
 }

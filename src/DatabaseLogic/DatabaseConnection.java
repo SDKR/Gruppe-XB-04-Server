@@ -449,13 +449,13 @@ public class DatabaseConnection {
 		return isAdmin;
 	}
 
+//	Create user
 	public String CreatedUser(String EmailText, String pass, int checkIfActive,
 			int checkIfAdmin) {
 		String stringToBeReturned = "";
 		String stringResultChecker = "";
 
 		try {
-			System.out.println("Vi er her");
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
@@ -485,6 +485,50 @@ public class DatabaseConnection {
 		}
 
 		return stringToBeReturned;
+	}
+
+//	Delete user (soft)
+	public String deletesUser(String killUser){
+		String stringResultChecker = "";
+		String stringIsAllreadyOff = "";
+		String stringToBeReturned = "";
+		
+		try{
+			
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt
+					
+					
+			.executeQuery("select * from cbscalendar.users where email = '"
+					+ killUser + "';");
+	while (rs.next()) {
+
+		stringResultChecker = rs.getString("Email");
+		stringIsAllreadyOff = rs.getString("active");
+		
+	}
+	
+	if (stringResultChecker.equals("")) {
+
+	JOptionPane.showMessageDialog (null, "The Email doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}	
+	else if(stringIsAllreadyOff.equals("2")){
+		JOptionPane.showMessageDialog (null, "The user is already inactive", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	else{
+			
+			doUpdate("update cbscalendar.users set active='2' where email='"+killUser+"';");
+			JOptionPane.showMessageDialog (null, "The user is now inactive", "Error", JOptionPane.INFORMATION_MESSAGE);
+			
+	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+return stringToBeReturned;
 	}
 
 	public void setSqlUrl(String sqlUrl) {

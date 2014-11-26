@@ -166,6 +166,11 @@ public class UserList extends JPanel {
     	btnAdd.addActionListener(l);
     }
     
+    public void deluser (ActionListener l)
+    {
+    	btnDelete.addActionListener(l);
+    }
+    
 	public JTable getTable() {
 		return table;
 	}
