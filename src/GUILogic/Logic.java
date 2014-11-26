@@ -4,8 +4,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -216,13 +218,14 @@ public class Logic {
 			}
 		}
 	}
-	private boolean checkDate (String year, String month, String day, String hour, String minute)
+	public long checkDate (String year, String month, String day, String hour, String minute) throws ParseException
 	{
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-		Date date = new Date();
-		boolean booleanToBeReturned = false;
-		
-		return booleanToBeReturned;
+		long longToBeReturned = 0;
+		String dateToCheck = year+"/"+month+"/"+day+" "+hour+":"+minute+":00";
+		Date dating = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.TRADITIONAL_CHINESE).parse(dateToCheck);
+		longToBeReturned = dating.getTime();
+	
+		return longToBeReturned;
 	}
 	
 	private class createNewEvent implements ActionListener {
@@ -232,6 +235,75 @@ public class Logic {
 			String locationC = CP.getAE().getLocationCombo().getSelectedItem().toString();
 			String locationF = CP.getAE().getLocationField().getText();
 			String location = locationC +""+locationF;
+			String startYear = CP.getAE().getStartYear().getSelectedItem().toString();
+			String startMonth = CP.getAE().getStartMonth().getSelectedItem().toString();
+			String startDay = CP.getAE().getStartDay().getSelectedItem().toString();
+			String startHour = CP.getAE().getStartHour().getSelectedItem().toString();
+			String startMinute = CP.getAE().getStartMinute().getSelectedItem().toString();
+			String endYear = CP.getAE().getEndYear().getSelectedItem().toString();
+			String endMonth = CP.getAE().getEndMonth().getSelectedItem().toString();
+			String endDay = CP.getAE().getEndDay().getSelectedItem().toString();
+			String endHour = CP.getAE().getEndhour().getSelectedItem().toString();
+			String endMinute = CP.getAE().getEndMinute().getSelectedItem().toString();
+			String Calendar = CP.getAE().getCalendarCombo().getSelectedItem().toString();
+			String infoText = CP.getAE().getInfoBox().getText();
+			String endTime = endYear+"-"+endMonth+"-"+endDay+" "+endHour+":"+endMinute+":00";
+			String startTime = startYear+"-"+startMonth+"-"+startDay+" "+startHour+":"+startMinute+":00";
+			
+			if(!eventName.equals("Enter Event Name") || !eventName.equals(""))
+			{
+				if(!type.equals("Choose Type"))
+				{
+					try {
+					long checkStartTime = checkDate(startYear, startMonth, startDay, startHour, startMinute);
+					long checkEndTime = checkDate(endYear, endMonth, endDay, endHour, endMinute);
+					
+						if( checkStartTime > checkEndTime)
+						{
+							Date date = new Date();
+							if(checkStartTime > date.getTime())
+							{
+								if(!Calendar.equals("Choose Calendar"))
+								{
+									if(!infoText.equals("If any, enter further information here..."))
+									{
+										
+									}
+									else
+									{
+										JOptionPane.showMessageDialog(null, "The info text cannot be the default one.");
+									}
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(null, "You have to select a calendar to which the event belongs");
+								}
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "You cannot create an event in the past.");
+							}
+						}
+						else
+						{
+							JOptionPane.showMessageDialog(null, "You cannot have an end-time earlier than start time.");
+						}
+					
+				}
+					catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				} 
+				else
+				{
+					JOptionPane.showMessageDialog(null, "You have to choose a type for the event.");
+				}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(null, "You have to enter an eventname");
+			}
 			}
 			}
 		
@@ -262,18 +334,14 @@ public class Logic {
 			CP.getAE().getStartMinute().addItem(miCount);
 			CP.getAE().getEndMinute().addItem(miCount);
 		}
-	}
-	
-	public static void main (String []args)
+	}	
+	public static void main (String []args) throws SQLException, ParseException
 	{
-		try {
-			Logic L = new Logic();
-			L.setComboDates();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+		DatabaseConnection DC = new DatabaseConnection();
+		Logic L = new Logic();
+		L.checkDate("2014", "9", "5", "6", "9");
+		L.checkDate("2014", "9", "6", "6", "9");
+		L.checkDate("2014", "12", "4", "6", "9");
 	}
 
 	public void activeChecker() {

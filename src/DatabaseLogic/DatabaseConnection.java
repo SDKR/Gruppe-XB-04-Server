@@ -173,6 +173,18 @@ public class DatabaseConnection {
 		}
 		return intToBeReturned;
 	}
+	
+	public String createNewEvent(String type, String location, String start, String end, String name, String text)
+	{
+		String stringToBeReturned = "";
+		try {
+			doUpdate("insert into cbscalendar.events ('"+type+"', '"+location+"', 'admin@admin.dk', '"+start+"', '"+end+"', '"+name+"', '"+text+"', '2');");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return stringToBeReturned;
+	}
 
 	// Method to test connection which returns false
 	public boolean TestConnection() {

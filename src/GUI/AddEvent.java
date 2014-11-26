@@ -307,4 +307,8 @@ public class AddEvent extends JPanel {
 	public JTextField getLocationField() {
 		return locationField;
 	}
+	public JComboBox<Object> getCalendarCombo() {
+		return calendarCombo;
+	}
+	
 }
