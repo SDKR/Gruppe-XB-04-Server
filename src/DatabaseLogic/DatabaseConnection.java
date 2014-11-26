@@ -36,11 +36,11 @@ public class DatabaseConnection {
 
 	// Imports login info keys
 	public void keyImporter() {
-//		KC.keyImporter();
-//
-//		setSqlUrl(KC.getSqlUrl());
-//		setSqlUser(KC.getSqlUser());
-//		setSqlPasswd(KC.getSqlPasswd());
+		// KC.keyImporter();
+		//
+		// setSqlUrl(KC.getSqlUrl());
+		// setSqlUser(KC.getSqlUser());
+		// setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
@@ -96,6 +96,18 @@ public class DatabaseConnection {
 		} else {
 			System.out.println("This date does not exists");
 		}
+	}
+	
+	public boolean checkIfActiveOrNot(String eventID, String userID){
+	
+		
+		if(eventID.equals("1") && userID.equals("1")){
+			
+			
+			
+		}
+		
+		return false;
 	}
 
 	private int determineTypeID(String type) {
@@ -171,14 +183,26 @@ public class DatabaseConnection {
 		}
 		return intToBeReturned;
 	}
-	
-	public void createNewEvent(String type, String location, String start, String end, String name, String text, String calendarString)
-	{
+
+	public void createNewEvent(String type, String location, String start,
+			String end, String name, String text, String calendarString) {
 		int calendarID = determineCalendarID(calendarString);
 		int locationID = determineLocationID(location);
 		int typeID = determineTypeID(type);
 		try {
-			doUpdate("insert into cbscalendar.events (type, location, createdby, start, end, name, text, customevent, CalenderID) VALUES ('"+typeID+"', '"+locationID+"', '1', '"+start+"', '"+end+"', '"+name+"', '"+text+"', '2', '"+calendarID+"');");
+			doUpdate("insert into cbscalendar.events (type, location, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
+					+ typeID
+					+ "', '"
+					+ locationID
+					+ "', '1', '"
+					+ start
+					+ "', '"
+					+ end
+					+ "', '"
+					+ name
+					+ "', '"
+					+ text
+					+ "', '2', '" + calendarID + "');");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -450,7 +474,7 @@ public class DatabaseConnection {
 		return isAdmin;
 	}
 
-//	Create user
+	// Create user
 	public String CreatedUser(String EmailText, String pass, int checkIfActive,
 			int checkIfAdmin) {
 		String stringToBeReturned = "";
@@ -465,19 +489,23 @@ public class DatabaseConnection {
 			while (rs.next()) {
 
 				stringResultChecker = rs.getString("Email");
-				
+
 			}
 			if (!stringResultChecker.equals("")) {
 				stringToBeReturned = "Fejl";
-			JOptionPane.showMessageDialog (null, "The Email already exists", "Error", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(null, "The Email already exists",
+						"Error", JOptionPane.ERROR_MESSAGE);
 			} else {
 				doUpdate("insert into cbscalendar.users(email, active, password, admin) values('"
 						+ EmailText
 						+ "', '"
 						+ checkIfActive
 						+ "', '"
-						+ pass + "', '" + checkIfAdmin + "');");
-			JOptionPane.showMessageDialog (null, "The user has been created", "Success", JOptionPane.INFORMATION_MESSAGE);
+						+ pass
+						+ "', '" + checkIfAdmin + "');");
+				JOptionPane.showMessageDialog(null,
+						"The user has been created", "Success",
+						JOptionPane.INFORMATION_MESSAGE);
 			}
 
 		} catch (SQLException e) {
@@ -488,92 +516,100 @@ public class DatabaseConnection {
 		return stringToBeReturned;
 	}
 
-//	Delete user (soft)
-	public String deletesUser(String killUser){
+	// Delete user (soft)
+	public String deletesUser(String killUser) {
 		String stringResultChecker = "";
 		String stringIsAllreadyOff = "";
 		String stringToBeReturned = "";
-		
-		try{
-			
+
+		try {
+
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					
-					
+
 			.executeQuery("select * from cbscalendar.users where email = '"
 					+ killUser + "';");
-	while (rs.next()) {
+			while (rs.next()) {
 
-		stringResultChecker = rs.getString("Email");
-		stringIsAllreadyOff = rs.getString("active");
-		
-	}
-	
-	if (stringResultChecker.equals("")) {
+				stringResultChecker = rs.getString("Email");
+				stringIsAllreadyOff = rs.getString("active");
 
-	JOptionPane.showMessageDialog (null, "The Email doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
-				
-			}	
-	else if(stringIsAllreadyOff.equals("2")){
-		JOptionPane.showMessageDialog (null, "The user is already inactive", "Error", JOptionPane.ERROR_MESSAGE);
-	}
-	
-	else{
-			
-			doUpdate("update cbscalendar.users set active='2' where email='"+killUser+"';");
-			JOptionPane.showMessageDialog (null, "The user is now inactive", "Error", JOptionPane.INFORMATION_MESSAGE);
-			
-	}
+			}
+
+			if (stringResultChecker.equals("")) {
+
+				JOptionPane.showMessageDialog(null, "The Email doesn't exist",
+						"Error", JOptionPane.ERROR_MESSAGE);
+
+			} else if (stringIsAllreadyOff.equals("2")) {
+				JOptionPane.showMessageDialog(null,
+						"The user is already inactive", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			else {
+
+				doUpdate("update cbscalendar.users set active='2' where email='"
+						+ killUser + "';");
+				JOptionPane.showMessageDialog(null, "The user is now inactive",
+						"Error", JOptionPane.INFORMATION_MESSAGE);
+
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-return stringToBeReturned;
+
+		return stringToBeReturned;
 	}
 
-	public String deletesEvent(String killEvent){
+	public String deletesEvent(String killEvent) {
 		String stringResultChecker = "";
 		String stringIsAllreadyOff = "";
 		String stringToBeReturned = "";
-		
-		try{
-			
+
+		try {
+
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					
-					
+
 			.executeQuery("select * from cbscalendar.events where EventID = '"
 					+ killEvent + "';");
-	while (rs.next()) {
+			while (rs.next()) {
 
-		stringResultChecker = rs.getString("EventID");
-		stringIsAllreadyOff = rs.getString("active");
-		
-	}
-	
-	if (stringResultChecker.equals("")) {
+				stringResultChecker = rs.getString("EventID");
+				stringIsAllreadyOff = rs.getString("active");
 
-	JOptionPane.showMessageDialog (null, "The Event doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
-				
-			}	
-	else if(stringIsAllreadyOff.equals("2")){
-		JOptionPane.showMessageDialog (null, "The event is already inactive", "Error", JOptionPane.ERROR_MESSAGE);
-	}
-	
-	else{
-			
-			doUpdate("update cbscalendar.events set active='2' where active='"+killEvent+"';");
-			JOptionPane.showMessageDialog (null, "The event is now inactive", "Error", JOptionPane.INFORMATION_MESSAGE);
-			
-	}
+			}
+
+			if (stringResultChecker.equals("")) {
+
+				JOptionPane.showMessageDialog(null, "The Event doesn't exist",
+						"Error", JOptionPane.ERROR_MESSAGE);
+
+			} else if (stringIsAllreadyOff.equals("2")) {
+				JOptionPane.showMessageDialog(null,
+						"The event is already inactive", "Error",
+						JOptionPane.ERROR_MESSAGE);
+			}
+
+			else {
+
+				doUpdate("update cbscalendar.events set active='2' where active='"
+						+ killEvent + "';");
+				JOptionPane.showMessageDialog(null,
+						"The event is now inactive", "Error",
+						JOptionPane.INFORMATION_MESSAGE);
+
+			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
-return stringToBeReturned;
+
+		return stringToBeReturned;
 	}
+
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;
 	}
