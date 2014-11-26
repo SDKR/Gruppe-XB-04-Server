@@ -19,9 +19,6 @@ public class DatabaseConnection {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 
-
-	// Creates the needed information to connect to the database
-
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
 	// private String sqlUrl = "jdbc:mysql://localhost:3306/";
@@ -48,7 +45,8 @@ public class DatabaseConnection {
 
 	public void clearOldCBSData() {
 		try {
-			QB.deleteHardFrom("events").where("customevent", "=", "1").Execute();
+			QB.deleteHardFrom("events").where("customevent", "=", "1")
+					.Execute();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -209,7 +207,7 @@ public class DatabaseConnection {
 			String isActive) {
 		boolean booleanToBeReturned = false;
 		try {
-			System.out.println("Intet virker, og derudaf!");
+
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
@@ -451,33 +449,38 @@ public class DatabaseConnection {
 		return isAdmin;
 	}
 
-	public String CreatedUser(String EmailText, String pass, int checkIfActive, int checkIfAdmin) {
+	public String CreatedUser(String EmailText, String pass, int checkIfActive,
+			int checkIfAdmin) {
 		String stringToBeReturned = "";
 		String stringResultChecker = "";
-		
+
 		try {
+			System.out.println("Vi er her");
 			getConnection();
 			stmt = conn.createStatement();
-
+			System.out.println("Vi har kørt getconnection");
 			rs = stmt
 					.executeQuery("select * from cbscalendar.users where email = '"
 							+ EmailText + "';");
-			while(rs.next()){
-				
+			System.out.println("kører query");
+			while (rs.next()) {
+
 				stringResultChecker = rs.getString("Email");
-				
-				if(!stringResultChecker.equals(""))
-				{
-					stringToBeReturned = "Fejl";
-				}
-				else{
-					doUpdate("insert into users(email, active, password, admin) values('"+EmailText+"', '"+checkIfActive+"', '"+pass+"', '"+checkIfAdmin+"');");
-				}
-				
-					
-				
+				System.out.println("StringRes");
 				
 			}
+			if (!stringResultChecker.equals("")) {
+				stringToBeReturned = "Fejl";
+			} else {
+				System.out.println("Vi kører doupdate");
+				doUpdate("insert into cbscalendar.users(email, active, password, admin) values('"
+						+ EmailText
+						+ "', '"
+						+ checkIfActive
+						+ "', '"
+						+ pass + "', '" + checkIfAdmin + "');");
+			}
+
 		} catch (SQLException e) {
 
 			e.printStackTrace();
@@ -485,10 +488,6 @@ public class DatabaseConnection {
 
 		return stringToBeReturned;
 	}
-	
-	
-	
-	
 
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;

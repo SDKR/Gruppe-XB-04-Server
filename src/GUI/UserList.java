@@ -161,6 +161,11 @@ public class UserList extends JPanel {
 		btnMainMenu.addActionListener(l);
 	}
     
+    public void goToAddUser (ActionListener l)
+    {
+    	btnAdd.addActionListener(l);
+    }
+    
 	public JTable getTable() {
 		return table;
 	}

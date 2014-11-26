@@ -43,7 +43,7 @@ public class KeyGetter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //printer mængden af linjer i txt filen og i arrayet, kan udkommenteres senere
+        //printer mï¿½ngden af linjer i txt filen og i arrayet, kan udkommenteres senere
 //        int size = completeFile.size();
 //        System.out.println("\n"+"Antal linjer sendt til array: "+size );
 //        System.out.println("Antal linjer i txt filen: "+linecounter);

@@ -191,33 +191,29 @@ public class Logic {
 
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-
-
 			CP.show(ContainerPanel.mainMenu);
-
-	
 			CP.show(ContainerPanel.createEvent);
 			setComboDates();
 		}
 
 	}
-		
-		private class UserCreation implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-				CP.show(ContainerPanel.mainMenu);
-			}
-		
 
+	private class UserCreation implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.mainMenu);
+		}
+	}
 		private class CreateUser implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				CP.show(ContainerPanel.mainMenu);
 				DC.keyImporter();
 				CP.getUC().getEmailText().getText();
-				 CP.getUC().getPass().getText();
-				 CP.getUC().getRepeatPass().getText();
+				CP.getUC().getPass().getText();
+				CP.getUC().getRepeatPass().getText();
 			}
 		}
-	}
+	
+
 	public long checkDate (String year, String month, String day, String hour, String minute) throws ParseException
 	{
 		long longToBeReturned = 0;
@@ -227,13 +223,16 @@ public class Logic {
 	
 		return longToBeReturned;
 	}
-	
+
 	private class createNewEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String eventName = CP.getAE().getNameField().getText();
-			String type = CP.getAE().getTypeCombo().getSelectedItem().toString();
-			String locationC = CP.getAE().getLocationCombo().getSelectedItem().toString();
+			String type = CP.getAE().getTypeCombo().getSelectedItem()
+					.toString();
+			String locationC = CP.getAE().getLocationCombo().getSelectedItem()
+					.toString();
 			String locationF = CP.getAE().getLocationField().getText();
+
 			String location = locationC +""+locationF;
 			String startYear = CP.getAE().getStartYear().getSelectedItem().toString();
 			String startMonth = CP.getAE().getStartMonth().getSelectedItem().toString();
@@ -304,33 +303,29 @@ public class Logic {
 			{
 				JOptionPane.showMessageDialog(null, "You have to enter an eventname");
 			}
-			}
-			}
+			
+			}}
 		
-	private void setComboDates()
-	{
-		for(int yCount = 2014; yCount < 2038 ; yCount++)
-		{
+
+	public void setComboDates() {
+		for (int yCount = 2014; yCount < 2038; yCount++) {
+
 			CP.getAE().getStartYear().addItem(yCount);
 			CP.getAE().getEndYear().addItem(yCount);
 		}
-		for (int moCount = 0 ; moCount < 13 ; moCount++)
-		{
+		for (int moCount = 0; moCount < 13; moCount++) {
 			CP.getAE().getStartMonth().addItem(moCount);
 			CP.getAE().getEndMonth().addItem(moCount);
 		}
-		for (int dCount = 1 ; dCount < 32 ; dCount++)
-		{
+		for (int dCount = 1; dCount < 32; dCount++) {
 			CP.getAE().getStartDay().addItem(dCount);
 			CP.getAE().getEndDay().addItem(dCount);
 		}
-		for (int hCount = 1 ; hCount < 25 ; hCount++)
-		{
+		for (int hCount = 1; hCount < 25; hCount++) {
 			CP.getAE().getStartHour().addItem(hCount);
 			CP.getAE().getEndhour().addItem(hCount);
 		}
-		for (int miCount = 1 ; miCount < 60 ; miCount++)
-		{
+		for (int miCount = 1; miCount < 60; miCount++) {
 			CP.getAE().getStartMinute().addItem(miCount);
 			CP.getAE().getEndMinute().addItem(miCount);
 		}
@@ -344,36 +339,48 @@ public class Logic {
 		L.checkDate("2014", "12", "4", "6", "9");
 	}
 
-	public void activeChecker() {
-		String Email = CP.getUC().getEmailText().getText();
-		String pass1 = CP.getUC().getPass().getText();
-		String pass2 = CP.getUC().getRepeatPass().getText();
-		int checkIfActive;
-		int checkIfAdmin;
-		
-		if (pass1.equals(pass2)) {
+	private class activeChecker implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			
+			// TODO Auto-generated method stub
+			String Email = CP.getUC().getEmailText().getText();
+			String pass1 = CP.getUC().getPass().getText();
+			String pass2 = CP.getUC().getRepeatPass().getText();
+			int checkIfActive;
+			int checkIfAdmin;
 
-			if (CP.getUC().getChckbxActive().equals(true)) {
+			if (pass1.equals(pass2) || !Email.isEmpty() || !pass1.isEmpty()
+					|| !pass2.isEmpty()) {
 
-				checkIfActive = 1;
+				if (CP.getUC().getChckbxActive().equals(true)) {
+
+					checkIfActive = 1;
+				} else {
+					checkIfActive = 2;
+					
+				}
+				if (CP.getUC().getChckbxAdministrator().equals(true)) {
+					checkIfAdmin = 1;
+				} else {
+					checkIfAdmin = 2;
+				}
+				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
+
 			} else {
-				checkIfActive = 2;
-
+				System.out.println("Passwords Do not Match");
 			}
-			if (CP.getUC().getChckbxAdministrator().equals(true)) {
-				checkIfAdmin = 1;
-			} else {
-				checkIfAdmin = 2;
-			}
-			DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
+		}
+	}
 
-		} else {
-			System.out.println("Passwords Do not Match");
+	private class goToUserCreation implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.UserCreation);
 		}
 	}
 
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
+		CP.getUI().goToAddUser(new goToUserCreation());
 		CP.getMM().addActionListenerMainMenu(new LogOut());
 		CP.getUI().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToMainMenu(new btnToMainMenu());
@@ -382,5 +389,6 @@ public class Logic {
 		CP.getAE().backListener(new backToEventList());
 		CP.getUC().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
+		CP.getUC().createUser(new activeChecker());
 	}
 }
