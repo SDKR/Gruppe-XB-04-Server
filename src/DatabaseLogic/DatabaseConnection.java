@@ -439,7 +439,7 @@ public class DatabaseConnection {
 		return isAdmin;
 	}
 
-	public String CreatedUser(String EmailText, String pass, boolean Active, boolean Admin) {
+	public String CreatedUser(String EmailText, String pass, int checkIfActive, int checkIfAdmin) {
 		String stringToBeReturned = "";
 		String stringResultChecker = "";
 		
@@ -459,7 +459,7 @@ public class DatabaseConnection {
 					stringToBeReturned = "Fejl";
 				}
 				else{
-					doUpdate("insert into users(email, active, password, admin) values('"+EmailText+"', '"+Active+"', '"+pass+"', '"+Admin+"');");
+					doUpdate("insert into users(email, active, password, admin) values('"+EmailText+"', '"+checkIfActive+"', '"+pass+"', '"+checkIfAdmin+"');");
 				}
 				
 					
