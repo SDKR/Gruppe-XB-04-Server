@@ -532,6 +532,48 @@ public class DatabaseConnection {
 return stringToBeReturned;
 	}
 
+	public String deletesEvent(String killEvent){
+		String stringResultChecker = "";
+		String stringIsAllreadyOff = "";
+		String stringToBeReturned = "";
+		
+		try{
+			
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt
+					
+					
+			.executeQuery("select * from cbscalendar.events where EventID = '"
+					+ killEvent + "';");
+	while (rs.next()) {
+
+		stringResultChecker = rs.getString("EventID");
+		stringIsAllreadyOff = rs.getString("active");
+		
+	}
+	
+	if (stringResultChecker.equals("")) {
+
+	JOptionPane.showMessageDialog (null, "The Event doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}	
+	else if(stringIsAllreadyOff.equals("2")){
+		JOptionPane.showMessageDialog (null, "The event is already inactive", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	else{
+			
+			doUpdate("update cbscalendar.events set active='2' where active='"+killEvent+"';");
+			JOptionPane.showMessageDialog (null, "The event is now inactive", "Error", JOptionPane.INFORMATION_MESSAGE);
+			
+	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+return stringToBeReturned;
+	}
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;
 	}

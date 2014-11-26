@@ -323,3 +323,4 @@ ALTER TABLE notes
 	REFERENCES users (userid)
 	ON UPDATE RESTRICT
 ;
+alter table events add column Active tinyint default 1;

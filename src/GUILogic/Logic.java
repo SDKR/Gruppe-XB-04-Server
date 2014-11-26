@@ -204,24 +204,26 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
-		private class CreateUser implements ActionListener {
-			public void actionPerformed(ActionEvent e) {
-				CP.show(ContainerPanel.mainMenu);
-				DC.keyImporter();
-				CP.getUC().getEmailText().getText();
-				CP.getUC().getPass().getText();
-				CP.getUC().getRepeatPass().getText();
-			}
-		}
-	
 
-	public long checkDate (String year, String month, String day, String hour, String minute) throws ParseException
-	{
+	private class CreateUser implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.mainMenu);
+			DC.keyImporter();
+			CP.getUC().getEmailText().getText();
+			CP.getUC().getPass().getText();
+			CP.getUC().getRepeatPass().getText();
+		}
+	}
+
+	public long checkDate(String year, String month, String day, String hour,
+			String minute) throws ParseException {
 		long longToBeReturned = 0;
-		String dateToCheck = year+"/"+month+"/"+day+" "+hour+":"+minute+":00";
-		Date dating = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.TRADITIONAL_CHINESE).parse(dateToCheck);
+		String dateToCheck = year + "/" + month + "/" + day + " " + hour + ":"
+				+ minute + ":00";
+		Date dating = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss",
+				Locale.TRADITIONAL_CHINESE).parse(dateToCheck);
 		longToBeReturned = dating.getTime();
-	
+
 		return longToBeReturned;
 	}
 
@@ -234,79 +236,87 @@ public class Logic {
 					.toString();
 			String locationF = CP.getAE().getLocationField().getText();
 
-			String location = locationC +""+locationF;
-			String startYear = CP.getAE().getStartYear().getSelectedItem().toString();
-			String startMonth = CP.getAE().getStartMonth().getSelectedItem().toString();
-			String startDay = CP.getAE().getStartDay().getSelectedItem().toString();
-			String startHour = CP.getAE().getStartHour().getSelectedItem().toString();
-			String startMinute = CP.getAE().getStartMinute().getSelectedItem().toString();
-			String endYear = CP.getAE().getEndYear().getSelectedItem().toString();
-			String endMonth = CP.getAE().getEndMonth().getSelectedItem().toString();
+			String location = locationC + "" + locationF;
+			String startYear = CP.getAE().getStartYear().getSelectedItem()
+					.toString();
+			String startMonth = CP.getAE().getStartMonth().getSelectedItem()
+					.toString();
+			String startDay = CP.getAE().getStartDay().getSelectedItem()
+					.toString();
+			String startHour = CP.getAE().getStartHour().getSelectedItem()
+					.toString();
+			String startMinute = CP.getAE().getStartMinute().getSelectedItem()
+					.toString();
+			String endYear = CP.getAE().getEndYear().getSelectedItem()
+					.toString();
+			String endMonth = CP.getAE().getEndMonth().getSelectedItem()
+					.toString();
 			String endDay = CP.getAE().getEndDay().getSelectedItem().toString();
-			String endHour = CP.getAE().getEndhour().getSelectedItem().toString();
-			String endMinute = CP.getAE().getEndMinute().getSelectedItem().toString();
-			String Calendar = CP.getAE().getCalendarCombo().getSelectedItem().toString();
+			String endHour = CP.getAE().getEndhour().getSelectedItem()
+					.toString();
+			String endMinute = CP.getAE().getEndMinute().getSelectedItem()
+					.toString();
+			String Calendar = CP.getAE().getCalendarCombo().getSelectedItem()
+					.toString();
 			String infoText = CP.getAE().getInfoBox().getText();
-			String endTime = endYear+"-"+endMonth+"-"+endDay+" "+endHour+":"+endMinute+":00";
-			String startTime = startYear+"-"+startMonth+"-"+startDay+" "+startHour+":"+startMinute+":00";
-			
-			if(!eventName.equals("Enter Event Name") || !eventName.equals(""))
-			{
-				if(!type.equals("Choose Type"))
-				{
+			String endTime = endYear + "-" + endMonth + "-" + endDay + " "
+					+ endHour + ":" + endMinute + ":00";
+			String startTime = startYear + "-" + startMonth + "-" + startDay
+					+ " " + startHour + ":" + startMinute + ":00";
+
+			if (!eventName.equals("Enter Event Name") || !eventName.equals("")) {
+				if (!type.equals("Choose Type")) {
 					try {
-					long checkStartTime = checkDate(startYear, startMonth, startDay, startHour, startMinute);
-					long checkEndTime = checkDate(endYear, endMonth, endDay, endHour, endMinute);
-					
-						if( checkStartTime < checkEndTime)
-						{
+						long checkStartTime = checkDate(startYear, startMonth,
+								startDay, startHour, startMinute);
+						long checkEndTime = checkDate(endYear, endMonth,
+								endDay, endHour, endMinute);
+
+						if (checkStartTime < checkEndTime) {
 							Date date = new Date();
-							if(checkStartTime > date.getTime())
-							{
-								if(!Calendar.equals("Choose Calendar"))
-								{
-									if(!infoText.equals("If any, enter further information here..."))
-									{
-										DC.createNewEvent(type, location, startTime, endTime, eventName, infoText, Calendar);
+							if (checkStartTime > date.getTime()) {
+								if (!Calendar.equals("Choose Calendar")) {
+									if (!infoText
+											.equals("If any, enter further information here...")) {
+										DC.createNewEvent(type, location,
+												startTime, endTime, eventName,
+												infoText, Calendar);
+									} else {
+										JOptionPane
+												.showMessageDialog(null,
+														"The info text cannot be the default one.");
 									}
-									else
-									{
-										JOptionPane.showMessageDialog(null, "The info text cannot be the default one.");
-									}
+								} else {
+									JOptionPane
+											.showMessageDialog(null,
+													"You have to select a calendar to which the event belongs");
 								}
-								else
-								{
-									JOptionPane.showMessageDialog(null, "You have to select a calendar to which the event belongs");
-								}
+							} else {
+								JOptionPane
+										.showMessageDialog(null,
+												"You cannot create an event in the past.");
 							}
-							else
-							{
-								JOptionPane.showMessageDialog(null, "You cannot create an event in the past.");
-							}
+						} else {
+							JOptionPane
+									.showMessageDialog(null,
+											"You cannot have an end-time earlier than start time.");
 						}
-						else
-						{
-							JOptionPane.showMessageDialog(null, "You cannot have an end-time earlier than start time.");
-						}
-					
-				}
-					catch (ParseException e1) {
+
+					} catch (ParseException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
-				} 
-				else
-				{
-					JOptionPane.showMessageDialog(null, "You have to choose a type for the event.");
+				} else {
+					JOptionPane.showMessageDialog(null,
+							"You have to choose a type for the event.");
 				}
+			} else {
+				JOptionPane.showMessageDialog(null,
+						"You have to enter an eventname");
 			}
-			else
-			{
-				JOptionPane.showMessageDialog(null, "You have to enter an eventname");
-			}
-			
-			}}
-		
+
+		}
+	}
 
 	public void setComboDates() {
 		for (int yCount = 2014; yCount < 2038; yCount++) {
@@ -330,9 +340,9 @@ public class Logic {
 			CP.getAE().getStartMinute().addItem(miCount);
 			CP.getAE().getEndMinute().addItem(miCount);
 		}
-	}	
-	public static void main (String []args) throws SQLException, ParseException
-	{
+	}
+
+	public static void main(String[] args) throws SQLException, ParseException {
 		DatabaseConnection DC = new DatabaseConnection();
 		Logic L = new Logic();
 		L.checkDate("2014", "9", "5", "6", "9");
@@ -340,10 +350,10 @@ public class Logic {
 		L.checkDate("2014", "12", "4", "6", "9");
 	}
 
-//	Create new user 
+	// Create new user
 	private class activeChecker implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			
+
 			// TODO Auto-generated method stub
 			String Email = CP.getUC().getEmailText().getText();
 			String pass1 = CP.getUC().getPass().getText();
@@ -351,7 +361,8 @@ public class Logic {
 			int checkIfActive;
 			int checkIfAdmin;
 			boolean activeCheck = CP.getUC().getChckbxActive().isSelected();
-			boolean adminCheck = CP.getUC().getChckbxAdministrator().isSelected();
+			boolean adminCheck = CP.getUC().getChckbxAdministrator()
+					.isSelected();
 
 			if (pass1.equals(pass2) && !Email.isEmpty() && !pass1.isEmpty()
 					&& !pass2.isEmpty()) {
@@ -361,7 +372,7 @@ public class Logic {
 					checkIfActive = 1;
 				} else {
 					checkIfActive = 2;
-					
+
 				}
 				if (adminCheck == true) {
 					checkIfAdmin = 1;
@@ -371,28 +382,51 @@ public class Logic {
 				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
 
 			} else {
-				JOptionPane.showMessageDialog (null, "Et felt er tomt eller password indtastningen er forkert", "Information", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane
+						.showMessageDialog(
+								null,
+								"Et felt er tomt eller password indtastningen er forkert",
+								"Information", JOptionPane.INFORMATION_MESSAGE);
 				System.out.println("Passwords Do not Match");
 			}
 		}
 	}
-//	Delete user 
+
+	// Delete user
 	private class deleteUser implements ActionListener {
-		public void actionPerformed(ActionEvent e){
+		public void actionPerformed(ActionEvent e) {
 			JFrame frame = new JFrame("InputDialog");
-			String killUser = JOptionPane.showInputDialog(frame, "Input Email of user to delete");
-			
-			if (killUser == null){
-				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
-			}
-			else{
-			DC.deletesUser(killUser);
-			viewUser();
+			String killUser = JOptionPane.showInputDialog(frame,
+					"Input Email of user to delete");
+
+			if (killUser == null) {
+				JOptionPane.showMessageDialog(null,
+						"No Email address detected", "Information",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				DC.deletesUser(killUser);
+				viewUser();
 			}
 		}
 	}
-	
-	
+
+	private class deleteEvent implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			JFrame frame = new JFrame("InputDialog");
+			String killEvent = JOptionPane.showInputDialog(frame,
+					"Input ID of the event to be deleted");
+
+			if (killEvent == null) {
+				JOptionPane.showMessageDialog(null, "No EventID detected","Information",
+						JOptionPane.INFORMATION_MESSAGE);
+
+			} else {
+				DC.deletesEvent(killEvent);
+				viewEvents();
+			}
+		}
+	}
+
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);
