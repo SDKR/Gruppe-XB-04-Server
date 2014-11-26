@@ -1,6 +1,6 @@
 jdbc:mysql://localhost:3306/
 //comment// SqlUser:
-FZW@
+FZW
 
 //comment// SqlPassword:
 [NP]
