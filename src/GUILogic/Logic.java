@@ -16,8 +16,6 @@ import GUI.*;
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
-	UserList UL = new UserList();
-	UserCreation UC = new UserCreation();
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -182,7 +180,7 @@ public class Logic {
 			CP.show(ContainerPanel.mainMenu);
 		}
 	}
-	
+
 	private class backToEventList implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.eventView);
@@ -191,9 +189,15 @@ public class Logic {
 
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+
+
+			CP.show(ContainerPanel.mainMenu);
+
+	
 			CP.show(ContainerPanel.createEvent);
 			setComboDates();
 		}
+
 	}
 		
 		private class UserCreation implements ActionListener {
@@ -201,19 +205,18 @@ public class Logic {
 				CP.show(ContainerPanel.mainMenu);
 			}
 		
+
 		private class CreateUser implements ActionListener {
 			public void actionPerformed(ActionEvent e) {
 				CP.show(ContainerPanel.mainMenu);
 				DC.keyImporter();
-				
-				
-				 CP.getUC().getEmailText().getText();
+				CP.getUC().getEmailText().getText();
 				 CP.getUC().getPass().getText();
 				 CP.getUC().getRepeatPass().getText();
 			}
 		}
 	}
-	private boolan checkDate (String year, String month, String date, String hour, String minute)
+	private boolean checkDate (String year, String month, String day, String hour, String minute)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
@@ -221,6 +224,7 @@ public class Logic {
 		
 		return booleanToBeReturned;
 	}
+	
 	private class createNewEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String eventName = CP.getAE().getNameField().getText();
@@ -228,8 +232,6 @@ public class Logic {
 			String locationC = CP.getAE().getLocationCombo().getSelectedItem().toString();
 			String locationF = CP.getAE().getLocationField().getText();
 			String location = locationC +""+locationF;
-			
-				
 			}
 			}
 		
@@ -272,6 +274,34 @@ public class Logic {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public void activeChecker() {
+		String Email = CP.getUC().getEmailText().getText();
+		String pass1 = CP.getUC().getPass().getText();
+		String pass2 = CP.getUC().getRepeatPass().getText();
+		int checkIfActive;
+		int checkIfAdmin;
+		
+		if (pass1.equals(pass2)) {
+
+			if (CP.getUC().getChckbxActive().equals(true)) {
+
+				checkIfActive = 1;
+			} else {
+				checkIfActive = 2;
+
+			}
+			if (CP.getUC().getChckbxAdministrator().equals(true)) {
+				checkIfAdmin = 1;
+			} else {
+				checkIfAdmin = 2;
+			}
+			DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
+
+		} else {
+			System.out.println("Passwords Do not Match");
+		}
 	}
 
 	private void initializeListeners() {

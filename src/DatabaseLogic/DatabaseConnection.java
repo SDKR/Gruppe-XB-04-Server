@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import GUI.UserCreation;
+import GUILogic.Logic;
 import model.QueryBuild.QueryBuilder;
 import keyKeeper.*;
 
@@ -14,8 +16,9 @@ public class DatabaseConnection {
 
 	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
 	KeyChest KC = new KeyChest();
-
 	QueryBuilder QB = new QueryBuilder();
+	UserCreation UC = new UserCreation();
+
 
 	// Creates the needed information to connect to the database
 
@@ -436,7 +439,7 @@ public class DatabaseConnection {
 		return isAdmin;
 	}
 
-	public String CreatedUser(String EmailText, String pass, String RepeatPass, int Active, int Admin) {
+	public String CreatedUser(String EmailText, String pass, int checkIfActive, int checkIfAdmin) {
 		String stringToBeReturned = "";
 		String stringResultChecker = "";
 		
@@ -456,7 +459,7 @@ public class DatabaseConnection {
 					stringToBeReturned = "Fejl";
 				}
 				else{
-					doUpdate("insert into users(email, active, password, admin) values('"+EmailText+"', '"+Active+"', '"+pass+"', '"+Admin+"');");
+					doUpdate("insert into users(email, active, password, admin) values('"+EmailText+"', '"+checkIfActive+"', '"+pass+"', '"+checkIfAdmin+"');");
 				}
 				
 					
@@ -470,6 +473,10 @@ public class DatabaseConnection {
 
 		return stringToBeReturned;
 	}
+	
+	
+	
+	
 
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;

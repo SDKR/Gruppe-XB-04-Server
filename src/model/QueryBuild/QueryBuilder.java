@@ -173,5 +173,13 @@ public class QueryBuilder {
 		queryBuilder.setTableName(tableName);
 		queryBuilder.setHardDelete(true);
 		return new Where(queryBuilder);
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> FETCH_HEAD
+=======
+>>>>>>> FETCH_HEAD
 	}
 }
