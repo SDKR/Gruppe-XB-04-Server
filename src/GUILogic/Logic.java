@@ -339,6 +339,7 @@ public class Logic {
 		L.checkDate("2014", "12", "4", "6", "9");
 	}
 
+//	Create new user 
 	private class activeChecker implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			
@@ -348,18 +349,20 @@ public class Logic {
 			String pass2 = CP.getUC().getRepeatPass().getText();
 			int checkIfActive;
 			int checkIfAdmin;
+			boolean activeCheck = CP.getUC().getChckbxActive().isSelected();
+			boolean adminCheck = CP.getUC().getChckbxAdministrator().isSelected();
 
 			if (pass1.equals(pass2) && !Email.isEmpty() && !pass1.isEmpty()
 					&& !pass2.isEmpty()) {
 
-				if (CP.getUC().getChckbxActive().equals(true)) {
+				if (activeCheck == true) {
 
 					checkIfActive = 1;
 				} else {
 					checkIfActive = 2;
 					
 				}
-				if (CP.getUC().getChckbxAdministrator().equals(true)) {
+				if (adminCheck == true) {
 					checkIfAdmin = 1;
 				} else {
 					checkIfAdmin = 2;
