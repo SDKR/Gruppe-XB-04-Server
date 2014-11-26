@@ -219,24 +219,24 @@ public class Logic {
 		String Email = CP.getUC().getEmailText().getText();
 		String pass1 = CP.getUC().getPass().getText();
 		String pass2 = CP.getUC().getRepeatPass().getText();
-		boolean checkActive = CP.getUC().getChckbxActive().equals(false);
-		boolean checkAdmin = CP.getUC().getChckbxAdministrator().equals(false);
-
+		int checkIfActive;
+		int checkIfAdmin;
+		
 		if (pass1.equals(pass2)) {
 
 			if (CP.getUC().getChckbxActive().equals(true)) {
 
-				int checkIfActive = 1;
+				checkIfActive = 1;
 			} else {
-				int checkIfActive = 2;
+				checkIfActive = 2;
 
 			}
 			if (CP.getUC().getChckbxAdministrator().equals(true)) {
-				int checkIfAdmin = 1;
+				checkIfAdmin = 1;
 			} else {
-				int checkIfAdmin = 2;
+				checkIfAdmin = 2;
 			}
-			DC.CreatedUser(Email, pass1, checkActive, checkAdmin);
+			DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
 
 		} else {
 			System.out.println("Passwords Do not Match");
