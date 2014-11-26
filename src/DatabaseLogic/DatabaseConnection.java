@@ -172,20 +172,16 @@ public class DatabaseConnection {
 		return intToBeReturned;
 	}
 	
-	public void createNewEvent(String type, String location, String start, String end, String name, String text, String calendarString)
+	public String createNewEvent(String type, String location, String start, String end, String name, String text)
 	{
 		String stringToBeReturned = "";
-		
-		int calendarID = determineCalendarID(calendarString);
-		int locationID = determineLocationID(location);
-		int typeID = determineTypeID(type);
-		
 		try {
-			doUpdate("insert into cbscalendar.events (type, location, createdby, start, end, name, text, customevent, CalenderID) VALUES ('"+typeID+"', '"+locationID+"', '1', '"+start+"', '"+end+"', '"+name+"', '"+text+"', '2', '"+calendarID+"');");
+			doUpdate("insert into cbscalendar.events ('"+type+"', '"+location+"', 'admin@admin.dk', '"+start+"', '"+end+"', '"+name+"', '"+text+"', '2');");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return stringToBeReturned;
 	}
 
 	// Method to test connection which returns false
