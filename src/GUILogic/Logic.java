@@ -3,8 +3,13 @@ package GUILogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
@@ -187,6 +192,7 @@ public class Logic {
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.createEvent);
+			setComboDates();
 		}
 	}
 		
@@ -200,14 +206,72 @@ public class Logic {
 				CP.show(ContainerPanel.mainMenu);
 				DC.keyImporter();
 				
+				
 				 CP.getUC().getEmailText().getText();
 				 CP.getUC().getPass().getText();
 				 CP.getUC().getRepeatPass().getText();
+			}
+		}
+	}
+	private boolan checkDate (String year, String month, String date, String hour, String minute)
+	{
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date date = new Date();
+		boolean booleanToBeReturned = false;
+		
+		return booleanToBeReturned;
+	}
+	private class createNewEvent implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			String eventName = CP.getAE().getNameField().getText();
+			String type = CP.getAE().getTypeCombo().getSelectedItem().toString();
+			String locationC = CP.getAE().getLocationCombo().getSelectedItem().toString();
+			String locationF = CP.getAE().getLocationField().getText();
+			String location = locationC +""+locationF;
+			
 				
 			}
-
+			}
+		
+	private void setComboDates()
+	{
+		for(int yCount = 2014; yCount < 2038 ; yCount++)
+		{
+			CP.getAE().getStartYear().addItem(yCount);
+			CP.getAE().getEndYear().addItem(yCount);
 		}
-
+		for (int moCount = 0 ; moCount < 13 ; moCount++)
+		{
+			CP.getAE().getStartMonth().addItem(moCount);
+			CP.getAE().getEndMonth().addItem(moCount);
+		}
+		for (int dCount = 1 ; dCount < 32 ; dCount++)
+		{
+			CP.getAE().getStartDay().addItem(dCount);
+			CP.getAE().getEndDay().addItem(dCount);
+		}
+		for (int hCount = 1 ; hCount < 25 ; hCount++)
+		{
+			CP.getAE().getStartHour().addItem(hCount);
+			CP.getAE().getEndhour().addItem(hCount);
+		}
+		for (int miCount = 1 ; miCount < 60 ; miCount++)
+		{
+			CP.getAE().getStartMinute().addItem(miCount);
+			CP.getAE().getEndMinute().addItem(miCount);
+		}
+	}
+	
+	public static void main (String []args)
+	{
+		try {
+			Logic L = new Logic();
+			L.setComboDates();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 	private void initializeListeners() {

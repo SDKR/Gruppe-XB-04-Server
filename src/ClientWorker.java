@@ -43,6 +43,4 @@ public class ClientWorker implements  Runnable{
 			System.err.print(exception);
 		}
 	}
-
-
 }

@@ -21,7 +21,6 @@
 /GUILogic
 /JsonClasses
 /SwitchLogic
-/TCPServer.class
 /bcprov-jdk15on-1.51.jar
 /commons-codec-1.7.jar
 /commons-collections-3.2.1.jar
@@ -45,3 +44,4 @@
 /model
 /AdminWorker.class
 /ClientWorker.class
+/TCPServer.class
