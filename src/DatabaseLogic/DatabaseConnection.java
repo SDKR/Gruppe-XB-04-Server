@@ -623,7 +623,7 @@ return stringToBeReturned;
 			while (rs.next()) {
 
 				stringResultChecker = rs.getString("EventID");
-				stringIsAllreadyOff = rs.getString("active");
+				stringIsAllreadyOff = rs.getString("Active");
 
 			}
 
@@ -640,7 +640,7 @@ return stringToBeReturned;
 
 			else {
 
-				doUpdate("update cbscalendar.events set active='2' where active='"
+				doUpdate("update cbscalendar.events set Active='2' where eventid='"
 						+ killEvent + "';");
 				JOptionPane.showMessageDialog(null,
 						"The event is now inactive", "Error",
