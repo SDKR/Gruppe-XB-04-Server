@@ -1,0 +1,16 @@
+//comment// SqlUrl:
+jdbc:mysql://localhost:3306/
+
+//comment// SqlUser:
+root
+
+//comment// SqlPassword:
+[NP]
+
+//comment// Encryption xor code:
+3.1470
+
+//comment// ServerSocket:
+8888
+
+//comment// 
