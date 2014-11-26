@@ -65,7 +65,7 @@ public class DatabaseConnection {
 		// Her skal vï¿½re 2 switches til at bestemme Hvilken calendar event
 		// tilhï¿½rer, og hvilken lokation.
 		int locationID = determineLocationID(location);
-		int calendarID = determineCalendarID(type);
+		int calendarID = determineCalendarID(name);
 		int typeID = determineTypeID(type);
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 			try {
@@ -143,19 +143,19 @@ public class DatabaseConnection {
 		case "Ledelse af IS - forandring, innovation og viden (LA)":
 			intToBeReturned = 14;
 			break;
-		case "Virksomhedens ï¿½konomiske styring (3)":
+		case "Virksomhedens økonomiske styring (3)":
 			intToBeReturned = 15;
 			break;
-		case "Makroï¿½konomi (XB)":
+		case "Makroøkonomi (XB)":
 			intToBeReturned = 9;
 			break;
-		case "Makroï¿½konomi (XA)":
+		case "Makroøkonomi (XA)":
 			intToBeReturned = 8;
 			break;
 		case "Ledelse af IS - forandring, innovation og viden (XA)":
 			intToBeReturned = 13;
 			break;
-		case "Makroï¿½konomi (LA)":
+		case "Makroøkonomi (LA)":
 			intToBeReturned = 10;
 			break;
 		default:

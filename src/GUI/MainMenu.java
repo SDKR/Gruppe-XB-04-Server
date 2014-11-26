@@ -18,7 +18,7 @@ public class MainMenu extends JPanel {
 	private JLabel lblMainMenu;
 	private JButton btnLogOut = new JButton("Log Out");
 	private JButton btnUserlist = new JButton("View Users");
-	private JButton btnEventlist = new JButton("View Events/Calendars");
+	private JButton btnEventlist = new JButton("View Events");
 	private JButton btnNotelist = new JButton("View Notes");
 	private JButton btnCalendarList = new JButton("CalendarList");
 	private JButton btnQuoteAndWeather = new JButton ("Quote and Weather");
@@ -53,7 +53,7 @@ public class MainMenu extends JPanel {
 		btnUserlist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnUserlist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnUserlist.setBackground(Color.WHITE);
-		btnUserlist.setBounds(494, 192, 378, 75);
+		btnUserlist.setBounds(298, 185, 378, 75);
 		btnUserlist.setActionCommand("UserList");
 		add(btnUserlist);
 		
@@ -62,7 +62,7 @@ public class MainMenu extends JPanel {
 		btnEventlist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnEventlist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnEventlist.setBackground(Color.WHITE);
-		btnEventlist.setBounds(494, 279, 378, 75);
+		btnEventlist.setBounds(298, 293, 378, 75);
 		btnEventlist.setActionCommand("EventList");
 		add(btnEventlist);
 		
@@ -71,7 +71,7 @@ public class MainMenu extends JPanel {
 		btnNotelist.setFont(new Font("Arial", Font.BOLD, 30));
 		btnNotelist.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnNotelist.setBackground(Color.WHITE);
-		btnNotelist.setBounds(494, 366, 378, 75);
+		btnNotelist.setBounds(688, 185, 378, 75);
 		btnNotelist.setActionCommand("NoteList");
 		add(btnNotelist);
 		
@@ -90,7 +90,7 @@ public class MainMenu extends JPanel {
 		btnQuoteAndWeather.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		btnQuoteAndWeather.setBackground(Color.WHITE);
 		btnQuoteAndWeather.setActionCommand("QAWList");
-		btnQuoteAndWeather.setBounds(494, 460, 378, 75);
+		btnQuoteAndWeather.setBounds(494, 395, 378, 75);
 		add(btnQuoteAndWeather);
 		
 		/*
@@ -100,6 +100,16 @@ public class MainMenu extends JPanel {
 		lblBackground.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/MetalBackground.jpg")));
 		lblBackground.setBounds(0, 0, 1366, 768);
 		lblBackground.isForegroundSet();
+		
+		JButton calendarBtn = new JButton("View Calendars");
+		calendarBtn.setForeground(Color.WHITE);
+		calendarBtn.setFont(new Font("Arial", Font.BOLD, 30));
+		calendarBtn.setContentAreaFilled(false);
+		calendarBtn.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
+		calendarBtn.setBackground(Color.WHITE);
+		calendarBtn.setActionCommand("QAWList");
+		calendarBtn.setBounds(688, 293, 378, 75);
+		add(calendarBtn);
 		
 	
 		add(lblBackground);

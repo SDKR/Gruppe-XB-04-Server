@@ -221,30 +221,25 @@ public class AddEvent extends JPanel {
 		calendarCombo.addItem("Choose Calendar");
 		add(calendarCombo);
 		
+		locationCombo.setBounds(560, 225, 128, 22);
+		add(locationCombo);
+		
+		
+		
 		/*
 		 * Images
 		 */
-		locationField.setText("Room number");
-		
-		
-		locationField.setBounds(698, 225, 128, 22);
-		add(locationField);
-		locationField.setColumns(10);
-		locationCombo.setModel(new DefaultComboBoxModel(new String[] {"Choose Building", "Ks", "SP", "DS", "D1", "D2", "HO", "FH", "Other"}));
-		
-		locationCombo.setBounds(560, 225, 128, 22);
-		add(locationCombo);
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(UserList.class
-				.getResource("/Images/CBSLogo3.png")));
-		lblNewLabel.setBounds(12, 697, 250, 59);
-		add(lblNewLabel);
-
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(EventList.class
 				.getResource("/Images/MetalBackground.jpg")));
 		label.setBounds(12, -25, 1366, 768);
 		add(label);
+		
+		JLabel lblNewLabel = new JLabel("");
+		lblNewLabel.setIcon(new ImageIcon(UserList.class
+				.getResource("/Images/CBSLogo3.png")));
+		lblNewLabel.setBounds(12, 697, 250, 59);
+		add(lblNewLabel);
 	}
 	/*
 	 * Actionlisteners
