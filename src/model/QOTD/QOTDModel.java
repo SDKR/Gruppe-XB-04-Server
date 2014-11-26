@@ -13,6 +13,12 @@ import org.json.simple.parser.JSONParser;
 
 public class QOTDModel {
 
+	
+	public static void main (String [] args ){
+		QOTDModel q = new QOTDModel();
+		q.saveQuote();
+	}
+	
 	private ArrayList<QOTD> qotdlist = new ArrayList<>();
 	
 	QOTD qotdlist2 = new QOTD(null, null, null);

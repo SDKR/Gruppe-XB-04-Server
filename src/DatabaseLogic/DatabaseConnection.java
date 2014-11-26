@@ -25,8 +25,8 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
+	private String sqlUrl = "jdbc:mysql://localhost:3306";
+	private String sqlUser = "root";
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -36,11 +36,11 @@ public class DatabaseConnection {
 
 	// Imports login info keys
 	public void keyImporter() {
-		KC.keyImporter();
-
-		setSqlUrl(KC.getSqlUrl());
-		setSqlUser(KC.getSqlUser());
-		setSqlPasswd(KC.getSqlPasswd());
+//		KC.keyImporter();
+//
+//		setSqlUrl(KC.getSqlUrl());
+//		setSqlUser(KC.getSqlUser());
+//		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
