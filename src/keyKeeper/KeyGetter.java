@@ -22,7 +22,6 @@ public class KeyGetter {
 
 		String filePath = "KeyKeeperAsger.txt";
 
-		
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath),
                     Charset.defaultCharset());
