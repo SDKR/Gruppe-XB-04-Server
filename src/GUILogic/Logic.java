@@ -443,7 +443,7 @@ public class Logic {
 			
 		}
 	}
-	//Activate Event 
+	//Activate Event '
 	private class activateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JFrame frame = new JFrame("InputDialog");
@@ -481,6 +481,7 @@ public class Logic {
 		CP.getAE().createEventListener(new createNewEvent());
 		CP.getUI().activateUser(new activateUse());
 		CP.geteList().deleteEvent(new deleteEvent());
+		CP.geteList().setActive(new activateEvent());
 
 	}
 }
