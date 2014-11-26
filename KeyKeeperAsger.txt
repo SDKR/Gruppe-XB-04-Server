@@ -1,9 +1,9 @@
 jdbc:mysql://localhost:3306/
 //comment// SqlUser:
-uF_QG
+uF_F
 
 //comment// SqlPassword:
-QYF^]XQYF
+QY_PTUG
 
 //comment// Encryption xor code:
 	_
