@@ -20,7 +20,7 @@ public class KeyGetter {
 		//Insert the filepath here // skal rettes til !
 		// "C:\\Users\\Emil Laptop\\Documents\\GitHub\\GitHub 2\\Gruppe-XB-04-Server\\KeyKeeper.txt"
 
-		String filePath = "KeyKeeperEmil.txt";
+		String filePath = "KeyKeeperChris.txt";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath),
@@ -43,7 +43,7 @@ public class KeyGetter {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //printer mængden af linjer i txt filen og i arrayet, kan udkommenteres senere
+        //printer mï¿½ngden af linjer i txt filen og i arrayet, kan udkommenteres senere
 //        int size = completeFile.size();
 //        System.out.println("\n"+"Antal linjer sendt til array: "+size );
 //        System.out.println("Antal linjer i txt filen: "+linecounter);
