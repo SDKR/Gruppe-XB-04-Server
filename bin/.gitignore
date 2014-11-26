@@ -3,6 +3,8 @@
 /ERMaster.erm
 /Images
 /Img
+/joda-time-2.2.jar
+/jul-to-slf4j-1.7.5.jar
 /log4j-over-slf4j-1.7.5.jar
 /mysql-connector-java-5.1.33-bin.jar
 /not-yet-commons-ssl-0.3.9.jar
@@ -41,7 +43,5 @@
 /gson-2.3.jar
 /ibatis-2.3.0.677.jar
 /jcl-over-slf4j-1.7.5.jar
-/joda-time-2.2.jar
-/jul-to-slf4j-1.7.5.jar
 /keyKeeper
 /model

@@ -422,7 +422,6 @@ public class Logic {
 
 			} else {
 				DC.deletesEvent(killEvent);
-				viewEvents();
 			}
 		}
 	}
@@ -466,6 +465,7 @@ public class Logic {
 		CP.getUI().deluser(new deleteUser());
 		CP.getAE().createEventListener(new createNewEvent());
 		CP.getUI().activateUser(new activateUse());
+		CP.geteList().deleteEvent(new deleteEvent());
 
 	}
 }
