@@ -462,27 +462,25 @@ public class DatabaseConnection {
 			System.out.println("Vi er her");
 			getConnection();
 			stmt = conn.createStatement();
-			System.out.println("Vi har kørt getconnection");
 			rs = stmt
 					.executeQuery("select * from cbscalendar.users where email = '"
 							+ EmailText + "';");
-			System.out.println("kører query");
 			while (rs.next()) {
 
 				stringResultChecker = rs.getString("Email");
-				System.out.println("StringRes");
 				
 			}
 			if (!stringResultChecker.equals("")) {
 				stringToBeReturned = "Fejl";
+			JOptionPane.showMessageDialog (null, "The Email already exists", "Error", JOptionPane.ERROR_MESSAGE);
 			} else {
-				System.out.println("Vi kører doupdate");
 				doUpdate("insert into cbscalendar.users(email, active, password, admin) values('"
 						+ EmailText
 						+ "', '"
 						+ checkIfActive
 						+ "', '"
 						+ pass + "', '" + checkIfAdmin + "');");
+			JOptionPane.showMessageDialog (null, "The user has been created", "Success", JOptionPane.INFORMATION_MESSAGE);
 			}
 
 		} catch (SQLException e) {
