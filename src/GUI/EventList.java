@@ -36,6 +36,7 @@ public class EventList extends JPanel {
 	private JComboBox calendarComboBox;
 	private JLabel lblChooseCalendar;
 	private JButton btnDelete = new JButton("Delete");
+	private JButton btnSetActive;
 
 	public EventList() {
 		setSize(new Dimension(1336, 768));
@@ -538,6 +539,13 @@ public class EventList extends JPanel {
 						new Color(0, 0, 0))));
 		btnMainMenu.setBounds(601, 612, 163, 43);
 		add(btnMainMenu);
+		
+		btnSetActive = new JButton("Set Active");
+		btnSetActive.setOpaque(true);
+		btnSetActive.setForeground(new Color(0, 0, 205));
+		btnSetActive.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
+		btnSetActive.setBounds(990, 277, 118, 29);
+		add(btnSetActive);
 
 		
 		btnDelete.setOpaque(true);
@@ -568,6 +576,14 @@ public class EventList extends JPanel {
 	}
 	
 
+
+	public JButton getBtnSetActive() {
+		return btnSetActive;
+	}
+
+	public void setActive(ActionListener l) {
+		btnSetActive.addActionListener(l);
+	}
 
 	public void deleteEvent(ActionListener l) {
 		btnDelete.addActionListener(l);
