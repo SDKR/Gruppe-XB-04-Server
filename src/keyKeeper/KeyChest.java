@@ -60,9 +60,9 @@ public class KeyChest {
 //		String stringToCryp = GK.getCompleteFile().get(2);
 //		System.out.println(stringToCryp);
 //
-//		String emilCryp = cryp.xor_decrypt("root", "458k");
+//		String emilCryp = cryp.xor_decrypt("w]JG", "458k");
 //		System.out.println(emilCryp);
-//		// System.out.println(cryp.xor_decrypt(emilCryp, "458"));
+		// System.out.println(cryp.xor_decrypt(emilCryp, "458"));
 //		String em = cryp.xor_decrypt(emilCryp, "458");
 //		System.out.println(em);
 //

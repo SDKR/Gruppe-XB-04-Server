@@ -504,9 +504,9 @@ public class EventList extends JPanel {
 						{ null, null, null, null, null, null, null, null, null,
 								null },
 						{ null, null, null, null, null, null, null, null, null,
-								null }, }, new String[] { "New column",
-						"New column", "New column", "New column", "New column",
-						"New column", "Event", "Date", "Note", "" }));
+								null }, }, new String[] { "EventId",
+						"Type", "Location", "Created By", "Start",
+						"End", "Name", "Text", "Custom Event", "Calendar ID" }));
 		table.setSurrendersFocusOnKeystroke(true);
 		table.setPreferredScrollableViewportSize(new Dimension(500, 100));
 		table.setFillsViewportHeight(true);
