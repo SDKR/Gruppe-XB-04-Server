@@ -174,6 +174,9 @@ public class Logic {
 			case "QAWList":
 				CP.show(ContainerPanel.quoteAndWeather);
 				break;
+			case "CalendarList":
+				CP.show(ContainerPanel.calendarList);
+				break;
 			}
 		}
 	}
@@ -440,7 +443,47 @@ public class Logic {
 				DC.activateUse(reActivate);
 				viewUser();
 			}
-			
+		}
+	}
+	private class createCalendar implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			int pp = 0;
+			int act = 0;
+			String eventName = CP.getCL().getNameField().getText();
+			String publicPrivate = CP.getCL().getPPCombo().getSelectedItem().toString();
+			String active = CP.getCL().getActiveCombo().getSelectedItem().toString();
+			if(publicPrivate.equals("Public"))
+			{
+				pp = 1;
+			}
+			else
+			{
+				pp=2;
+			}
+			if(active.equals("Active"))
+			{
+				act=1;
+			}
+			else
+			{
+				act=2;
+			}
+			if(DC.checkCalendarName(eventName) == true)
+			{
+				if(DC.createNewCalender(eventName, pp, act)== true)
+				{
+					JOptionPane.showMessageDialog (null, "The Calendar has been created!", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}
+				else
+				{
+					JOptionPane.showMessageDialog (null, "The calendar could not be created.", "Information", JOptionPane.INFORMATION_MESSAGE);
+				}
+				}
+				
+			else
+			{
+				JOptionPane.showMessageDialog (null, "A calendar with the selected name does already exists", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
 		}
 	}
 	
@@ -466,6 +509,6 @@ public class Logic {
 		CP.getAE().createEventListener(new createNewEvent());
 		CP.getUI().activateUser(new activateUse());
 		CP.geteList().deleteEvent(new deleteEvent());
-
-	}
+		CP.getCL().addCalendarListener(new createCalendar());
+		}
 }

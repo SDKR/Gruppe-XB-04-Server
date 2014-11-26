@@ -22,6 +22,7 @@ public class MainMenu extends JPanel {
 	private JButton btnNotelist = new JButton("View Notes");
 	private JButton btnCalendarList = new JButton("CalendarList");
 	private JButton btnQuoteAndWeather = new JButton ("Quote and Weather");
+	private JButton calendarBtn = new JButton("View Calendars");
 	
 			
 	private JLabel lblCBSlogo;
@@ -101,13 +102,13 @@ public class MainMenu extends JPanel {
 		lblBackground.setBounds(0, 0, 1366, 768);
 		lblBackground.isForegroundSet();
 		
-		JButton calendarBtn = new JButton("View Calendars");
+		
 		calendarBtn.setForeground(Color.WHITE);
 		calendarBtn.setFont(new Font("Arial", Font.BOLD, 30));
 		calendarBtn.setContentAreaFilled(false);
 		calendarBtn.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
 		calendarBtn.setBackground(Color.WHITE);
-		calendarBtn.setActionCommand("QAWList");
+		calendarBtn.setActionCommand("CalendarList");
 		calendarBtn.setBounds(688, 293, 378, 75);
 		add(calendarBtn);
 		
@@ -122,6 +123,7 @@ public class MainMenu extends JPanel {
 		btnUserlist.addActionListener(l);
 		btnCalendarList.addActionListener(l);
 		btnQuoteAndWeather.addActionListener(l);
+		calendarBtn.addActionListener(l);
 	}
 	//Getters
 	public JButton getBtnUserlist() {

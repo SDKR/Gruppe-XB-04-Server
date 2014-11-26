@@ -39,6 +39,7 @@ public class AddEvent extends JPanel {
 	private JComboBox<Object> calendarCombo = new JComboBox<Object>();
 	private JComboBox<Object> locationCombo = new JComboBox<Object>();
 	private JTextField locationField = new JTextField();
+	private final JButton btnSetInactive = new JButton("Set Inactive");
 
 	/**
 	 * Create the panel.
@@ -220,6 +221,28 @@ public class AddEvent extends JPanel {
 		calendarCombo.setBounds(560, 330, 266, 22);
 		calendarCombo.addItem("Choose Calendar");
 		add(calendarCombo);
+		btnSetInactive.setForeground(Color.WHITE);
+		btnSetInactive.setFont(new Font("Arial", Font.BOLD, 30));
+		btnSetInactive.setContentAreaFilled(false);
+		btnSetInactive.setBorder(new CompoundBorder(new BevelBorder(
+		
+		
+										BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0,
+		
+		
+												0), new Color(255, 255, 255), new Color(0, 0, 0)),
+		
+		
+										new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255),
+		
+		
+												new Color(0, 0, 0), new Color(255, 255, 255),
+		
+		
+												new Color(0, 0, 0))));
+		btnSetInactive.setBounds(231, 576, 179, 43);
+		
+		add(btnSetInactive);
 		
 		locationCombo.setBounds(560, 225, 128, 22);
 		add(locationCombo);

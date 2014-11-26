@@ -624,7 +624,6 @@ return stringToBeReturned;
 
 				stringResultChecker = rs.getString("EventID");
 				stringIsAllreadyOff = rs.getString("Active");
-
 			}
 
 			if (stringResultChecker.equals("")) {
@@ -654,6 +653,32 @@ return stringToBeReturned;
 		return stringToBeReturned;
 	}
 
+	public boolean checkCalendarName(String eventName) {
+		boolean booleanToBeReturned = false;
+		String resultSetHolder ="";
+		try{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select * from cbscalendar.calendars where Name = '"
+						+ eventName + "';");
+				while (rs.next()) {
+					resultSetHolder = rs.getString("Name");
+				}
+		if(resultSetHolder.equals(""))
+		{
+			booleanToBeReturned = true;
+		}
+		else
+		{
+			//Do nothing if name already exists
+		}
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return booleanToBeReturned;
+	}
+	
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;
 	}
@@ -664,5 +689,17 @@ return stringToBeReturned;
 
 	public void setSqlPasswd(String sqlPasswd) {
 		this.sqlPasswd = sqlPasswd;
+	}
+
+	public boolean createNewCalender(String eventName, int publicPrivate,
+			int active) {
+		boolean booleanToBeReturned = false;
+		try {
+			doUpdate("insert into cbscalendar.calendars (Name, Active, CreatedBy, PrivatePublic) Values ('"+eventName+"', '"+active+"', '1', '"+publicPrivate+"');");
+			booleanToBeReturned = true;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return booleanToBeReturned;
 	}
 }

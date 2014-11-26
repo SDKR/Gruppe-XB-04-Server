@@ -3,10 +3,15 @@ package GUI;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.JScrollPane;
+
 import java.awt.Component;
+import java.awt.event.ActionListener;
+
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.MatteBorder;
@@ -361,6 +366,13 @@ public class CalendarList extends JPanel {
 				.getResource("/Images/MetalBackground.jpg")));
 		label.setBounds(0, 0, 1366, 768);
 		add(label);
+	}
+	/*
+	 * Actionlisteners
+	 */
+	public void addCalendarListener (ActionListener l)
+	{
+		btnAddCalendar.addActionListener(l);
 	}
 	/*
 	 * Getters and setters

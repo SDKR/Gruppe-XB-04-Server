@@ -15,6 +15,7 @@ public class ContainerPanel extends JFrame {
 	public static final String quoteAndWeather = "QuoteAndWeather";
 	public static final String createEvent = "createEvent";
 	public static final String UserCreation = "UserCreation";
+	public static final String calendarList = "calendarList";
 	
 	private static JPanel contentPane;
 	CardLayout c;
@@ -27,6 +28,7 @@ public class ContainerPanel extends JFrame {
 	private QuoteAndWeather QAW;
 	private AddEvent AE;
 	private UserCreation UC;
+	private CalendarList CL;
 	
 	public ContainerPanel() throws SQLException
 	{
@@ -64,6 +66,9 @@ public class ContainerPanel extends JFrame {
 		
 		UC = new UserCreation();
 		contentPane.add(UC, UserCreation);
+		
+		CL = new CalendarList();
+		contentPane.add(CL, calendarList);
 	}
 
 	public EventList geteList() {
@@ -76,6 +81,10 @@ public class ContainerPanel extends JFrame {
 
 	public NoteList getNL() {
 		return NL;
+	}
+	
+	public CalendarList getCL() {
+		return CL;
 	}
 
 	public UserList getUI() {
