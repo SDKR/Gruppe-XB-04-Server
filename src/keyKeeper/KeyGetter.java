@@ -20,7 +20,7 @@ public class KeyGetter {
 		//Insert the filepath here // skal rettes til !
 		// "C:\\Users\\Emil Laptop\\Documents\\GitHub\\GitHub 2\\Gruppe-XB-04-Server\\KeyKeeper.txt"
 
-		String filePath = "KeyKeeperChris.txt";
+		String filePath = "KeyKeeperAsger.txt";
 
         try {
             List<String> lines = Files.readAllLines(Paths.get(filePath),

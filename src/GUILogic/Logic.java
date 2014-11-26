@@ -394,5 +394,6 @@ public class Logic {
 		CP.getUC().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
 		CP.getUC().createUser(new activeChecker());
+		CP.getAE().createEventListener(new createNewEvent());
 	}
 }
