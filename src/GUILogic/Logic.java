@@ -258,7 +258,7 @@ public class Logic {
 					long checkStartTime = checkDate(startYear, startMonth, startDay, startHour, startMinute);
 					long checkEndTime = checkDate(endYear, endMonth, endDay, endHour, endMinute);
 					
-						if( checkStartTime > checkEndTime)
+						if( checkStartTime < checkEndTime)
 						{
 							Date date = new Date();
 							if(checkStartTime > date.getTime())
@@ -267,7 +267,7 @@ public class Logic {
 								{
 									if(!infoText.equals("If any, enter further information here..."))
 									{
-										
+										DC.createNewEvent(type, location, startTime, endTime, eventName, infoText, Calendar);
 									}
 									else
 									{
@@ -412,5 +412,7 @@ public class Logic {
 		CP.geteList().goToAddEvent(new goToCreateEvent());
 		CP.getUC().createUser(new activeChecker());
 		CP.getUI().deluser(new deleteUser());
+		CP.getAE().createEventListener(new createNewEvent());
+
 	}
 }
