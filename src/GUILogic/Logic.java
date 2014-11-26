@@ -392,6 +392,23 @@ public class Logic {
 		}
 	}
 	
+//	activate user
+	private class activateUse implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			JFrame frame = new JFrame("InputDialog");
+			String reActivate = JOptionPane.showInputDialog(frame, "Input Email of user activate");
+			
+			if (reActivate == null){
+				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else{
+				DC.activateUse(reActivate);
+				viewUser();
+			}
+			
+		}
+	}
+	
 	
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
@@ -413,6 +430,7 @@ public class Logic {
 		CP.getUC().createUser(new activeChecker());
 		CP.getUI().deluser(new deleteUser());
 		CP.getAE().createEventListener(new createNewEvent());
+		CP.getUI().activateUser(new activateUse());
 
 	}
 }

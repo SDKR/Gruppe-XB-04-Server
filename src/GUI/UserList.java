@@ -24,6 +24,7 @@ public class UserList extends JPanel {
 	private JButton btnAdd = new JButton("Add");
 	private JButton btnDelete = new JButton("Delete");
 	private JButton btnMainMenu = new JButton("Main Menu");
+	private JButton btnActivate = new JButton("Activate");
 	private JTable table = new JTable();
 	private String[] headerNames = new String[]{
 			"UserID", "Email", "Active", "Created datetime", "Password", "IsAdmin"
@@ -60,10 +61,17 @@ public class UserList extends JPanel {
         btnDelete.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
         btnDelete.setBounds(1069, 502, 118, 29);
         add(btnDelete);
+        
+        btnActivate.setOpaque(true);
+        btnActivate.setForeground(new Color(0, 0, 205));
+        btnActivate.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
+        btnActivate.setBounds(1069, 462, 118, 29);
+        add(btnActivate);
 
         /*
          * JTable and Scrollpanel
          */
+        
         
         //Create the scroll pane and add the table to it.
         JScrollPane scrollPane = new JScrollPane();
@@ -171,6 +179,12 @@ public class UserList extends JPanel {
     	btnDelete.addActionListener(l);
     }
     
+    public void activateUser (ActionListener l)
+    {
+    	btnActivate.addActionListener(l);
+    }
+    
+    
 	public JTable getTable() {
 		return table;
 	}
@@ -191,4 +205,7 @@ public class UserList extends JPanel {
 		return btnMainMenu;
 	}
 	
+	public JButton getBtnActivate() {
+		return btnActivate;
+	}
 }

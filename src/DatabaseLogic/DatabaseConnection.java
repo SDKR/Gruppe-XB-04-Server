@@ -531,6 +531,53 @@ public class DatabaseConnection {
 		
 return stringToBeReturned;
 	}
+	
+//	Activate user
+	public String activateUse(String reActivate){
+		String stringResultChecker = "";
+		String stringIsAllreadyOn = "";
+		String stringToBeReturned = "";
+		
+		try{
+			
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt
+					
+					
+			.executeQuery("select * from cbscalendar.users where email = '"
+					+ reActivate + "';");
+	while (rs.next()) {
+
+		stringResultChecker = rs.getString("Email");
+		stringIsAllreadyOn = rs.getString("active");
+		
+	}
+	
+	if (stringResultChecker.equals("")) {
+
+	JOptionPane.showMessageDialog (null, "The Email doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+				
+			}	
+	else if(stringIsAllreadyOn.equals("1")){
+		JOptionPane.showMessageDialog (null, "The user is already active", "Error", JOptionPane.ERROR_MESSAGE);
+	}
+	
+	else{
+			
+			doUpdate("update cbscalendar.users set active='1' where email='"+reActivate+"';");
+			JOptionPane.showMessageDialog (null, "The user is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
+			
+	}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+return stringToBeReturned;
+		
+	}
+	
+	
 
 	public void setSqlUrl(String sqlUrl) {
 		this.sqlUrl = sqlUrl;
