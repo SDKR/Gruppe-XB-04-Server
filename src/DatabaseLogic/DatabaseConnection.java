@@ -544,7 +544,6 @@ return stringToBeReturned;
 			stmt = conn.createStatement();
 			rs = stmt
 					
-					
 			.executeQuery("select * from cbscalendar.users where email = '"
 					+ reActivate + "';");
 	while (rs.next()) {

@@ -122,6 +122,7 @@ public class Execute extends Model {
                 sqlStatement = getConn().prepareStatement(sql);
                 sqlStatement.setString(1, getWhere().getWhereValue());
 
+
             } catch (SQLException e) {
                 e.printStackTrace();
             }
