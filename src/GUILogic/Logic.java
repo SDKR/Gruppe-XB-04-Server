@@ -349,8 +349,8 @@ public class Logic {
 			int checkIfActive;
 			int checkIfAdmin;
 
-			if (pass1.equals(pass2) || !Email.isEmpty() || !pass1.isEmpty()
-					|| !pass2.isEmpty()) {
+			if (pass1.equals(pass2) && !Email.isEmpty() && !pass1.isEmpty()
+					&& !pass2.isEmpty()) {
 
 				if (CP.getUC().getChckbxActive().equals(true)) {
 
@@ -367,6 +367,7 @@ public class Logic {
 				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
 
 			} else {
+				JOptionPane.showMessageDialog (null, "Et felt er tomt eller password indtastningen er forkert", "Information", JOptionPane.INFORMATION_MESSAGE);
 				System.out.println("Passwords Do not Match");
 			}
 		}
