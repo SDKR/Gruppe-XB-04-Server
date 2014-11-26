@@ -303,9 +303,16 @@ public class Logic {
 			System.out.println("Passwords Do not Match");
 		}
 	}
-
+	
+	private class goToUserCreation implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.UserCreation);
+		}
+	}
+	
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
+		CP.getUI().goToAddUser(new goToUserCreation());
 		CP.getMM().addActionListenerMainMenu(new LogOut());
 		CP.getUI().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToMainMenu(new btnToMainMenu());

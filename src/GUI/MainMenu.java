@@ -22,6 +22,7 @@ public class MainMenu extends JPanel {
 	private JButton btnNotelist = new JButton("View Notes");
 	private JButton btnCalendarList = new JButton("CalendarList");
 	private JButton btnQuoteAndWeather = new JButton ("Quote and Weather");
+	
 			
 	private JLabel lblCBSlogo;
 	

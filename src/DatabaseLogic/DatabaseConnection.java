@@ -19,9 +19,6 @@ public class DatabaseConnection {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 
-
-	// Creates the needed information to connect to the database
-
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
 	// private String sqlUrl = "jdbc:mysql://localhost:3306/";

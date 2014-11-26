@@ -123,6 +123,7 @@ public class UserCreation extends JPanel {
 	   public void goToMainMenu(ActionListener l) {
 			btnMainMenu.addActionListener(l);
 		}
+	   
 
 		public JButton getBtnMainMenu() {
 			return btnMainMenu;

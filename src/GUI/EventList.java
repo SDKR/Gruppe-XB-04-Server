@@ -566,6 +566,8 @@ public class EventList extends JPanel {
 		add(label);
 
 	}
+	
+
 
 	public void deleteEvent(ActionListener l) {
 		btnDelete.addActionListener(l);
