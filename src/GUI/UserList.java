@@ -122,7 +122,7 @@ public class UserList extends JPanel {
         	headerNames
         		) {
         			boolean[] columnEditables = new boolean[] {
-        				false, false, false, false, false
+        				false, false, false, false, false, false
         			};
         			public boolean isCellEditable(int row, int column) {
         				return columnEditables[column];
