@@ -544,7 +544,7 @@ public class Logic {
 	}
 	
 	public void displayWeather(){
-		String arrayText = "";
+		/*String arrayText = "";
 	
 
 		int lenght = FM.requestForecast().size();
@@ -557,10 +557,12 @@ public class Logic {
 			
 			   CP.getQAW().getWeatherTextArea().setText(arrayText);
 
-	}}
+	}*/}
 	
 	public void displayQuote(){
+		QModel.updateQuote();
 		String stringQText = QModel.getQuote();
+		System.out.println(stringQText);
 		CP.getQAW().getqTextArea().setText(stringQText);
 		
 	
