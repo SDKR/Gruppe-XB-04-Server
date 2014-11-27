@@ -33,9 +33,9 @@ CREATE TABLE IF NOT EXISTS QOTD
 	QOTDID int(5) not null auto_increment,
 	Quote text,
 	author varchar(255), 
-	topic varchar(255)
+	topic varchar(255),
 	PRIMARY KEY (QOTDID)
-)
+);
 
 CREATE TABLE IF NOT EXISTS events
 (
@@ -154,7 +154,7 @@ INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.524756', '55.680476', 'Dit-Lab');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.521812', '55.677934', 'Porcelaenshaven');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.524964', '55.681074', 'Kilen');
-INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.500160', '55.685454', 'Dalgas Have');
+INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.515375', '55.683510', 'Dalgas Have');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.433252', '55.235522', 'Falkoner Bio');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makroøkonomi (XA)', 'admin@admin.dk');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makroøkonomi (XB)', 'admin@admin.dk');
