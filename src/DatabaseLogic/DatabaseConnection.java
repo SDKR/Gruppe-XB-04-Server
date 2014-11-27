@@ -19,7 +19,6 @@ public class DatabaseConnection {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 
-<<<<<<< HEAD
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
 	// private String sqlUrl = "jdbc:mysql://localhost:3306/";
@@ -28,10 +27,6 @@ public class DatabaseConnection {
 
 	private String sqlUrl = "jdbc:mysql://localhost:3306/";
 	private String sqlUser = "root";
-=======
-	private String sqlUrl = "";
-	private String sqlUser = "";
->>>>>>> FETCH_HEAD
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -42,9 +37,9 @@ public class DatabaseConnection {
 	// Imports login info keys
 	public void keyImporter() {
 		KC.keyImporter();
-		setSqlUrl(KC.getSqlUrl());
-		setSqlUser(KC.getSqlUser());
-		setSqlPasswd(KC.getSqlPasswd());
+//		setSqlUrl(KC.getSqlUrl());
+//		setSqlUser(KC.getSqlUser());
+//		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
