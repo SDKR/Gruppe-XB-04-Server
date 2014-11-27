@@ -31,7 +31,6 @@ public class Login extends JPanel {
 	private final JLabel lblUsername = new JLabel("Username");
 	private final JLabel lblPassword = new JLabel("Password");
 	private JButton btnLogIn = new JButton("Log In");
-	private final JButton btnForgotLogIn = new JButton("Forgot username or password?");
 	private final JTextField textFieldUsername = new JTextField();
 	private final JLabel lblCBSlogo = new JLabel("");
 	private final JLabel lblBackground = new JLabel("");
@@ -69,18 +68,7 @@ public class Login extends JPanel {
 		btnLogIn.setBounds(572, 449, 222, 51);
 		
 		add(btnLogIn);
-		btnForgotLogIn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			JOptionPane.showInputDialog("Bad Luck!");
-			}
-		});
-		btnForgotLogIn.setContentAreaFilled(false);
-		btnForgotLogIn.setForeground(new Color(255, 255, 255));
-		btnForgotLogIn.setBorderPainted(false);
-		btnForgotLogIn.setBounds(485, 502, 403, 41);
 		
-		add(btnForgotLogIn);
 		lblCBSlogo.setIcon(new ImageIcon(Login.class.getResource("/Images/CBSLogo3.png")));
 		lblCBSlogo.setBounds(36, 695, 223, 67);
 		
@@ -126,13 +114,6 @@ public class Login extends JPanel {
 	public JButton getBtnLogIn() {
 		return btnLogIn;
 	}
-
-	public JButton getBtnForgotLogIn() {
-		return btnForgotLogIn;
-	}
-	public void addActionListener(ActionListener l) {
-		btnForgotLogIn.addActionListener(l);
-}
 
 	public JTextField getTextFieldUsername() {
 		return textFieldUsername;
