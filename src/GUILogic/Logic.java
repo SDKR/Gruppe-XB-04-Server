@@ -204,7 +204,7 @@ public class Logic {
 
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
-			CP.show(ContainerPanel.mainMenu);
+		
 			CP.show(ContainerPanel.createEvent);
 			setComboDates();
 		}
@@ -594,5 +594,6 @@ public class Logic {
 		CP.getCL().addCalendarListener(new createCalendar());
 		CP.getCL().deleteCalendarListener(new calendarInactive());
 		CP.getCL().reActivateListener(new activateCalendar());
+		CP.getCL().goToMainMenu(new btnToMainMenu());
 		}
 }

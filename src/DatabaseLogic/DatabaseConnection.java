@@ -1,5 +1,6 @@
 package DatabaseLogic;
 
+import java.io.PrintStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -25,8 +26,8 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
+	private String sqlUrl = "jdbc:mysql://localhost:3306/";
+	private String sqlUser = "root";
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -36,10 +37,10 @@ public class DatabaseConnection {
 
 	// Imports login info keys
 	public void keyImporter() {
-		KC.keyImporter();
-		setSqlUrl(KC.getSqlUrl());
-		setSqlUser(KC.getSqlUser());
-		setSqlPasswd(KC.getSqlPasswd());
+//		KC.keyImporter();
+//		setSqlUrl(KC.getSqlUrl());
+//		setSqlUser(KC.getSqlUser());
+//		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
@@ -428,16 +429,35 @@ public class DatabaseConnection {
 							+ emailInput + "';");
 			while (rs.next()) {
 				String accountPassword = rs.getString("password");
-				if (accountPassword.equals(passwordInput)) {
+				if (accountPassword.equals(passwordInput) && checkIfInactive(emailInput).equals("1") ) {
 					passwordChecker = true;
 				} else {
-					System.out.println("Password'et var forkert tard!");
+					System.out.println("Wrong Password/User Inactive!");
 				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return passwordChecker;
+	}
+	
+	public String checkIfInactive(String emailInput){
+		String activeMaybe = "";
+		try{
+			getConnection();
+			stmt = conn.createStatement();
+			rs = stmt.executeQuery("select active from cbscalendar.users where email = '"
+							+ emailInput + "';");
+while(rs.next()){
+	activeMaybe = rs.getString("active");
+	
+}
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		return activeMaybe;
 	}
 
 	public boolean checkIfAdmin(String emailInput) {

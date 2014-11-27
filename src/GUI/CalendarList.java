@@ -380,7 +380,9 @@ public class CalendarList extends JPanel {
 	{
 		btnActivateCalendar.addActionListener(l);
 	}
-	
+	  public void goToMainMenu(ActionListener l) {
+			mainMenuBtn.addActionListener(l);
+		}
 	/*
 	 * Getters and setters
 	 */
