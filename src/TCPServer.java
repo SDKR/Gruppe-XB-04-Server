@@ -11,10 +11,10 @@ class TCPServer{
 //	Imports portNr key from external file
 	public void keyImporter()
 	{
-		KC.keyImporter();
-		setportNr("8888");
+//		KC.keyImporter();
+//		setportNr("8888");
 //		Converting string to int, which is apparently necessary
-		int cPort = Integer.parseInt(port);
+//		int cPort = Integer.parseInt(port);
 	}
 	
 	public static void main(String argv[]) throws Exception       {
@@ -39,7 +39,7 @@ class TCPServer{
 			ClientWorker client= new ClientWorker(connectionSocket);
 			Thread thread = new Thread(client, "client");
 			thread.start();
-			/*HUSK AT ÆNDRE DATABASE SCRIPTET, SÅ DET PASSER MED DEN NUVÆRENDE DATABASE STRUKTUR!*/
+			/*HUSK AT ï¿½NDRE DATABASE SCRIPTET, Sï¿½ DET PASSER MED DEN NUVï¿½RENDE DATABASE STRUKTUR!*/
 		}
 		
 	}

@@ -11,14 +11,19 @@ import java.util.Locale;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import model.Forecast.ForecastModel;
+import model.Forecast.ForecastTest;
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
+	ForecastModel FM = new ForecastModel();
+
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -172,6 +177,7 @@ public class Logic {
 				break;
 
 			case "QAWList":
+				displayWeather();
 				CP.show(ContainerPanel.quoteAndWeather);
 				break;
 			case "CalendarList":
@@ -482,7 +488,7 @@ public class Logic {
 				
 			else
 			{
-				JOptionPane.showMessageDialog (null, "A calendar with the selected name does already exists", "Information", JOptionPane.INFORMATION_MESSAGE);
+				JOptionPane.showMessageDialog (null, "Invalid calendarname.", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
@@ -502,6 +508,22 @@ public class Logic {
 			
 		}
 	}
+	
+	public void displayWeather(){
+		String arrayText = "";
+	
+
+		int lenght = FM.requestForecast().size();
+		for(int i = 0; i < lenght; i++) {
+			
+			arrayText = arrayText + FM.requestForecast().get(i).getCelsius() + "\n";
+			arrayText = arrayText + FM.requestForecast().get(i).getDate() + "\n";
+			arrayText = arrayText + FM.requestForecast().get(i).getDesc() + "\n";
+		
+			
+			   CP.getQAW().getWeatherTextArea().setText(arrayText);
+
+	}}
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);

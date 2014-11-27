@@ -28,16 +28,20 @@ import javax.swing.JTextField;
 
 import model.Forecast.ForecastModel;
 import model.Forecast.ForecastTest;
+import javax.swing.JTextArea;
+import javax.swing.JScrollBar;
  
 public class QuoteAndWeather extends JPanel {
 	private JButton btnMainMenu = new JButton("Main Menu");
 	private JLabel lblQuoteAndWeather;
 	private final JLabel weatherLabel = new JLabel("Weather");
 	private final JLabel quoteLabel = new JLabel("Quote");
-	private JTextField quoteTextField;
-	private JTable weatherTable;
-	private final JTable table = new JTable();
+	private final JTextArea weatherTextArea = new JTextArea();
+	private JTextArea quoteTextArea;
 	
+    private JTextArea QTA= new JTextArea();
+    private JScrollBar scrollBar;
+    
     public QuoteAndWeather() throws SQLException {
     	
     	ForecastModel FM = new ForecastModel();
@@ -52,7 +56,7 @@ public class QuoteAndWeather extends JPanel {
         btnMainMenu.setFont(new Font("Arial", Font.BOLD, 30));
         btnMainMenu.setContentAreaFilled(false);
         btnMainMenu.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
-        btnMainMenu.setBounds(622, 646, 194, 44);
+        btnMainMenu.setBounds(586, 646, 194, 44);
         add(btnMainMenu);
 
         /*
@@ -60,15 +64,6 @@ public class QuoteAndWeather extends JPanel {
          */
         String[] columnNames = {"UserID", "IsAdmin", "Email", "Active", "Created datetime", "Password"};
         Object[][] data = {};
-        
-        weatherTable = new JTable();
-        weatherTable.setBounds(313, 504, 261, -138);
-        add(weatherTable);
-        
-        quoteTextField = new JTextField();
-        quoteTextField.setColumns(10);
-        quoteTextField.setBounds(906, 328, 162, 113);
-        add(quoteTextField);
         
         lblQuoteAndWeather = new JLabel("Quote and Weather of the Day");
         lblQuoteAndWeather.setForeground(Color.WHITE);
@@ -80,18 +75,28 @@ public class QuoteAndWeather extends JPanel {
         weatherLabel.setForeground(Color.WHITE);
         weatherLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weatherLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        weatherLabel.setBounds(330, 258, 112, 69);
+        weatherLabel.setBounds(361, 235, 112, 69);
         
         add(weatherLabel);
         quoteLabel.setForeground(Color.WHITE);
         quoteLabel.setHorizontalAlignment(SwingConstants.CENTER);
         quoteLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        quoteLabel.setBounds(931, 258, 112, 69);
+        quoteLabel.setBounds(890, 232, 112, 69);
         
         add(quoteLabel);
-        table.setBounds(396, 422, 112, -61);
         
-        add(table);
+        quoteTextArea.setBounds(781, 323, 331, 325);
+        add(quoteTextArea);
+        
+        scrollBar = new JScrollBar();
+        scrollBar.setBounds(547, 295, 15, 227);
+        add(scrollBar);
+        weatherTextArea.setBounds(307, 295, 255, 227);
+        setVisible(true);
+        
+        add(weatherTextArea);
+        
+      
     
         JLabel lblBackground = new JLabel("Background");
         lblBackground.setIcon(new ImageIcon(UserList.class.getResource("/Images/MetalBackground.jpg")));
@@ -108,5 +113,9 @@ public class QuoteAndWeather extends JPanel {
 
 	public JButton getBtnMainMenu() {
 		return btnMainMenu;
+	}
+
+	public JTextArea getWeatherTextArea() {
+		return weatherTextArea;
 	}
 }
