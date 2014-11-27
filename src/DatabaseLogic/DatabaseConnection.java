@@ -19,6 +19,7 @@ public class DatabaseConnection {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 
+<<<<<<< HEAD
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
 	// private String sqlUrl = "jdbc:mysql://localhost:3306/";
@@ -27,6 +28,10 @@ public class DatabaseConnection {
 
 	private String sqlUrl = "jdbc:mysql://localhost:3306/";
 	private String sqlUser = "root";
+=======
+	private String sqlUrl = "";
+	private String sqlUser = "";
+>>>>>>> FETCH_HEAD
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -37,15 +42,9 @@ public class DatabaseConnection {
 	// Imports login info keys
 	public void keyImporter() {
 		KC.keyImporter();
-
 		setSqlUrl(KC.getSqlUrl());
 		setSqlUser(KC.getSqlUser());
 		setSqlPasswd(KC.getSqlPasswd());
-		// KC.keyImporter();
-		//
-		// setSqlUrl(KC.getSqlUrl());
-		// setSqlUser(KC.getSqlUser());
-		// setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
@@ -53,10 +52,8 @@ public class DatabaseConnection {
 			QB.deleteHardFrom("events").where("customevent", "=", "1")
 					.Execute();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// doUpdate("Delete from cbscalendar.events where customevent = 1");
 	}
 
 	public void addingCBSCalendarToDB(String type, String location,
@@ -69,7 +66,6 @@ public class DatabaseConnection {
 		int typeID = determineTypeID(type);
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 			try {
-
 				getConnection();
 				doUpdate("insert into cbscalendar.events (type, location, createdBy, start, end, name, text, customevent, CalenderID) values ('"
 						+ typeID
@@ -104,14 +100,8 @@ public class DatabaseConnection {
 	}
 	
 	public boolean checkIfActiveOrNot(String eventID, String userID){
-	
-		
 		if(eventID.equals("1") && userID.equals("1")){
-			
-			
-			
-		}
-		
+		}	
 		return false;
 	}
 
@@ -522,7 +512,7 @@ public class DatabaseConnection {
 	}
 
 	// Delete user (soft)
-	public String deletesUser(String killUser) {
+	public String deletesRow(String killRow, String table, String columnName) {
 		String stringResultChecker = "";
 		String stringIsAllreadyOff = "";
 		String stringToBeReturned = "";
@@ -533,31 +523,31 @@ public class DatabaseConnection {
 			stmt = conn.createStatement();
 			rs = stmt
 
-			.executeQuery("select * from cbscalendar.users where email = '"
-					+ killUser + "';");
+			.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
+					+ killRow + "';");
 			while (rs.next()) {
 
-				stringResultChecker = rs.getString("Email");
+				stringResultChecker = rs.getString(columnName);
 				stringIsAllreadyOff = rs.getString("active");
 
 			}
 
 			if (stringResultChecker.equals("")) {
 
-				JOptionPane.showMessageDialog(null, "The Email doesn't exist",
+				JOptionPane.showMessageDialog(null, "The "+columnName+" doesn't exist",
 						"Error", JOptionPane.ERROR_MESSAGE);
 
 			} else if (stringIsAllreadyOff.equals("2")) {
 				JOptionPane.showMessageDialog(null,
-						"The user is already inactive", "Error",
+						"The "+columnName+" is already inactive", "Error",
 						JOptionPane.ERROR_MESSAGE);
 			}
 
 			else {
 
-				doUpdate("update cbscalendar.users set active='2' where email='"
-						+ killUser + "';");
-				JOptionPane.showMessageDialog(null, "The user is now inactive",
+				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
+						+ killRow + "';");
+				JOptionPane.showMessageDialog(null, "The "+killRow+" is now inactive",
 						"Error", JOptionPane.INFORMATION_MESSAGE);
 
 			}
@@ -569,7 +559,7 @@ public class DatabaseConnection {
 	}
 	
 //	Activate user
-	public String activateUse(String reActivate){
+	public String activateUse(String reActivate, String table, String column){
 
 	
 		String stringResultChecker = "";
@@ -580,28 +570,28 @@ public class DatabaseConnection {
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar.users where email = '"
+			rs = stmt.executeQuery("select * from cbscalendar."+table+" where "+column+" = '"
 					+ reActivate + "';");
 	while (rs.next()) {
 
-		stringResultChecker = rs.getString("Email");
+		stringResultChecker = rs.getString(column);
 		stringIsAllreadyOn = rs.getString("active");
 		
 	}
 	
 	if (stringResultChecker.equals("")) {
 
-	JOptionPane.showMessageDialog (null, "The Email doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
+	JOptionPane.showMessageDialog (null, "The "+column+" doesn't exist", "Error", JOptionPane.ERROR_MESSAGE);
 				
 			}	
 	else if(stringIsAllreadyOn.equals("1")){
-		JOptionPane.showMessageDialog (null, "The user is already active", "Error", JOptionPane.ERROR_MESSAGE);
+		JOptionPane.showMessageDialog (null, "The "+column+" is already active", "Error", JOptionPane.ERROR_MESSAGE);
 	}
 	
 	else{
 			
-			doUpdate("update cbscalendar.users set active='1' where email='"+reActivate+"';");
-			JOptionPane.showMessageDialog (null, "The user is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
+			doUpdate("update cbscalendar."+table+" set active='1' where "+column+"='"+reActivate+"';");
+			JOptionPane.showMessageDialog (null, "The "+column+" is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
 			
 	}
 		} catch (SQLException e) {
@@ -611,9 +601,8 @@ public class DatabaseConnection {
 return stringToBeReturned;
 		
 	}
+	
 	public String activatesEvent(String reActivate){
-
-		
 		String stringResultChecker = "";
 		String stringIsAllreadyOn = "";
 		String stringToBeReturned = "";
@@ -650,49 +639,8 @@ return stringToBeReturned;
 			e.printStackTrace();
 		}
 		
-return stringToBeReturned;
-		
-	}
-	public String deletesEvent(String killEvent) {
-		String stringResultChecker = "";
-		String stringIsAllreadyOff = "";
-		String stringToBeReturned = "";
-		try {
-		getConnection();
-		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select * from cbscalendar.events where EventID = '"
-					+ killEvent + "';");
-			while (rs.next()) {
-
-				stringResultChecker = rs.getString("EventID");
-				stringIsAllreadyOff = rs.getString("Active");
-			}
-
-			if (stringResultChecker.equals("")) {
-
-				JOptionPane.showMessageDialog(null, "The Event doesn't exist",
-						"Error", JOptionPane.ERROR_MESSAGE);
-
-			} else if (stringIsAllreadyOff.equals("2")) {
-				JOptionPane.showMessageDialog(null,
-						"The event is already inactive", "Error",
-						JOptionPane.ERROR_MESSAGE);
-			}
-
-			else {
-
-				doUpdate("update cbscalendar.events set Active='2' where eventid='"
-						+ killEvent + "';");
-				JOptionPane.showMessageDialog(null,
-						"The event is now inactive", "Error",
-						JOptionPane.INFORMATION_MESSAGE);
-
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-
 		return stringToBeReturned;
+		
 	}
 
 	public boolean checkCalendarName(String eventName) {

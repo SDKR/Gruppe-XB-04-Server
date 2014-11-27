@@ -372,6 +372,15 @@ public class CalendarList extends JPanel {
 	{
 		btnAddCalendar.addActionListener(l);
 	}
+	public void deleteCalendarListener (ActionListener l )
+	{
+		btnDeleteCalendar.addActionListener(l);
+	}
+	public void reActivateListener (ActionListener l)
+	{
+		btnActivateCalendar.addActionListener(l);
+	}
+	
 	/*
 	 * Getters and setters
 	 */

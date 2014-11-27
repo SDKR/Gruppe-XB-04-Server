@@ -413,8 +413,25 @@ public class Logic {
 						"No Email address detected", "Information",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				DC.deletesUser(killUser);
+				DC.deletesRow(killUser, "users", "email");
 				viewUser();
+			}
+		}
+	}
+	
+	private class calendarInactive implements ActionListener{
+		public void actionPerformed(ActionEvent e)
+		{
+			JFrame frame = new JFrame("InputDialog");
+			String killCalendar = JOptionPane.showInputDialog(frame,
+					"Input name of calendar to delete");
+
+			if (killCalendar == null) {
+				JOptionPane.showMessageDialog(null,
+						"No Email address detected", "Information",
+						JOptionPane.INFORMATION_MESSAGE);
+			} else {
+				DC.deletesRow(killCalendar, "calendars", "Name");
 			}
 		}
 	}
@@ -430,7 +447,7 @@ public class Logic {
 						JOptionPane.INFORMATION_MESSAGE);
 
 			} else {
-				DC.deletesEvent(killEvent);
+				DC.deletesRow(killEvent, "events", "eventid");
 			}
 		}
 	}
@@ -446,11 +463,27 @@ public class Logic {
 				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else{
-				DC.activateUse(reActivate);
+				DC.activateUse(reActivate, "users", "email");
 				viewUser();
 			}
 		}
 	}
+	
+	private class activateCalendar implements ActionListener {
+		public void actionPerformed(ActionEvent e){
+			JFrame frame = new JFrame("InputDialog");
+			String reActivate = JOptionPane.showInputDialog(frame, "Input Email of user activate");
+			
+			if (reActivate == null){
+				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
+			else{
+				DC.activateUse(reActivate, "calendars", "Name");
+				viewUser();
+			}
+		}
+	}
+	
 	private class createCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int pp = 0;
@@ -503,9 +536,7 @@ public class Logic {
 			}
 			else{
 				DC.activatesEvent(reActivate);
-				
 			}
-			
 		}
 	}
 	
@@ -548,5 +579,7 @@ public class Logic {
 		CP.geteList().deleteEvent(new deleteEvent());
 		CP.geteList().setActive(new activateEvent());
 		CP.getCL().addCalendarListener(new createCalendar());
+		CP.getCL().deleteCalendarListener(new calendarInactive());
+		CP.getCL().reActivateListener(new activateCalendar());
 		}
 }
