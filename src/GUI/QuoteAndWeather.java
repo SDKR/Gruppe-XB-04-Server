@@ -41,6 +41,7 @@ public class QuoteAndWeather extends JPanel {
 	
     private JTextArea QTA= new JTextArea();
     private JScrollBar scrollBar;
+    private JTextArea qTextArea;
     
     public QuoteAndWeather() throws SQLException {
     	
@@ -85,6 +86,14 @@ public class QuoteAndWeather extends JPanel {
         
         add(quoteLabel);
         
+<<<<<<< HEAD
+=======
+        qTextArea = new JTextArea();
+        qTextArea.setBounds(822, 295, 255, 227);
+        add(qTextArea);
+        
+       
+>>>>>>> 3456588cd50f1d84543b59458f6704b20fbe2017
         scrollBar = new JScrollBar();
         scrollBar.setBounds(547, 295, 15, 227);
         add(scrollBar);
@@ -115,4 +124,13 @@ public class QuoteAndWeather extends JPanel {
 	public JTextArea getWeatherTextArea() {
 		return weatherTextArea;
 	}
+
+	public JTextArea getqTextArea() {
+		return qTextArea;
+	}
+
+	public void setqTextArea(JTextArea qTextArea) {
+		this.qTextArea = qTextArea;
+	}
+	
 }

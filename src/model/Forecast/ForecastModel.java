@@ -80,7 +80,6 @@ public class ForecastModel {
 	                     JSONObject childObj = (JSONObject) y.next();
 
 	                     weatherDescription = (String) childObj.get("description");
-
 	                 }
 	                 
 	                 forecastList.add(new Forecast(string_date, temperatur, weatherDescription));

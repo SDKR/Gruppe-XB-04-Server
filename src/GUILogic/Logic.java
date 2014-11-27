@@ -16,6 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 import model.Forecast.ForecastModel;
 import model.Forecast.ForecastTest;
+import model.QOTD.QOTDModel;
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
@@ -23,6 +24,7 @@ public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
 	ForecastModel FM = new ForecastModel();
+	QOTDModel QModel = new QOTDModel();
 
 
 	public Logic() throws SQLException {
@@ -178,6 +180,7 @@ public class Logic {
 
 			case "QAWList":
 				displayWeather();
+				displayQuote();
 				CP.show(ContainerPanel.quoteAndWeather);
 				break;
 			case "CalendarList":
@@ -555,6 +558,14 @@ public class Logic {
 			   CP.getQAW().getWeatherTextArea().setText(arrayText);
 
 	}}
+	
+	public void displayQuote(){
+		String stringQText = QModel.getQuote();
+		CP.getQAW().getqTextArea().setText(stringQText);
+		
+	
+		}
+	
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);
