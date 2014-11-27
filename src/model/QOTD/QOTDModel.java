@@ -65,14 +65,16 @@ public class QOTDModel {
     			String quote = (String) jsonObject.get("quote");
     			String author = (String) jsonObject.get("author");
     			String topic = (String) jsonObject.get("topic");
+    			System.out.println(quote);
+    			System.out.println(author);
+    			System.out.println(topic);
 
     			
-    			String[] keys = {"qotd"};
-    			String[] keys2 = {quote};
+    			String[] keys = {"Quote", "author", "topic"};
+    			String[] keys2 = {quote, author, topic};
     			
-    			
-    			qb.update("dailyupdate", keys, keys2).where("msg_type", "=", "1").Execute();
-    			
+    			qb.insertInto("qotd", keys).values(keys2).Execute();
+    			//qb.update("dailyupdate", keys, keys2).where("msg_type", "=", "").Execute();
     	
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
@@ -88,19 +90,18 @@ public class QOTDModel {
      */
   	public String getQuote(){
   		String q = "";
-  		String[] key = {"qotd"};
   		try {
-  			resultSet = qb.selectFrom("dailyupdate").all().ExecuteQuery();
+  			resultSet = qb.selectFrom("qotd").all().ExecuteQuery();
 			while(resultSet.next()) {
-				q = resultSet.getString("qotd");
+				q = resultSet.getString("Quote");
+				System.out.println(q);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+  		System.out.println(q);
 		return q;
   	}
-  	
   	
   	 public void updateQuote(){
 	     	Date date = new Date(); // Current date & time

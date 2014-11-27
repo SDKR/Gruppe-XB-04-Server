@@ -34,14 +34,10 @@ import javax.swing.JScrollBar;
 public class QuoteAndWeather extends JPanel {
 	private JButton btnMainMenu = new JButton("Main Menu");
 	private JLabel lblQuoteAndWeather;
-	private final JLabel weatherLabel = new JLabel("Weather");
-	private final JLabel quoteLabel = new JLabel("Quote");
-	private final JTextArea weatherTextArea = new JTextArea();
-	private JTextArea quoteTextArea;
-	
-    private JTextArea QTA= new JTextArea();
-    private JScrollBar scrollBar;
-    private JTextArea qTextArea;
+	private JLabel weatherLabel = new JLabel("Weather");
+	private JLabel quoteLabel = new JLabel("Quote");
+	private JTextArea weatherTextArea = new JTextArea();
+	private JTextArea qTextArea = new JTextArea();
     
     public QuoteAndWeather() throws SQLException {
     	
@@ -85,11 +81,15 @@ public class QuoteAndWeather extends JPanel {
         quoteLabel.setBounds(890, 232, 112, 69);
         
         add(quoteLabel);
+
         
         qTextArea = new JTextArea();
         qTextArea.setBounds(822, 295, 255, 227);
         add(qTextArea);
         
+
+        JScrollBar scrollBar = new JScrollBar();
+
         scrollBar = new JScrollBar();
         scrollBar.setBounds(547, 295, 15, 227);
         add(scrollBar);
@@ -97,6 +97,10 @@ public class QuoteAndWeather extends JPanel {
         setVisible(true);
         
         add(weatherTextArea);
+        
+        
+        qTextArea.setBounds(633, 295, 255, 227);
+        add(qTextArea);
         
       
     
@@ -128,5 +132,4 @@ public class QuoteAndWeather extends JPanel {
 	public void setqTextArea(JTextArea qTextArea) {
 		this.qTextArea = qTextArea;
 	}
-	
 }
