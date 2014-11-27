@@ -96,8 +96,6 @@ public class Logic {
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker < arrayCounter) {
-			System.out.println("Vi er inde i while-loop " + arrayChecker
-					+ ". gang");
 			CP.getUI().getTable()
 					.setValueAt(test[0][arrayChecker], arrayChecker, 0);
 			CP.getUI().getTable()
@@ -120,7 +118,6 @@ public class Logic {
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.eventID();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
@@ -190,12 +187,6 @@ public class Logic {
 		}
 	}
 
-	private class QuoteAndWeather implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			CP.show(ContainerPanel.mainMenu);
-		}
-	}
-
 	private class backToEventList implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.eventView);
@@ -209,12 +200,6 @@ public class Logic {
 			setComboDates();
 		}
 
-	}
-
-	private class UserCreation implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			CP.show(ContainerPanel.mainMenu);
-		}
 	}
 
 	private class CreateUser implements ActionListener {
@@ -581,7 +566,7 @@ public class Logic {
 		CP.getUI().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToMainMenu(new btnToMainMenu());
 		CP.getNL().goToMainMenu(new btnToMainMenu());
-		CP.getQAW().goToMainMenu(new QuoteAndWeather());
+		CP.getQAW().goToMainMenu(new btnToMainMenu());
 		CP.getAE().backListener(new backToEventList());
 		CP.getUC().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
