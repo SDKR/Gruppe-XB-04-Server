@@ -36,8 +36,7 @@ public class Note extends Model{
 			
 					notes = GetNote(noteID);
 					notes.setActive(0);
-					SaveNote(notes);
-					
+					SaveNote(notes);	
 				}
 
 		public NoteModel GetNote (int noteID) throws SQLException{
@@ -58,9 +57,6 @@ public class Note extends Model{
 							noteID);
 				}
 					return notes;
-				
-			
-		
 		}
 		
 		public void SaveNote (NoteModel note){
@@ -76,6 +72,5 @@ public class Note extends Model{
 			String[] fields = {"eventID", "createdBy", "text", "dateTime", "Active"};
 			String[] values = {String.valueOf(noteID), text, dateTime, createdBy, String.valueOf(isActive)};
 			qb.update("notes", fields, values).where("noteID", "=", String.valueOf(noteID));
-				
 		}
 }

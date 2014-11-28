@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS QOTD
 CREATE TABLE IF NOT EXISTS events
 (
 	eventid int NOT NULL AUTO_INCREMENT,
+	cbsEventId varchar(255) Unique,
 	type int NOT NULL,
 	location int,
 	locationName varchar(255),
@@ -67,7 +68,7 @@ CREATE TABLE IF NOT EXISTS locationdata
 CREATE TABLE IF NOT EXISTS notes
 (
 	noteId int NOT NULL AUTO_INCREMENT,
-	eventId int NOT NULL,
+	cbsEventId varchar(255),
 	createdBy varchar(255) NOT NULL,
 	text text,
 	dateTime datetime NOT NULL,
@@ -81,6 +82,15 @@ CREATE TABLE IF NOT EXISTS roles
 	userid int NOT NULL,
 	type varchar(200) NOT NULL,
 	PRIMARY KEY (roleid)
+);
+
+CREATE TABLE IF NOT EXISTS WeatherTable
+(
+	weatherid int NOT NULLE AUTO_INCREMENT,
+	weatherDate datetime NOT NULL, 
+	weatherDegrees DECIMAL (3, 2) NOT NULL,
+	weatherDesc varchar(255) NOT NULL
+	PRIMARY KEY (weatherid)
 );
 
 CREATE TABLE IF NOT EXISTS userevents
@@ -109,12 +119,6 @@ ALTER TABLE events
 ALTER TABLE userevents
 	ADD FOREIGN KEY (CalendarID)
 	REFERENCES Calendar (CalendarID)
-	ON UPDATE RESTRICT
-;
-
-ALTER TABLE notes
-	ADD FOREIGN KEY (eventid)
-	REFERENCES events (eventid)
 	ON UPDATE RESTRICT
 ;
 
