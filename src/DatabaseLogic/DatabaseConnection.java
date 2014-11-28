@@ -26,8 +26,8 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private String sqlUser = "root";
+	private String sqlUrl = "";
+	private String sqlUser = "";
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -37,10 +37,10 @@ public class DatabaseConnection {
 
 	// Imports login info keys
 	public void keyImporter() {
-//		KC.keyImporter();
-//		setSqlUrl(KC.getSqlUrl());
-//		setSqlUser(KC.getSqlUser());
-//		setSqlPasswd(KC.getSqlPasswd());
+		KC.keyImporter();
+		setSqlUrl(KC.getSqlUrl());
+		setSqlUser(KC.getSqlUser());
+		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
@@ -95,8 +95,8 @@ public class DatabaseConnection {
 		}
 	}
 	
-	public boolean checkIfActiveOrNot(String eventID, String userID){
-		if(eventID.equals("1") && userID.equals("1")){
+	private boolean checkIfActiveOrNot(String userID){
+		if(userID.equals("1")){
 		}	
 		return false;
 	}
@@ -121,28 +121,28 @@ public class DatabaseConnection {
 		int intToBeReturned = 0;
 		switch (course) {
 		case "Distribuerede systemer (LA)":
-			intToBeReturned = 11;
+			intToBeReturned = 4;
 			break;
 		case "Ledelse af IS - forandring, innovation og viden (XB)":
-			intToBeReturned = 12;
+			intToBeReturned = 5;
 			break;
 		case "Ledelse af IS - forandring, innovation og viden (LA)":
-			intToBeReturned = 14;
+			intToBeReturned = 7;
 			break;
 		case "Virksomhedens �konomiske styring (3)":
-			intToBeReturned = 15;
-			break;
-		case "Makro�konomi (XB)":
-			intToBeReturned = 9;
-			break;
-		case "Makro�konomi (XA)":
 			intToBeReturned = 8;
 			break;
+		case "Makro�konomi (XB)":
+			intToBeReturned = 2;
+			break;
+		case "Makro�konomi (XA)":
+			intToBeReturned = 1;
+			break;
 		case "Ledelse af IS - forandring, innovation og viden (XA)":
-			intToBeReturned = 13;
+			intToBeReturned = 6;
 			break;
 		case "Makro�konomi (LA)":
-			intToBeReturned = 10;
+			intToBeReturned = 3;
 			break;
 		default:
 			intToBeReturned = 1;
@@ -156,19 +156,19 @@ public class DatabaseConnection {
 		char position2 = location.charAt(1);
 		String locationID = position1 + "" + position2;
 		if (locationID.equals("Ks")) {
-			intToBeReturned = 7;
-		} else if (locationID.equals("FH")) {
-			intToBeReturned = 3;
-		} else if (locationID.equals("SP")) {
-			intToBeReturned = 4;
-		} else if (locationID.equals("HO")) {
 			intToBeReturned = 5;
+		} else if (locationID.equals("FH")) {
+			intToBeReturned = 1;
+		} else if (locationID.equals("SP")) {
+			intToBeReturned = 2;
+		} else if (locationID.equals("HO")) {
+			intToBeReturned = 3;
 		} else if (locationID.equals("PH")) {
-			intToBeReturned = 6;
+			intToBeReturned = 4;
 		} else if (locationID.startsWith("D")) {
-			intToBeReturned = 8;
+			intToBeReturned = 6;
 		} else if (locationID.startsWith("Fa")) {
-			intToBeReturned = 9;
+			intToBeReturned = 7;
 		} else {
 			intToBeReturned = 10;
 		}
@@ -200,24 +200,7 @@ public class DatabaseConnection {
 		}
 	}
 
-	// Method to test connection which returns false
-	public boolean TestConnection() {
-		try {
-			// Get Connection
-			getConnection();
-
-			// If connection established before 5000 miliseconds - Succes!
-			if (conn.isValid(5000)) {
-				JOptionPane.showMessageDialog(null,
-						"You have succesfully connected to database!");
-			}
-			// If error, print exception in dialogbox
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(null,
-					"Could not connect to database due to: " + e.getMessage());
-		}
-		return false;
-	}
+	
 
 	public boolean userAuthenticating(String userName, String password,
 			String isActive) {
@@ -471,7 +454,6 @@ while(rs.next()){
 							+ emailInput + "';");
 			while (rs.next()) {
 				adminID = rs.getString("Admin");
-				System.out.println(adminID);
 			}
 			if (adminID.equals("1")) {
 				isAdmin = true;
@@ -695,6 +677,25 @@ return stringToBeReturned;
 	public void setSqlPasswd(String sqlPasswd) {
 		this.sqlPasswd = sqlPasswd;
 	}
+	
+	// Method to test connection which returns false
+		public boolean TestConnection() {
+			try {
+				// Get Connection
+				getConnection();
+
+				// If connection established before 5000 miliseconds - Succes!
+				if (conn.isValid(5000)) {
+					JOptionPane.showMessageDialog(null,
+							"You have succesfully connected to database!");
+				}
+				// If error, print exception in dialogbox
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(null,
+						"Could not connect to database due to: " + e.getMessage());
+			}
+			return false;
+		}
 
 	public boolean createNewCalender(String eventName, int publicPrivate,
 			int active) {

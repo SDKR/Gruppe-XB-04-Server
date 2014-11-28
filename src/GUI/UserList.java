@@ -40,9 +40,7 @@ public class UserList extends JPanel {
     	
     	/*
     	 * Buttons
-    	 */
-    
-    	
+    	 */	
     	btnAdd.setBorder(new MatteBorder(1, 1, 1, 1, new Color(0, 0, 255)));
         btnAdd.setForeground(new Color(0, 0, 205));
         btnAdd.setOpaque(true);

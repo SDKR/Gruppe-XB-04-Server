@@ -23,6 +23,8 @@ import GUI.*;
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
+	private String allKnowingName;
+	private int adminID;
 	ForecastModel FM = new ForecastModel();
 	QOTDModel QModel = new QOTDModel();
 
@@ -33,7 +35,6 @@ public class Logic {
 	}
 
 	public void startApp() {
-
 		DC.keyImporter();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
@@ -326,7 +327,6 @@ public class Logic {
 				JOptionPane.showMessageDialog(null,
 						"You have to enter an eventname");
 			}
-
 		}
 	}
 
@@ -336,7 +336,7 @@ public class Logic {
 			CP.getAE().getStartYear().addItem(yCount);
 			CP.getAE().getEndYear().addItem(yCount);
 		}
-		for (int moCount = 0; moCount < 13; moCount++) {
+		for (int moCount = 1; moCount < 13; moCount++) {
 			CP.getAE().getStartMonth().addItem(moCount);
 			CP.getAE().getEndMonth().addItem(moCount);
 		}
@@ -384,7 +384,6 @@ public class Logic {
 					checkIfActive = 1;
 				} else {
 					checkIfActive = 2;
-
 				}
 				if (adminCheck == true) {
 					checkIfAdmin = 1;
