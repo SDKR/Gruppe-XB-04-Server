@@ -29,7 +29,7 @@ public abstract class Model {
 
     /**
      * Overwrite default database url
-     *
+     *a	
      * @param
      */
     public static void setSelectedDatabase(String db) {

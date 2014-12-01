@@ -542,8 +542,6 @@ public class Logic {
 		String stringQText = QModel.getQuote();
 		System.out.println(stringQText);
 		CP.getQAW().getqTextArea().setText(stringQText);
-		
-	
 		}
 	public void displayWeather(){
 		int count = DC.weatherArray().size();
