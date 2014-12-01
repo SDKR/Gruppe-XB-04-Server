@@ -36,7 +36,7 @@ public class Logic {
 
 	public void startApp() {
 		DC.keyImporter();
-		saveWeather();
+		//saveWeather();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}

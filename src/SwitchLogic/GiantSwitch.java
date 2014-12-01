@@ -40,7 +40,7 @@ public class GiantSwitch {
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn":
+		case "logIn":		
 			AuthUserJson AU = gson.fromJson(jsonString, AuthUserJson.class);
 			System.out.println("Recieved logIn");
 			System.out.println("Vi kan køre det!");
@@ -153,8 +153,8 @@ public class GiantSwitch {
 			return "getClientForecast";
 		} else if (ID.contains("saveImportedCalender")) {
 			return "saveImportedCalender";
-		}else if (ID.contains("importCourse")) {
-			return "importCourse";
+		}else if (ID.contains("addUserToCalendar")) {
+			return "addUserToCalendar";
 		} else if (ID.contains("exportCourse")) {
 			return "exportCourse";
 		} else if (ID.contains("getQuote")) {

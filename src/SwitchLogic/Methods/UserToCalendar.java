@@ -12,18 +12,24 @@ public class UserToCalendar extends Model{
 
 	public String addUserToCalendar(String email, String calendarName) throws SQLException {
 		String stringToBeReturned ="";
-		String resultSetString = "";
+		String resultSetStringCalendarID = "";
+		String resultSetStringEmailID = "";
 		String[] fields = {"userid", "CalendarID"};
 		
 		resultSet = QB.selectFrom("calendar").where("Name", "=", calendarName).ExecuteQuery();
 		while(resultSet.next())
 		{
-			resultSetString = resultSet.getString("CalendarID");
+			resultSetStringCalendarID = resultSet.getString("CalendarID");
 		}
-		if(!resultSetString.equals(""))
+		if(!resultSetStringCalendarID.equals(""))
 		{
-			String[] values = {email, resultSetString};
-			QB.insertInto("userevents", fields).values(values);
+			resultSet = QB.selectFrom("users").where("email", "=", email).ExecuteQuery();
+			while(resultSet.next())
+			{
+				resultSetStringEmailID = resultSet.getString("userid");
+			}
+			String[] values = {resultSetStringEmailID, resultSetStringCalendarID};
+			QB.insertInto("userevents", fields).values(values).Execute();
 			stringToBeReturned = "User succesfully added to calendar";
 		}
 		else
