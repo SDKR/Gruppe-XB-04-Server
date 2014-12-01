@@ -14,7 +14,7 @@ public class UserLogin {
 			{
 				if(DBC.userPasswordCheck(userName, password))
 				{
-					stringToBeReturned = "true";
+					stringToBeReturned = "1";
 				}
 				else
 				{
