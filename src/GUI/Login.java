@@ -110,7 +110,6 @@ public class Login extends JPanel {
 		return textFieldUsername;
 	}
 
-
 	public JButton getBtnLogIn() {
 		return btnLogIn;
 	}

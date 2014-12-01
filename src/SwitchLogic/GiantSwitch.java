@@ -4,7 +4,9 @@ import model.note.Note;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
+import JsonClasses.userToCalendarJson;
 import SwitchLogic.Methods.*;
+
 import com.google.gson.*;
 
 public class GiantSwitch {
@@ -19,6 +21,7 @@ public class GiantSwitch {
 		CreateCalendar CC = new CreateCalendar();
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
+		UserToCalendar UTC = new UserToCalendar();
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
 		switch (Determine(jsonString)) {
@@ -28,8 +31,10 @@ public class GiantSwitch {
 		 ** COURSES **
 		 ************/
 
-		case "importCalendar":
-			System.out.println("Recieved importCourse");
+		case "addUserToCalendar":
+			userToCalendarJson UTCJ = gson.fromJson(jsonString, userToCalendarJson.class);
+			System.out.println("Vi er inde i switchen");
+			answer = UTC.addUserToCalendar(UTCJ.getEmail(), UTCJ.getCalendarName());
 			break;
 
 		/**********
