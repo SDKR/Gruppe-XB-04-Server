@@ -30,7 +30,7 @@ class TCPServer{
 //		Old port declaration
 //		ServerSocket welcomeSocket = new ServerSocket(8888);
 //		New read from file port declaration
-		ServerSocket welcomeSocket = new ServerSocket(cPort);
+		ServerSocket welcomeSocket = new ServerSocket(8888);
 		
 		//While something is true
 		while(true){

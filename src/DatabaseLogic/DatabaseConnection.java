@@ -35,6 +35,12 @@ public class DatabaseConnection {
 	private ResultSet rs;
 	private Connection conn = null;
 
+	public DatabaseConnection(){
+		KC.keyImporter();
+		setSqlUrl(KC.getSqlUrl());
+		setSqlUser(KC.getSqlUser());
+		setSqlPasswd(KC.getSqlPasswd());
+	}
 	// Imports login info keys
 	public void keyImporter() {
 		KC.keyImporter();

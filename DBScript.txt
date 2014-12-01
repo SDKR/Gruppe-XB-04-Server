@@ -87,9 +87,9 @@ CREATE TABLE IF NOT EXISTS roles
 CREATE TABLE IF NOT EXISTS WeatherTable
 (
 	weatherid int NOT NULLE AUTO_INCREMENT,
-	weatherDate datetime NOT NULL, 
+	weatherDate varchar(255) NOT NULL, 
 	weatherDegrees DECIMAL (3, 2) NOT NULL,
-	weatherDesc varchar(255) NOT NULL
+	weatherDesc varchar(255) NOT NULL,
 	PRIMARY KEY (weatherid)
 );
 

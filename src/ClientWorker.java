@@ -27,14 +27,32 @@ public class ClientWorker implements  Runnable{
 			DataOutputStream outToClient = new DataOutputStream(connectionSocketConected.getOutputStream());
 			System.out.println("Outtoclient oprettet!");
 			//Sets client sentence equals input from client
+			
 			String ny1 = new String(b, "UTF-8").trim();
 			System.out.println(ny1);
-			String ny = encryption.xor_decrypt(ny1, "3.1470");
+			
+			byte[] input = ny1.getBytes();
+			byte key = (byte) 3.1470;
+			byte[] encrypted = input;
+			for (int i = 0; i < encrypted.length; i++)
+			{
+				encrypted[i] = (byte) (encrypted[i] ^ key);
+			}
+			String decrypted = new String(encrypted).trim();
 			//Sysout recieved message
-			System.out.println("Received: " + ny);
-			String returnSvar = GS.GiantSwitchMethod(ny);
+			System.out.println("Received: " + decrypted);
+			String returnSvar = GS.GiantSwitchMethod(decrypted);
 			System.out.println(returnSvar);
-			String stringToClient = encryption.xor_decrypt(returnSvar, "3.1470");
+
+			byte[] input2 = returnSvar.getBytes();
+			byte key2 = (byte) 3.1470;
+			byte[] encrypted2 = input2;
+			for (int i = 0; i < encrypted2.length; i++)
+			{
+				encrypted2[i] = (byte) (encrypted2[i] ^ key);
+			}
+			String stringToClient = new String(encrypted2).trim();
+		
 			//Sends the capitalized message back to client!!
 			System.out.println(stringToClient);
 			outToClient.writeBytes(stringToClient+"\n");
