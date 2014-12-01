@@ -47,13 +47,13 @@ public class QuoteAndWeather extends JPanel {
     	 * Panel layout
     	 */
     	setSize(new Dimension(1366, 768));
-    	setLayout(null);
+        setLayout(null);
+        btnMainMenu.setBounds(586, 646, 194, 44);
         
         btnMainMenu.setForeground(Color.WHITE);
         btnMainMenu.setFont(new Font("Arial", Font.BOLD, 30));
         btnMainMenu.setContentAreaFilled(false);
         btnMainMenu.setBorder(new CompoundBorder(new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0)), new BevelBorder(BevelBorder.LOWERED, new Color(255, 255, 255), new Color(0, 0, 0), new Color(255, 255, 255), new Color(0, 0, 0))));
-        btnMainMenu.setBounds(586, 646, 194, 44);
         add(btnMainMenu);
 
         /*
@@ -63,53 +63,44 @@ public class QuoteAndWeather extends JPanel {
         Object[][] data = {};
         
         lblQuoteAndWeather = new JLabel("Quote and Weather of the Day");
+        lblQuoteAndWeather.setBounds(6, 62, 1354, 59);
         lblQuoteAndWeather.setForeground(Color.WHITE);
         lblQuoteAndWeather.setHorizontalAlignment(SwingConstants.CENTER);
         lblQuoteAndWeather.setFont(new Font("Arial", Font.BOLD, 50));
         lblQuoteAndWeather.setBackground(Color.WHITE);
-        lblQuoteAndWeather.setBounds(6, 102, 1354, 59);
         add(lblQuoteAndWeather);
+        weatherLabel.setBounds(627, 384, 112, 69);
         weatherLabel.setForeground(Color.WHITE);
         weatherLabel.setHorizontalAlignment(SwingConstants.CENTER);
         weatherLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        weatherLabel.setBounds(361, 235, 112, 69);
         
         add(weatherLabel);
+        quoteLabel.setBounds(627, 167, 112, 69);
         quoteLabel.setForeground(Color.WHITE);
         quoteLabel.setHorizontalAlignment(SwingConstants.CENTER);
         quoteLabel.setFont(new Font("Arial", Font.BOLD, 25));
-        quoteLabel.setBounds(890, 232, 112, 69);
         
         add(quoteLabel);
-
-        
-        qTextArea = new JTextArea();
-        qTextArea.setBounds(822, 295, 255, 227);
+        qTextArea.setFont(new Font("Arial", Font.BOLD, 13));
+        qTextArea.setBounds(73, 248, 1219, 139);
         add(qTextArea);
         
 
         JScrollBar scrollBar = new JScrollBar();
-
-        scrollBar = new JScrollBar();
-        scrollBar.setBounds(547, 295, 15, 227);
-        add(scrollBar);
-        weatherTextArea.setBounds(307, 295, 255, 227);
         setVisible(true);
+        weatherTextArea.setBounds(73, 465, 1219, 139);
         
         add(weatherTextArea);
-        
-        
-        qTextArea.setBounds(633, 295, 255, 227);
         add(qTextArea);
         
       
     
         JLabel lblBackground = new JLabel("Background");
+        lblBackground.setBounds(0, 0, 1376, 768);
         lblBackground.setIcon(new ImageIcon(UserList.class.getResource("/Images/MetalBackground.jpg")));
         lblBackground.setBackground(new Color(245, 245, 245));
         lblBackground.setForeground(new Color(245, 255, 250));
         lblBackground.setOpaque(true);
-        lblBackground.setBounds(0, 0, 1376, 768);
         add(lblBackground);
     }
     

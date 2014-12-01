@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import GUI.UserCreation;
 import GUILogic.Logic;
+import model.Forecast.ForecastModel;
 import model.QueryBuild.QueryBuilder;
 import keyKeeper.*;
 
@@ -19,6 +20,7 @@ public class DatabaseConnection {
 	KeyChest KC = new KeyChest();
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
+	ForecastModel FM = new ForecastModel();
 
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
@@ -26,8 +28,8 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
+	private String sqlUrl = "jdbc:mysql://localhost:3306/";
+	private String sqlUser = "root";
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -37,10 +39,10 @@ public class DatabaseConnection {
 
 	// Imports login info keys
 	public void keyImporter() {
-		KC.keyImporter();
-		setSqlUrl(KC.getSqlUrl());
-		setSqlUser(KC.getSqlUser());
-		setSqlPasswd(KC.getSqlPasswd());
+//		KC.keyImporter();
+//		setSqlUrl(KC.getSqlUrl());
+//		setSqlUser(KC.getSqlUser());
+//		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
@@ -708,4 +710,35 @@ return stringToBeReturned;
 		}
 		return booleanToBeReturned;
 	}
+	
+	public ArrayList<String> weatherArray(){
+		ArrayList<String> arrayToBeReturned = new ArrayList<String>();
+		String resultSetHolder = "";
+		try{
+		getConnection();
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery("select * from cbscalendar.weathertable;");
+			while (rs.next()) {
+				resultSetHolder = "WeatherID: "+rs.getString("weatherid") +" WeatherDate: "+rs.getString("weatherdate")+" Weatherdesc: "+rs.getString("weatherdesc")+" WeatherDegrees: "+rs.getString("weatherDegrees");
+				arrayToBeReturned.add(resultSetHolder);
+			}
+		}
+		catch(SQLException e){
+			e.printStackTrace();
+		}
+		return arrayToBeReturned;
+	}
+	
+
+
+
+	public void weatherToDB(String celsius, String date, String desc) {
+		try {
+			doUpdate("insert into cbscalendar.weathertable (weatherdate, weatherdegrees, weatherdesc) values ('"+date+"', '"+celsius+"','"+desc+"' );");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
 }

@@ -36,6 +36,7 @@ public class Logic {
 
 	public void startApp() {
 		DC.keyImporter();
+		saveWeather();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}
@@ -526,24 +527,17 @@ public class Logic {
 			}
 		}
 	}
-	
-	public void displayWeather(){
-		/*String arrayText = "";
-	
-
+	public void saveWeather(){
 		int lenght = FM.requestForecast().size();
+	
 		for(int i = 0; i < lenght; i++) {
 			
-			arrayText = arrayText + FM.requestForecast().get(i).getCelsius() + "\n";
-			arrayText = arrayText + FM.requestForecast().get(i).getDate() + "\n";
-			arrayText = arrayText + FM.requestForecast().get(i).getDesc() + "\n";
-		
-			
-			   CP.getQAW().getWeatherTextArea().setText(arrayText);
-
-	}*/}
+			DC.weatherToDB(FM.requestForecast().get(i).getCelsius(), FM.requestForecast().get(i).getDate(), FM.requestForecast().get(i).getDesc());
+		}
+	}
 	
 	public void displayQuote(){
+		QModel.saveQuote();
 		QModel.updateQuote();
 		String stringQText = QModel.getQuote();
 		System.out.println(stringQText);
@@ -551,6 +545,13 @@ public class Logic {
 		
 	
 		}
+	public void displayWeather(){
+		int count = DC.weatherArray().size();
+		for(int i = 0; i < count; i ++){
+		String weatherString = CP.getQAW().getWeatherTextArea().getText();
+		CP.getQAW().getWeatherTextArea().setText(weatherString + DC.weatherArray().get(i));
+		}
+	}
 	
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
