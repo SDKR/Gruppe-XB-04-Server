@@ -18,6 +18,7 @@ public class Execute extends Model {
     private final String UPDATE = "UPDATE ";
     private final String VALUES = " VALUES ";
     private final String DELETE = " DELETE ";
+    private final String OR = " OR ";
 
     private QueryBuilder queryBuilder;
     private Where where;
@@ -73,7 +74,8 @@ public class Execute extends Model {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } else {
+       } 
+        else {
             sql = SELECT + getQueryBuilder().getSelectValue() +
                     FROM + getQueryBuilder().getTableName() +
                     WHERE + getWhere().getWhereKey() + " " + getWhere().getWhereOperator() + " ?;";

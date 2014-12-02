@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS locationdata
 (
 	locationdataid int NOT NULL AUTO_INCREMENT,
 	longitude decimal (8,6) NOT NULL,
-	latitude decimal (8,6) UNIQUE,
+	latitude decimal (8,6) NOT NULL,
 	location_name varchar(255),
 	PRIMARY KEY (locationdataid)
 );
@@ -160,6 +160,7 @@ INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.524964', '55.681074', 'Kilen');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.515375', '55.683510', 'Dalgas Have');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.433252', '55.235522', 'Falkoner Bio');
+INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('11.111111', '22.222222', 'Default');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (XA)', 'admin@admin.dk');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (XB)', 'admin@admin.dk');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (LA)', 'admin@admin.dk');
