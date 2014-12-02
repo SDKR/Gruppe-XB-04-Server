@@ -169,3 +169,4 @@ INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Ledelse af IS - fora
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Ledelse af IS - forandring, innovation og viden (LA)', 'admin@admin.dk');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Virksomhedens oekonomiske styring(3)(LA)', 'admin@admin.dk');
 INSERT INTO cbscalendar.users (email, password, Admin) VALUES ('aa', 'aa', '1');
+set global max_connections = 1000;
