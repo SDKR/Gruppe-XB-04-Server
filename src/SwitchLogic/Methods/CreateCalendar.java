@@ -21,7 +21,7 @@ public class CreateCalendar extends Model {
 		{
 			System.out.println("Vi prøver at authenticate uden fejl");
 			addNewCalender(calenderName, userName, privatePublic);
-			stringToBeReturned = "Qhe new calender has been created!";
+			stringToBeReturned = "The new calender has been created!";
 			System.out.println(stringToBeReturned);
 			System.out.println("Vi har authenticated uden fejl");
 		}
@@ -39,7 +39,7 @@ public class CreateCalendar extends Model {
 		getConn();
 		boolean authenticate = false;
 		
-		resultSet= qb.selectFrom("calender").where("name", "=", newCalenderName).ExecuteQuery();
+		resultSet= qb.selectFrom("calendar").where("name", "=", newCalenderName).ExecuteQuery();
 				
 				//("select * from test.calender where Name = '"+newCalenderName+"';");
 		while(resultSet.next())
@@ -51,14 +51,14 @@ public class CreateCalendar extends Model {
 	
 	public void addNewCalender (String newCalenderName, String userName, int publicOrPrivate) throws SQLException
 	{
-		System.out.println("Vi er ny i addNewCalender uden fejl");
+		System.out.println("Vi er ny i addNewCalendar uden fejl");
 		String [] keys = {"Name","Active","CreatedBy","PrivatePublic"};
 		System.out.println(keys[0] + keys[1]+ keys[2]+ keys[3]);
 		System.out.println("Vi har nu smidt noget data ind i keys uden fejl");
 		String [] values = {newCalenderName,"1",userName, Integer.toString(publicOrPrivate)};
 		System.out.println(values[0] + values[1]+ values[2]+ values[3]);
 		System.out.println("Vi har nu smidt noget data ind i values uden fejl");
-		qb.insertInto("calender", keys).values(values).Execute();
+		qb.insertInto("calendar", keys).values(values).Execute();
 		System.out.println("Vi burde have oprettet den nye kalender uden fejl");
 		
 //		doUpdate("insert into test.calender (Name, Active, CreatedBy, PrivatePublic) VALUES ('"+newCalenderName+"', '1', '"+userName+"', '"+publicOrPrivate+"');");

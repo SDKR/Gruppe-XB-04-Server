@@ -4,9 +4,15 @@ import model.note.Note;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
+
 import JsonClasses.EventsJson;
 import JsonClasses.QuoteJson;
 import JsonClasses.WeatherJson;
+
+import JsonClasses.EventsDayJson;
+import JsonClasses.EventsWeekJson;
+import JsonClasses.userToCalendarJson;
+
 import SwitchLogic.Methods.*;
 
 import com.google.gson.*;
@@ -24,8 +30,14 @@ public class GiantSwitch {
 		CreateCalendar CC = new CreateCalendar();
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
+
 		Quote quote = new Quote();
 		Events eve = new Events();
+
+		UserToCalendar UTC = new UserToCalendar();
+		eventsToUserDay ETUD = new eventsToUserDay();
+		eventsToUserWeek ETUW = new eventsToUserWeek();
+
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
 		switch (Determine(jsonString)) {
@@ -35,25 +47,20 @@ public class GiantSwitch {
 		 ** COURSES **
 		 ************/
 
-		case "importCalendar":
-			System.out.println("Recieved importCourse");
+		case "addUserToCalendar":
+			userToCalendarJson UTCJ = gson.fromJson(jsonString, userToCalendarJson.class);
+			System.out.println("Vi er inde i switchen");
+			answer = UTC.addUserToCalendar(UTCJ.getEmail(), UTCJ.getCalendarName());
 			break;
 
 		/**********
 		 ** LOGIN **
 		 **********/
-		case "logIn":
+		case "logIn":		
 			AuthUserJson AU = gson.fromJson(jsonString, AuthUserJson.class);
 			System.out.println("Recieved logIn");
 			System.out.println("Vi kan k�re det!");
 			answer = UL.authenticateUser(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsActive());
-			
-			//answer = SW.loginAuthenticate(AU.getAuthUserEmail(), AU.getAuthUserIsActive(), AU.getAuthUserPassword());
-			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
-			break;
-
-		case "logOut":
-			System.out.println("Recieved logOut");
 			break;
 
 		/*************
@@ -61,7 +68,6 @@ public class GiantSwitch {
 		 *************/
 		case "createCalendar":
 			CreateCalendarJson CCJ = gson.fromJson(jsonString, CreateCalendarJson.class);
-			
 			System.out.println(CCJ.getCalenderName()+ " Den har lagt det nye ind i klassen");
 			answer = CC.createNewCalender(CCJ.getUserName(), CCJ.getCalenderName(), CCJ.getPublicOrPrivate());
 			System.out.println(answer);
@@ -72,15 +78,6 @@ public class GiantSwitch {
 			System.out.println(DCJ.getCalenderName()+ "Deleted");
 			answer = DC.deleteCalender(DCJ.getUserName(), DCJ.getCalenderName());
 			break;
-		
-		case "saveImportedCalender":
-			
-			
-			break;
-			
-		case "getCalender":
-			System.out.println("Recieved getCalender");
-			break;
 
 		case "getEvents":
 			System.out.println("Recieved getEvents");
@@ -88,9 +85,16 @@ public class GiantSwitch {
 			System.out.println(eventsJ.getCbsEventId() + eventsJ.getType() + "Added");
 			answer = eve.checkEvent(eventsJ.getEventid(), eventsJ.getCbsEventId(), eventsJ.getType(), eventsJ.getLocationName(), eventsJ.getLocationName(), eventsJ.getCreatedBy(), eventsJ.getStart(), eventsJ.getEnd(), eventsJ.getName(), eventsJ.getText(), eventsJ.getCustomevent(), eventsJ.getCalendarID(), eventsJ.getStartYear(), eventsJ.getStartMonth(), eventsJ.getStartDay(), eventsJ.getStartHour(), eventsJ.getStartMinute(), eventsJ.getEndYear(), eventsJ.getEndMonth(), eventsJ.getEndDay(), eventsJ.getEndHour(), eventsJ.getEndMinute());
 			System.out.println(answer);
+
+		case "getEventsDay":
+			EventsDayJson EDJ = gson.fromJson(jsonString, EventsDayJson.class);
+			answer = ETUD.getEvents(EDJ.getCreatedby());
+
 			break;
 
-		case "createEvent":
+		case "getEventsWeek":
+			EventsWeekJson EWJ = gson.fromJson(jsonString, EventsWeekJson.class);
+			answer = ETUW.getEvents(EWJ.getCreatedby());
 			System.out.println("Recieved saveEvent");
 			break;
 
@@ -149,9 +153,11 @@ public class GiantSwitch {
 	//keyword if
 	public String Determine(String ID) {
 
-		if (ID.contains("getEvents")) {
-			return "getEvents";
-		} else if (ID.contains("getEventInfo")) {
+		if (ID.contains("getEventsDay")) {
+			return "getEventsDay";
+		}if (ID.contains("getEventsWeek")) {
+			return "getEventsWeek";
+		}else if (ID.contains("getEventInfo")) {
 			return "getEventInfo";
 		} else if (ID.contains("saveNote")) {
 			return "saveNote";
@@ -165,8 +171,8 @@ public class GiantSwitch {
 			return "getClientForecast";
 		} else if (ID.contains("saveImportedCalender")) {
 			return "saveImportedCalender";
-		}else if (ID.contains("importCourse")) {
-			return "importCourse";
+		}else if (ID.contains("addUserToCalendar")) {
+			return "addUserToCalendar";
 		} else if (ID.contains("exportCourse")) {
 			return "exportCourse";
 		} else if (ID.contains("getQuote")) {
@@ -184,12 +190,8 @@ public class GiantSwitch {
 		} else if (ID.contains("createCalendar")) {
 			return "createCalendar";
 		}
-		
-	
 
 		else
 			return "error";
 	}
-	
-
 }

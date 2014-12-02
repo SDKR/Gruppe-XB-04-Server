@@ -28,7 +28,6 @@ public class Events {
 				int location = rs.getInt("location");
 				int createdby = rs.getInt("createdby");
 				
-				
 				Date startDate = rs.getDate("start");
 				Time startTime = rs.getTime("start");
 				
@@ -70,12 +69,5 @@ public class Events {
     @Override
     public String toString() {
         return Arrays.toString(events.toArray());
-    }
-    
-    public static void main(String []args){
-    	Events Hej = new Events();
-    	
-    	Hej.getEvents();
-    	System.out.println(Hej.toString());
     }
 }

@@ -30,8 +30,8 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private String sqlUser = "root";
+	private String sqlUrl = "";
+	private String sqlUser = "";
 	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
@@ -55,14 +55,13 @@ public class DatabaseConnection {
 
 	public void clearOldCBSData() {
 		try {
-			QB.deleteHardFrom("events").where("customevent", "=", "1")
-					.Execute();
+			QB.deleteHardFrom("events").where("customevent", "=", "1").Execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void addingCBSCalendarToDB(String type, String location,
+	public void addingCBSCalendarToDB(String eventid, String type, String location,
 			String start, String end, String name, String text)
 			throws SQLException {
 		// Her skal v�re 2 switches til at bestemme Hvilken calendar event
@@ -70,24 +69,16 @@ public class DatabaseConnection {
 		int locationID = determineLocationID(location);
 		int calendarID = determineCalendarID(name);
 		int typeID = determineTypeID(type);
+		String typeIDS = Integer.toString(typeID);
+		String locationIDS = Integer.toString(locationID);
+		String calendarIDS = Integer.toString(calendarID);
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 			try {
 				getConnection();
-				doUpdate("insert into cbscalendar.events (type, location, createdBy, start, end, name, text, customevent, CalenderID) values ('"
-						+ typeID
-						+ "', '"
-						+ locationID
-						+ "', '1','"
-						+ start
-						+ "', '"
-						+ end
-						+ "', '"
-						+ name
-						+ "', '"
-						+ text
-						+ "', '1', '" + calendarID + "');");
-				conn.close();
-				stmt.close();
+				String[] fields = {"cbsEventId", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
+				String[] values = {eventid, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
+				QB.insertInto("events", fields).values(values).Execute();
+				
 			}
 
 			catch (SQLException e) {

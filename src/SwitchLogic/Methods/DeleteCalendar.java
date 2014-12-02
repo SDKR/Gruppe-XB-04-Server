@@ -22,7 +22,7 @@ public class DeleteCalendar extends Model {
 		String stringToBeReturend = "";
 		String usernameOfCreator ="";
 		String calenderExists = "";
-		resultSet = qb.selectFrom("calender").where("Name", "=", calenderName).ExecuteQuery();
+		resultSet = qb.selectFrom("calendar").where("Name", "=", calenderName).ExecuteQuery();
 				
 //				("select * from calender where Name = '"+calenderName+"';");
 		while(resultSet.next())
@@ -33,7 +33,7 @@ public class DeleteCalendar extends Model {
 		if(!calenderExists.equals(""))
 		{
 			String [] value = {"CreatedBy"};
-			resultSet = qb.selectFrom(value, "Calender").where("Name", "=", calenderName).ExecuteQuery();
+			resultSet = qb.selectFrom(value, "Calendar").where("Name", "=", calenderName).ExecuteQuery();
 			while(resultSet.next())
 			{
 				usernameOfCreator = resultSet.getString("CreatedBy");
@@ -47,7 +47,7 @@ public class DeleteCalendar extends Model {
 			{
 				String [] keys = {"Active"};
 				String [] values = {"2"};
-				qb.update("Calender", keys, values).where("Name", "=", calenderName).Execute();
+				qb.update("Calendar", keys, values).where("Name", "=", calenderName).Execute();
 				stringToBeReturend = "Calendar has been set inactive";
 			}
 		}
@@ -55,9 +55,6 @@ public class DeleteCalendar extends Model {
 		{
 			stringToBeReturend = "The calender you are trying to delete, does not exists.";
 		}
-		
-		
-		
 		return stringToBeReturend;
 	}
 
