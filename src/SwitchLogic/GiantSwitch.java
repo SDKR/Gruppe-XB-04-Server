@@ -4,6 +4,8 @@ import model.note.Note;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
+import JsonClasses.EventsDayJson;
+import JsonClasses.EventsWeekJson;
 import JsonClasses.userToCalendarJson;
 import SwitchLogic.Methods.*;
 
@@ -22,6 +24,8 @@ public class GiantSwitch {
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
 		UserToCalendar UTC = new UserToCalendar();
+		eventsToUserDay ETUD = new eventsToUserDay();
+		eventsToUserWeek ETUW = new eventsToUserWeek();
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
 		switch (Determine(jsonString)) {
@@ -45,13 +49,6 @@ public class GiantSwitch {
 			System.out.println("Recieved logIn");
 			System.out.println("Vi kan køre det!");
 			answer = UL.authenticateUser(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsActive());
-			
-			//answer = SW.loginAuthenticate(AU.getAuthUserEmail(), AU.getAuthUserIsActive(), AU.getAuthUserPassword());
-			//answer = SW.authenticate(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsAdmin());
-			break;
-
-		case "logOut":
-			System.out.println("Recieved logOut");
 			break;
 
 		/*************
@@ -59,7 +56,6 @@ public class GiantSwitch {
 		 *************/
 		case "createCalendar":
 			CreateCalendarJson CCJ = gson.fromJson(jsonString, CreateCalendarJson.class);
-			
 			System.out.println(CCJ.getCalenderName()+ " Den har lagt det nye ind i klassen");
 			answer = CC.createNewCalender(CCJ.getUserName(), CCJ.getCalenderName(), CCJ.getPublicOrPrivate());
 			System.out.println(answer);
@@ -70,21 +66,15 @@ public class GiantSwitch {
 			System.out.println(DCJ.getCalenderName()+ "Den har lagt det nye ind i klassen");
 			answer = DC.deleteCalender(DCJ.getUserName(), DCJ.getCalenderName());
 			break;
-		
-		case "saveImportedCalender":
-			
-			
-			break;
-			
-		case "getCalender":
-			System.out.println("Recieved getCalender");
+
+		case "getEventsDay":
+			EventsDayJson EDJ = gson.fromJson(jsonString, EventsDayJson.class);
+			answer = ETUD.getEvents(EDJ.getCreatedby());
 			break;
 
-		case "getEvents":
-			System.out.println("Recieved getEvents");
-			break;
-
-		case "createEvent":
+		case "getEventsWeek":
+			EventsWeekJson EWJ = gson.fromJson(jsonString, EventsWeekJson.class);
+			answer = ETUW.getEvents(EWJ.getCreatedby());
 			System.out.println("Recieved saveEvent");
 			break;
 
@@ -137,9 +127,11 @@ public class GiantSwitch {
 	//keyword if
 	public String Determine(String ID) {
 
-		if (ID.contains("getEvents")) {
-			return "getEvents";
-		} else if (ID.contains("getEventInfo")) {
+		if (ID.contains("getEventsDay")) {
+			return "getEventsDay";
+		}if (ID.contains("getEventsWeek")) {
+			return "getEventsWeek";
+		}else if (ID.contains("getEventInfo")) {
 			return "getEventInfo";
 		} else if (ID.contains("saveNote")) {
 			return "saveNote";
@@ -172,10 +164,7 @@ public class GiantSwitch {
 		} else if (ID.contains("createCalendar")) {
 			return "createCalendar";
 		}
-
 		else
 			return "error";
 	}
-	
-
 }

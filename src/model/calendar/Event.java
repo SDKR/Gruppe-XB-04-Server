@@ -94,7 +94,4 @@ public class Event {
 		this.start = start;
 		this.end = end;
 	}
-    
-    
-
 }
