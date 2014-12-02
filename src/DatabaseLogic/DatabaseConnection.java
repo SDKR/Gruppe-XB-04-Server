@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 
 import GUI.UserCreation;
 import GUILogic.Logic;
+import SwitchLogic.Methods.Weather;
 import model.Forecast.ForecastModel;
 import model.QueryBuild.QueryBuilder;
 import keyKeeper.*;
@@ -21,6 +22,7 @@ public class DatabaseConnection {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 	ForecastModel FM = new ForecastModel();
+	
 
 	// Creates the needed information to connect to the database
 	// Brug til manuel indtastning af connect info.
@@ -137,19 +139,19 @@ public class DatabaseConnection {
 		case "Ledelse af IS - forandring, innovation og viden (LA)":
 			intToBeReturned = 7;
 			break;
-		case "Virksomhedens �konomiske styring (3)":
+		case "Virksomhedens oekonomiske styring (3)":
 			intToBeReturned = 8;
 			break;
-		case "Makro�konomi (XB)":
+		case "Makrooekonomi (XB)":
 			intToBeReturned = 2;
 			break;
-		case "Makro�konomi (XA)":
+		case "Makrooekonomi (XA)":
 			intToBeReturned = 1;
 			break;
 		case "Ledelse af IS - forandring, innovation og viden (XA)":
 			intToBeReturned = 6;
 			break;
-		case "Makro�konomi (LA)":
+		case "Makrooekonomi (LA)":
 			intToBeReturned = 3;
 			break;
 		default:
@@ -178,22 +180,24 @@ public class DatabaseConnection {
 		} else if (locationID.startsWith("Fa")) {
 			intToBeReturned = 7;
 		} else {
-			intToBeReturned = 10;
+			intToBeReturned = 8;
 		}
 		return intToBeReturned;
 	}
 
 	public void createNewEvent(String type, String location, String start,
-			String end, String name, String text, String calendarString) {
+			String end, String name, String text, String calendarString){
+		System.out.println("flute");
 		int calendarID = determineCalendarID(calendarString);
 		int locationID = determineLocationID(location);
 		int typeID = determineTypeID(type);
+		System.out.println("Dillermand");
 		try {
-			doUpdate("insert into cbscalendar.events (type, location, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
+			doUpdate("insert into cbscalendar.events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
 					+ typeID
 					+ "', '"
 					+ locationID
-					+ "', '1', '"
+					+ "', '"+location+"', '1', '"
 					+ start
 					+ "', '"
 					+ end
@@ -203,7 +207,6 @@ public class DatabaseConnection {
 					+ text
 					+ "', '2', '" + calendarID + "');");
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

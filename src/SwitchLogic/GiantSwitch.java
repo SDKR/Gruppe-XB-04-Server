@@ -4,11 +4,16 @@ import model.note.Note;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
+import JsonClasses.EventsJson;
+import JsonClasses.QuoteJson;
+import JsonClasses.WeatherJson;
 import SwitchLogic.Methods.*;
+
 import com.google.gson.*;
 
 public class GiantSwitch {
 	public String GiantSwitchMethod(String jsonString) throws Exception {
+		Weather WH = new Weather();
 
 		//Events eventsKlasse = new Events(0, 0, 0, jsonString, jsonString, jsonString, jsonString, jsonString);
 
@@ -19,6 +24,8 @@ public class GiantSwitch {
 		CreateCalendar CC = new CreateCalendar();
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
+		Quote quote = new Quote();
+		Events eve = new Events();
 		String answer = "";	
 		//Creates a switch which determines which method should be used. Methods will be applied later on
 		switch (Determine(jsonString)) {
@@ -38,7 +45,7 @@ public class GiantSwitch {
 		case "logIn":
 			AuthUserJson AU = gson.fromJson(jsonString, AuthUserJson.class);
 			System.out.println("Recieved logIn");
-			System.out.println("Vi kan køre det!");
+			System.out.println("Vi kan kï¿½re det!");
 			answer = UL.authenticateUser(AU.getAuthUserEmail(), AU.getAuthUserPassword(), AU.getAuthUserIsActive());
 			
 			//answer = SW.loginAuthenticate(AU.getAuthUserEmail(), AU.getAuthUserIsActive(), AU.getAuthUserPassword());
@@ -62,7 +69,7 @@ public class GiantSwitch {
 		
 		case "deleteCalendar":
 			DeleteCalendarJson DCJ = gson.fromJson(jsonString, DeleteCalendarJson.class);
-			System.out.println(DCJ.getCalenderName()+ "Den har lagt det nye ind i klassen");
+			System.out.println(DCJ.getCalenderName()+ "Deleted");
 			answer = DC.deleteCalender(DCJ.getUserName(), DCJ.getCalenderName());
 			break;
 		
@@ -77,6 +84,10 @@ public class GiantSwitch {
 
 		case "getEvents":
 			System.out.println("Recieved getEvents");
+			EventsJson eventsJ = gson.fromJson(jsonString, EventsJson.class);
+			System.out.println(eventsJ.getCbsEventId() + eventsJ.getType() + "Added");
+			answer = eve.checkEvent(eventsJ.getEventid(), eventsJ.getCbsEventId(), eventsJ.getType(), eventsJ.getLocationName(), eventsJ.getLocationName(), eventsJ.getCreatedBy(), eventsJ.getStart(), eventsJ.getEnd(), eventsJ.getName(), eventsJ.getText(), eventsJ.getCustomevent(), eventsJ.getCalendarID(), eventsJ.getStartYear(), eventsJ.getStartMonth(), eventsJ.getStartDay(), eventsJ.getStartHour(), eventsJ.getStartMinute(), eventsJ.getEndYear(), eventsJ.getEndMonth(), eventsJ.getEndDay(), eventsJ.getEndHour(), eventsJ.getEndMinute());
+			System.out.println(answer);
 			break;
 
 		case "createEvent":
@@ -106,8 +117,9 @@ public class GiantSwitch {
 		 ** QUOTE **
 		 **********/
 		case "getQuote":
-
-		answer = QOTDKlasse.getQuote();
+			System.out.println("Recived getQuote");
+			System.out.println(jsonString);
+		    answer = quote.quoteCheck();
 			System.out.println(answer);
 			
 			break;
@@ -118,7 +130,12 @@ public class GiantSwitch {
 
 		case "getClientForecast":
 			System.out.println("Recieved getClientForecast");
+			System.out.println(jsonString);
+			WeatherJson WJ = gson.fromJson(jsonString, WeatherJson.class);
+			answer = WH.weatherCheck();
+			System.out.println(answer);
 			break;
+			
 		
 		default:
 			System.out.println("Error");
@@ -167,6 +184,8 @@ public class GiantSwitch {
 		} else if (ID.contains("createCalendar")) {
 			return "createCalendar";
 		}
+		
+	
 
 		else
 			return "error";
