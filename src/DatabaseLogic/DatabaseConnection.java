@@ -30,9 +30,9 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
-	private String sqlPasswd = "";
+	private String sqlUrl = "jdbc:mysql://localhost:3306/";
+	private String sqlUser = "Emil";
+	private String sqlPasswd = "wak40336";
 
 	// Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -47,10 +47,10 @@ public class DatabaseConnection {
 	}
 	// Imports login info keys
 	public void keyImporter() {
-//		KC.keyImporter();
-//		setSqlUrl(KC.getSqlUrl());
-//		setSqlUser(KC.getSqlUser());
-//		setSqlPasswd(KC.getSqlPasswd());
+		KC.keyImporter();
+		setSqlUrl(KC.getSqlUrl());
+		setSqlUser(KC.getSqlUser());
+		setSqlPasswd(KC.getSqlPasswd());
 	}
 
 	public void clearOldCBSData() {
