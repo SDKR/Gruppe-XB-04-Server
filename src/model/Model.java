@@ -11,12 +11,6 @@ import java.sql.*;
  * model.Model superclass, never instansiated. All child model classes inherits its properties, classes and methods */
 public abstract class Model {
 
-    //private static Configurations cf = new Configurations();
-
-   /* private static String sqlUrl = "jdbc:mysql://" + cf.getHost() + ":" + cf.getPort() + "/";
-    private static String sqlUser = cf.getUsername();
-    private static String sqlPasswd = cf.getPassword();
-    private static String dbName = cf.getDbname();*/
     private static String sqlUrl = "jdbc:mysql://localhost:3306/";
     private static String sqlUser = "Asger";
     private static String sqlPasswd = "1darkeldar";
