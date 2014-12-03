@@ -36,7 +36,6 @@ public class Logic {
 
 	public void startApp() {
 		DC.keyImporter();
-		//saveWeather();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
 	}
@@ -50,6 +49,9 @@ public class Logic {
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
 						CP.show(ContainerPanel.mainMenu);
+						saveWeather();
+						displayWeather();
+						displayQuote();
 						CP.getLI().getTextFieldUsername().setText("");
 						CP.getLI().getTextFieldPassword().setText("");
 					} else {
@@ -178,8 +180,6 @@ public class Logic {
 				break;
 
 			case "QAWList":
-				displayWeather();
-				displayQuote();
 				CP.show(ContainerPanel.quoteAndWeather);
 				break;
 			case "CalendarList":
