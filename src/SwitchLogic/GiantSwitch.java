@@ -79,8 +79,8 @@ public class GiantSwitch {
 			answer = DC.deleteCalender(DCJ.getUserName(), DCJ.getCalenderName());
 			break;
 
-		case "getEvents":
-			System.out.println("Recieved getEvents");
+		case "createEvent":
+			System.out.println("Recieved createEvent");
 			EventsJson eventsJ = gson.fromJson(jsonString, EventsJson.class);
 			System.out.println(eventsJ.getCbsEventId() + eventsJ.getType() + "Added");
 			answer = eve.checkEvent(eventsJ.getEventid(), eventsJ.getCbsEventId(), eventsJ.getType(), eventsJ.getLocationName(), eventsJ.getLocationName(), eventsJ.getCreatedBy(), eventsJ.getStart(), eventsJ.getEnd(), eventsJ.getName(), eventsJ.getText(), eventsJ.getCustomevent(), eventsJ.getCalendarID(), eventsJ.getStartYear(), eventsJ.getStartMonth(), eventsJ.getStartDay(), eventsJ.getStartHour(), eventsJ.getStartMinute(), eventsJ.getEndYear(), eventsJ.getEndMonth(), eventsJ.getEndDay(), eventsJ.getEndHour(), eventsJ.getEndMinute());
@@ -189,6 +189,8 @@ public class GiantSwitch {
 			return "deleteEvent"; 
 		} else if (ID.contains("createCalendar")) {
 			return "createCalendar";
+		} else if (ID.contains("getEvents")) {
+			return "getEvents";
 		}
 
 		else
