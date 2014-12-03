@@ -4,15 +4,13 @@ import model.note.Note;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
-
 import JsonClasses.EventsJson;
+import JsonClasses.GetAllCalendar;
 import JsonClasses.QuoteJson;
 import JsonClasses.WeatherJson;
-
 import JsonClasses.EventsDayJson;
 import JsonClasses.EventsWeekJson;
 import JsonClasses.userToCalendarJson;
-
 import SwitchLogic.Methods.*;
 
 import com.google.gson.*;
@@ -30,6 +28,7 @@ public class GiantSwitch {
 		CreateCalendar CC = new CreateCalendar();
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
+		getCalendarDataDB GCDDB = new getCalendarDataDB();
 
 		Quote quote = new Quote();
 		Events eve = new Events();
@@ -98,8 +97,10 @@ public class GiantSwitch {
 			System.out.println("Recieved saveEvent");
 			break;
 
-		case "getEventInfo":
-			System.out.println("Recieved getEventInfo");
+		case "getAllCalendars":
+			GetAllCalendar GAC = gson.fromJson(jsonString, GetAllCalendar.class);
+			answer = GCDDB.getCalendarData();
+			System.out.println("Recieved getAllCalendars");
 			break;
 			
 		case "deleteEvent":
@@ -169,8 +170,8 @@ public class GiantSwitch {
 			return "deleteCalendar";
 		} else if (ID.contains("getClientForecast")) {
 			return "getClientForecast";
-		} else if (ID.contains("saveImportedCalender")) {
-			return "saveImportedCalender";
+		} else if (ID.contains("getAllCalendars")) {
+			return "getAllCalendars";
 		}else if (ID.contains("addUserToCalendar")) {
 			return "addUserToCalendar";
 		} else if (ID.contains("exportCourse")) {
