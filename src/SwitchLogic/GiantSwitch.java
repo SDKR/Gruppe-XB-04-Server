@@ -10,6 +10,7 @@ import JsonClasses.QuoteJson;
 import JsonClasses.WeatherJson;
 import JsonClasses.EventsDayJson;
 import JsonClasses.EventsWeekJson;
+import JsonClasses.subscribeUserJson;
 import JsonClasses.userToCalendarJson;
 import SwitchLogic.Methods.*;
 
@@ -43,13 +44,19 @@ public class GiantSwitch {
 		//If the Json String contains one of the keywords below, run the relevant method.
 
 		/************
-		 ** COURSES **
+		 ** SUBSCRIBE **
 		 ************/
 
 		case "addUserToCalendar":
 			userToCalendarJson UTCJ = gson.fromJson(jsonString, userToCalendarJson.class);
 			System.out.println("Vi er inde i switchen");
 			answer = UTC.addUserToCalendar(UTCJ.getEmail(), UTCJ.getCalendarName());
+			break;
+			
+		case "addOtherUserToCalendar":
+			subscribeUserJson SUJ = gson.fromJson(jsonString, subscribeUserJson.class);
+			System.out.println("Vi prøver at subribe en anden bruger");
+			answer = UTC.addOtherUserToCalender(SUJ.getSubscriber(), SUJ.getUsername(), SUJ.getCalendarName());
 			break;
 
 		/**********

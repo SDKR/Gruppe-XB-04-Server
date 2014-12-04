@@ -80,13 +80,14 @@ public class UserToCalendar extends Model{
 					{
 						testingIfAlreadySubscribedC = resultSet.getString("CalendarID");
 					}
-					if(testingIfAlreadySubscribedC.equals(""))
+					if(!testingIfAlreadySubscribedArray.contains(" "+resultSetStringEmailID+","))
 					{
 						QB.insertInto("userevents", fields).values(values).Execute();
 						stringToBeReturned = "User succesfully added to calendar";
 					}
 					else
 					{
+						System.out.println("5");
 						stringToBeReturned = "You have already subscribed to this calendar!";
 					}
 				}
@@ -95,11 +96,48 @@ public class UserToCalendar extends Model{
 					stringToBeReturned = "You cant subscribe to private calendars you are not the creator of.";
 				}
 			}
-			
 		}
 		else
 		{
 			stringToBeReturned = "The calendar does not exists";
+		}
+		return stringToBeReturned;
+	}
+
+	public String addOtherUserToCalender(String subscriber, String username, String calendarName) {
+		String stringToBeReturned = "";
+		String subscriberString = "";
+		String subscribedID = "";
+		String calendarID = "";
+		String[] subscribedValue = {"userid"};
+		String[] creatorValue = {"CalendarIDm", "CreatedBy"};
+		String[] userEventsFields = {"userid", "CalendarID"};
+		String[] userEventsValues = {subscribedID, calendarID};
+		try {
+			resultSet = QB.selectFrom(creatorValue, "calendar").where("Name", "=", calendarName).ExecuteQuery();
+			while(resultSet.next())
+			{
+				calendarID = resultSet.getString("CalendarID");
+				subscriberString = resultSet.getString("CreatedBy");
+			}
+			if(subscriberString.equals(subscriber))
+			{
+				
+				resultSet = QB.selectFrom(subscribedValue, "users").where("email", "=", username).ExecuteQuery();
+				while(resultSet.next())
+				{
+					subscribedID = resultSet.getString("userid");
+				}
+				QB.insertInto("userevents", userEventsFields).values(userEventsValues).Execute();
+				stringToBeReturned = "You have succesfully subscribed an user to your calendar!";
+			}
+			else
+			{
+				stringToBeReturned = "You cannot subscribe other people to calendars you do not own";
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return stringToBeReturned;
 	}

@@ -37,7 +37,6 @@ public class AddEvent extends JPanel {
 	private JComboBox<Object> endDay = new JComboBox<Object>();
 	private JComboBox<Object> endMonth = new JComboBox<Object>();
 	private JComboBox<Object> calendarCombo = new JComboBox<Object>();
-	private JComboBox<Object> locationCombo = new JComboBox<Object>();
 	private JTextField locationField = new JTextField();
 	private final JButton btnSetInactive = new JButton("Set Inactive");
 
@@ -244,14 +243,16 @@ public class AddEvent extends JPanel {
 		
 		add(btnSetInactive);
 		
-		locationCombo.setBounds(560, 225, 128, 22);
-		add(locationCombo);
-		
 		
 		
 		/*
 		 * Images
 		 */
+		
+		
+		locationField.setBounds(560, 225, 266, 22);
+		add(locationField);
+		locationField.setColumns(10);
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(EventList.class
 				.getResource("/Images/MetalBackground.jpg")));
@@ -286,9 +287,6 @@ public class AddEvent extends JPanel {
 	}
 	public JTextPane getInfoBox() {
 		return infoBox;
-	}
-	public JComboBox<Object> getLocationCombo() {
-		return locationCombo;
 	}
 	public JComboBox<Object> getTypeCombo() {
 		return typeCombo;
@@ -329,5 +327,4 @@ public class AddEvent extends JPanel {
 	public JComboBox<Object> getCalendarCombo() {
 		return calendarCombo;
 	}
-	
 }

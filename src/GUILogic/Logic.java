@@ -231,8 +231,7 @@ public class Logic {
 			String eventName = CP.getAE().getNameField().getText();
 			String type = CP.getAE().getTypeCombo().getSelectedItem()
 					.toString();
-			String locationC = CP.getAE().getLocationCombo().getSelectedItem()
-					.toString();
+			String locationC = CP.getAE().getLocationField().getText();
 			String locationF = CP.getAE().getLocationField().getText();
 
 			String location = locationC + "" + locationF;

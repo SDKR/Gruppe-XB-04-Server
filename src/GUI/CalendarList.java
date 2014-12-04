@@ -252,6 +252,12 @@ public class CalendarList extends JPanel {
 				{null, null, null, null, null},
 				{null, null, null, null, null},
 				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
+				{null, null, null, null, null},
 			},
 			new String[] {
 				"CalendarID", "Name", "Active", "CreatedBy", "Public/Private"
