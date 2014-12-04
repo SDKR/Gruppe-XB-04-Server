@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS QOTD
 CREATE TABLE IF NOT EXISTS events
 (
 	eventid int NOT NULL AUTO_INCREMENT,
+	activityid varchar(20),
 	cbsEventId varchar(255) Unique,
 	type int NOT NULL,
 	location int,

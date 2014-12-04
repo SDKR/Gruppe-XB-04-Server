@@ -30,9 +30,9 @@ public class DatabaseConnection {
 	// private String sqlUser = "Asger";
 	// private String sqlPasswd = "1darkeldar";
 
-	private String sqlUrl = "jdbc:mysql://localhost:3306/";
-	private String sqlUser = "Emil";
-	private String sqlPasswd = "wak40336";
+	private String sqlUrl = "";
+	private String sqlUser = "";
+	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -61,13 +61,13 @@ public class DatabaseConnection {
 		}
 	}
 
-	public void addingCBSCalendarToDB(String eventid, String type, String location,
+	public void addingCBSCalendarToDB(String activityId, String eventid, String type, String location,
 			String start, String end, String name, String text)
 			throws SQLException {
 		// Her skal v�re 2 switches til at bestemme Hvilken calendar event
 		// tilh�rer, og hvilken lokation.
 		int locationID = determineLocationID(location);
-		int calendarID = determineCalendarID(name);
+		int calendarID = determineCalendarID(activityId);
 		int typeID = determineTypeID(type);
 		String typeIDS = Integer.toString(typeID);
 		String locationIDS = Integer.toString(locationID);
@@ -75,10 +75,9 @@ public class DatabaseConnection {
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 			try {
 				getConnection();
-				String[] fields = {"cbsEventId", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
-				String[] values = {eventid, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
-				QB.insertInto("events", fields).values(values).Execute();
-				
+				String[] fields = {"activityid", "cbsEventId", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
+				String[] values = {activityId, eventid, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
+				QB.insertInto("events", fields).values(values).Execute();		
 			}
 
 			catch (SQLException e) {
@@ -121,32 +120,32 @@ public class DatabaseConnection {
 	private int determineCalendarID(String course) {
 		int intToBeReturned = 0;
 		switch (course) {
-		case "Distribuerede systemer (LA)":
-			intToBeReturned = 4;
+		case "BINTO1035U_XA_E14":
+			intToBeReturned = 1;
 			break;
-		case "Ledelse af IS - forandring, innovation og viden (XB)":
-			intToBeReturned = 5;
-			break;
-		case "Ledelse af IS - forandring, innovation og viden (LA)":
-			intToBeReturned = 7;
-			break;
-		case "Virksomhedens oekonomiske styring (3)":
-			intToBeReturned = 8;
-			break;
-		case "Makrooekonomi (XB)":
+		case "BINTO1035U_XB_E14":
 			intToBeReturned = 2;
 			break;
-		case "Makrooekonomi (XA)":
-			intToBeReturned = 1;
-			break;
-		case "Ledelse af IS - forandring, innovation og viden (XA)":
-			intToBeReturned = 6;
-			break;
-		case "Makrooekonomi (LA)":
+		case "BINTO1035U_LA_E14":
 			intToBeReturned = 3;
 			break;
+		case "BINTO1067U_LA_E14":
+			intToBeReturned = 4;
+			break;
+		case "BINTO1056U_XB_E14":
+			intToBeReturned = 5;
+			break;
+		case "BINTO1056U_XA_E14":
+			intToBeReturned = 6;
+			break;
+		case "BINTO1056U_LA_E14":
+			intToBeReturned = 7;
+			break;
+		case "BINTO1051U_LA_E14":
+			intToBeReturned = 8;
+			break;
 		default:
-			intToBeReturned = 1;
+			intToBeReturned = 9;
 		}
 		return intToBeReturned;
 	}

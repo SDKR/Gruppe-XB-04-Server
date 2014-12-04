@@ -64,7 +64,7 @@ public class GetCalendarData {
         {
         	String startTime = startTimeToString(event.getEvents().get(rCount).getStart());
         	String endTime = endTimeToString(event.getEvents().get(rCount).getEnd());
-        	DC.addingCBSCalendarToDB(event.getEvents().get(rCount).getEventid(), event.getEvents().get(rCount).getType(), event.getEvents().get(rCount).getLocation(), startTime, endTime, event.getEvents().get(rCount).getDescription(), "Et eller andet");
+        	DC.addingCBSCalendarToDB(event.getEvents().get(rCount).getActivityid(), event.getEvents().get(rCount).getEventid(), event.getEvents().get(rCount).getType(), event.getEvents().get(rCount).getLocation(), startTime, endTime, event.getEvents().get(rCount).getDescription(), "Et eller andet");
         	rCount++;
         }
     }
