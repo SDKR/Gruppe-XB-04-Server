@@ -62,6 +62,19 @@ public class DatabaseConnection extends Model {
 			e.printStackTrace();
 		}
 	}
+	
+	public boolean deleteFromCalendar(String resultSetStringCalendarID, String resultSetStringEmailID){
+		boolean booleanToBeReturned = false;
+		try{
+			getConnection();
+			doUpdate("delete from cbscalendar.userevents where userid='"+resultSetStringEmailID+"' and CalendarID='"+resultSetStringCalendarID+"';");
+			booleanToBeReturned = true;
+		}
+			catch (SQLException e) {
+				e.printStackTrace();
+		}
+		return booleanToBeReturned;
+}
 
 	public void addingCBSCalendarToDB(String activityId, String eventid, String type, String location,
 			String start, String end, String name, String text)
@@ -179,11 +192,9 @@ public class DatabaseConnection extends Model {
 
 	public void createNewEvent(String type, String location, String start,
 			String end, String name, String text, String calendarString){
-		System.out.println("flute");
 		int calendarID = determineCalendarID(calendarString);
 		int locationID = determineLocationID(location);
 		int typeID = determineTypeID(type);
-		System.out.println("Dillermand");
 		try {
 			doUpdate("insert into cbscalendar.events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
 					+ typeID

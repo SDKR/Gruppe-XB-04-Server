@@ -9,6 +9,7 @@ import JsonClasses.EventsJson;
 import JsonClasses.GetAllCalendar;
 import JsonClasses.NoteJson;
 import JsonClasses.QuoteJson;
+import JsonClasses.UnSubscribeCalendarJson;
 import JsonClasses.WeatherJson;
 import JsonClasses.EventsDayJson;
 import JsonClasses.EventsWeekJson;
@@ -33,10 +34,10 @@ public class GiantSwitch {
 		UserLogin UL = new UserLogin();
 		getCalendarDataDB GCDDB = new getCalendarDataDB();
 		NoteFunctions NF = new NoteFunctions();
-
 		Quote quote = new Quote();
 		Events eve = new Events();
 
+		unsubFromCalendar USC = new unsubFromCalendar();
 		UserToCalendar UTC = new UserToCalendar();
 		eventsToUserDay ETUD = new eventsToUserDay();
 		eventsToUserWeek ETUW = new eventsToUserWeek();
@@ -62,6 +63,15 @@ public class GiantSwitch {
 			answer = UTC.addOtherUserToCalender(SUJ.getSubscriber(), SUJ.getUsername(), SUJ.getCalendarName());
 			break;
 
+		/************
+		 ** UNSUBSCRIBE **
+		 ************/
+		case "unSubscribeCalendar":
+			UnSubscribeCalendarJson UUJ = gson.fromJson(jsonString, UnSubscribeCalendarJson.class);
+			System.out.println("Jeg vil gerne UnSubScribes");
+			answer = USC.removeUserFromCalendar(UUJ.getCalendarName(), UUJ.getEmail());
+			break;
+			
 		/**********
 		 ** LOGIN **
 		 **********/
@@ -204,8 +214,8 @@ public class GiantSwitch {
 			return "createCalendar";
 		} else if (ID.contains("getEvents")) {
 			return "getEvents";
-		}
-
+		}else if (ID.contains("unSubFromCalendar"))
+			return "unSubscribeCalendar";
 		else
 			return "error";
 	}

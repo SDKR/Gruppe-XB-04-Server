@@ -41,6 +41,7 @@ public class Login extends JPanel {
 	 */
 	public Login() {
 		setLayout(null);
+		setBounds(0,0,1366,768);
 		
 		//Login button
 		btnLogIn.setContentAreaFilled(false);

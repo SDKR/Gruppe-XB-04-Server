@@ -36,12 +36,14 @@ public class UserCreation extends JPanel {
 		setLayout(null);
 		setSize(new Dimension(1366, 768));
 		setLayout(null);
+		EmailText.setToolTipText("Usernames should end with @students.cbs.dk");
 
 		EmailText.setBounds(749, 151, 134, 28);
 		add(EmailText);
 		EmailText.setColumns(10);
 
 		Pass = new JTextField();
+		Pass.setToolTipText("Passwords should contain one number and one uppercase letter");
 		Pass.setBounds(749, 236, 134, 28);
 		add(Pass);
 		Pass.setColumns(10);
@@ -77,17 +79,18 @@ public class UserCreation extends JPanel {
 
 		chckbxActive = new JCheckBox("Active");
 		chckbxActive.setSelected(true);
-		chckbxActive.setForeground(Color.WHITE);
+		chckbxActive.setForeground(Color.BLACK);
 		chckbxActive.setFont(new Font("Arial", Font.BOLD, 13));
 		chckbxActive.setBounds(619, 421, 128, 23);
 		add(chckbxActive);
 
 		RepeatPass = new JTextField();
+		RepeatPass.setToolTipText("Passwords should contain one number and one uppercase letter");
 		RepeatPass.setBounds(749, 320, 134, 28);
 		add(RepeatPass);
 		RepeatPass.setColumns(10);
 
-		btnMainMenu = new JButton("Main Menu");
+		btnMainMenu = new JButton("Back");
 		btnMainMenu.setForeground(Color.WHITE);
 		btnMainMenu.setFont(new Font("Arial", Font.BOLD, 30));
 		btnMainMenu.setContentAreaFilled(false);
@@ -114,7 +117,7 @@ public class UserCreation extends JPanel {
 		add(btnCreate);
 
 		chckbxAdministrator = new JCheckBox("Administrator");
-		chckbxAdministrator.setForeground(Color.WHITE);
+		chckbxAdministrator.setForeground(Color.BLACK);
 		chckbxAdministrator.setFont(new Font("Arial", Font.BOLD, 13));
 		chckbxAdministrator.setBounds(619, 373, 128, 23);
 		add(chckbxAdministrator);
@@ -163,6 +166,18 @@ public class UserCreation extends JPanel {
 
 	public JButton getBtnCreate() {
 		return btnCreate;
+	}
+
+	public void setEmailText(JTextField emailText) {
+		EmailText = emailText;
+	}
+
+	public void setPass(JTextField pass) {
+		Pass = pass;
+	}
+
+	public void setRepeatPass(JTextField repeatPass) {
+		RepeatPass = repeatPass;
 	}
 
 }
