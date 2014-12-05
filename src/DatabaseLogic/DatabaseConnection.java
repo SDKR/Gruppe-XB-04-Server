@@ -11,11 +11,13 @@ import javax.swing.JOptionPane;
 import GUI.UserCreation;
 import GUILogic.Logic;
 import SwitchLogic.Methods.Weather;
+import model.Model;
 import model.Forecast.ForecastModel;
 import model.QueryBuild.QueryBuilder;
+import model.user.encryptionAES;
 import keyKeeper.*;
 
-public class DatabaseConnection {
+public class DatabaseConnection extends Model {
 
 	keyKeeper.KeyGetter GK = new keyKeeper.KeyGetter();
 	KeyChest KC = new KeyChest();
@@ -266,40 +268,33 @@ public class DatabaseConnection {
 		return passwordChecker;
 	}
 
-	/*************************
-	 * Arraylist to bugtable *
-	 ************************/
 	// Creates a method returning a array list, and receives nothing
-	public String[][] arrayID() {
-		String[] headerNames = { "userid", "email", "active", "created",
-				"password", "Admin" };
+	public String[][] calendarData() {
+		String[] headerNames = { "CalendarID", "Name", "Active", "CreatedBy",
+				"PrivatePublic"};
 		int rowCounter = 0;
+		String[] useridValue = {"CalendarID"};
 		try {
-			getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT userid FROM cbscalendar.users;");
-			while (rs.next()) {
+			resultSet = QB.selectFrom(useridValue, "calendar").all().ExecuteQuery();
+			while (resultSet.next()) {
 				rowCounter++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		System.out.println(rowCounter);
-		String[][] doubleArray = new String[6][rowCounter];
+		String[][] doubleArray = new String[5][rowCounter];
 		System.out.println("Lige efter String array er blevet oprettet");
 		for (int headerCounter = 0; headerCounter < 6; headerCounter++) {
 			System.out.println("inde I starten af for loopet " + headerCounter
 					+ ". gang");
-			ArrayList<Object> resultArray = new ArrayList<Object>();
 			try {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter]
-						+ " from cbscalendar.users");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from cbscalendar.calendar");
 				while (rs.next()) {
-					doubleArray[headerCounter][otherCounter] = rs
-							.getString(headerNames[headerCounter]);
+					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					otherCounter++;
 				}
 				closeConnection();
@@ -311,6 +306,8 @@ public class DatabaseConnection {
 		}
 		return doubleArray;
 	}
+	
+	
 
 	public String[][] eventID() {
 		String[] headerNames = { "eventid", "type", "location", "createdby",
@@ -406,20 +403,17 @@ public class DatabaseConnection {
 	public boolean checkPassword(String emailInput, String passwordInput) {
 		boolean passwordChecker = false;
 		try {
-			getConnection();
-			stmt = conn.createStatement();
-			rs = stmt
-					.executeQuery("select password from cbscalendar.users where email = '"
-							+ emailInput + "';");
-			while (rs.next()) {
-				String accountPassword = rs.getString("password");
-				if (accountPassword.equals(passwordInput) && checkIfInactive(emailInput).equals("1") ) {
+			String[] passwordValues = {"password"};
+			resultSet = QB.selectFrom(passwordValues, "users").where("email", "=", emailInput).ExecuteQuery();
+			while (resultSet.next()) {
+				String accountPassword = resultSet.getString("password");
+				if (encryptionAES.encrypt(passwordInput).equals(accountPassword) && checkIfInactive(emailInput).equals("1") ) {
 					passwordChecker = true;
 				} else {
 					System.out.println("Wrong Password/User Inactive!");
 				}
 			}
-		} catch (SQLException e) {
+		} catch (Exception e ) {
 			e.printStackTrace();
 		}
 		return passwordChecker;
@@ -647,7 +641,7 @@ return stringToBeReturned;
 		try{
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar.calendars where Name = '"
+			rs = stmt.executeQuery("select * from cbscalendar.calendar where Name = '"
 						+ eventName + "';");
 				while (rs.next()) {
 					resultSetHolder = rs.getString("Name");
@@ -702,7 +696,7 @@ return stringToBeReturned;
 			int active) {
 		boolean booleanToBeReturned = false;
 		try {
-			doUpdate("insert into cbscalendar.calendars (Name, Active, CreatedBy, PrivatePublic) Values ('"+eventName+"', '"+active+"', '1', '"+publicPrivate+"');");
+			doUpdate("insert into cbscalendar.calendar (Name, Active, CreatedBy, PrivatePublic) Values ('"+eventName+"', '"+active+"', '1', '"+publicPrivate+"');");
 			booleanToBeReturned = true;
 		} catch (SQLException e) {
 			e.printStackTrace();

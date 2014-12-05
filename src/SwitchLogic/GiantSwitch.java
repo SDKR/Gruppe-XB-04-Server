@@ -1,11 +1,13 @@
 package SwitchLogic;
 import model.QOTD.QOTDModel;
 import model.note.Note;
+import JsonClasses.AddNoteJson;
 import JsonClasses.AuthUserJson;
 import JsonClasses.CreateCalendarJson;
 import JsonClasses.DeleteCalendarJson;
 import JsonClasses.EventsJson;
 import JsonClasses.GetAllCalendar;
+import JsonClasses.NoteJson;
 import JsonClasses.QuoteJson;
 import JsonClasses.WeatherJson;
 import JsonClasses.EventsDayJson;
@@ -30,6 +32,7 @@ public class GiantSwitch {
 		DeleteCalendar DC = new DeleteCalendar();
 		UserLogin UL = new UserLogin();
 		getCalendarDataDB GCDDB = new getCalendarDataDB();
+		NoteFunctions NF = new NoteFunctions();
 
 		Quote quote = new Quote();
 		Events eve = new Events();
@@ -117,12 +120,14 @@ public class GiantSwitch {
 			System.out.println("Recieved saveNote");
 			break;
 
-		case "getNote":
-			System.out.println("Recieved getNote");
+		case "getThemNotesPlaya":
+			NoteJson NJ = gson.fromJson(jsonString, NoteJson.class);
+			answer = NF.getNote(NJ.getEventID());
 			break;
 			
-		case "deleteNote":
-			System.out.println("Recieved deleteNote");
+		case "addThemNotesPlaya":
+			AddNoteJson ANJ = gson.fromJson(jsonString, AddNoteJson.class);
+			answer = NF.updateNote(ANJ.getEventID(), ANJ.getNote(), ANJ.getCreatedBy());
 			break;
 
 		/**********
@@ -136,7 +141,7 @@ public class GiantSwitch {
 			
 			break;
 
-		/************
+		/*************
 		 ** WEATHER **
 		 ************/
 
@@ -169,10 +174,10 @@ public class GiantSwitch {
 			return "getEventInfo";
 		} else if (ID.contains("saveNote")) {
 			return "saveNote";
-		} else if (ID.contains("getNote")) {
-			return "getNote";
-		} else if (ID.contains("deleteNote")){
-			return "deleteNote";
+		} else if (ID.contains("getThemNotesPlaya")) {
+			return "getThemNotesPlaya";
+		} else if (ID.contains("addThemNotesPlaya")){
+			return "addThemNotesPlaya";
 		}else if  (ID.contains("deleteCalendar")){
 			return "deleteCalendar";
 		} else if (ID.contains("getClientForecast")) {

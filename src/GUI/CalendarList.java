@@ -21,7 +21,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 public class CalendarList extends JPanel {
-	private JTable table;
 	private JTextField nameField = new JTextField();
 	private JComboBox<Object> PPCombo = new JComboBox<Object>();
 	private JComboBox<Object> activeCombo = new JComboBox<Object>();
@@ -29,6 +28,7 @@ public class CalendarList extends JPanel {
 	private JButton btnAddCalendar = new JButton("Add Calendar");
 	private JButton btnDeleteCalendar = new JButton("Delete Calendar");
 	private JButton mainMenuBtn = new JButton("Main Menu");
+	private JTable calendarTable = new JTable();
 
 	/**
 	 * Create the panel.
@@ -49,8 +49,8 @@ public class CalendarList extends JPanel {
 		scrollPane.setBounds(372, 219, 591, 361);
 		add(scrollPane);
 		
-		table = new JTable();
-		table.setModel(new DefaultTableModel(
+		
+		calendarTable.setModel(new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, null, null},
 				{null, null, null, null, null},
@@ -263,8 +263,8 @@ public class CalendarList extends JPanel {
 				"CalendarID", "Name", "Active", "CreatedBy", "Public/Private"
 			}
 		));
-		table.getColumnModel().getColumn(1).setPreferredWidth(71);
-		scrollPane.setViewportView(table);
+		calendarTable.getColumnModel().getColumn(1).setPreferredWidth(71);
+		scrollPane.setViewportView(calendarTable);
 		/*
 		 * Buttons
 		 */
@@ -395,7 +395,9 @@ public class CalendarList extends JPanel {
 	public JTextField getNameField() {
 		return nameField;
 	}
-
+	public JTable getCalendarTable() {
+		return calendarTable;
+	}
 	public JComboBox<Object> getPPCombo() {
 		return PPCombo;
 	}

@@ -97,10 +97,7 @@ public class MainMenu extends JPanel {
 		/*
 		 * Background
 		 */
-		JLabel lblBackground = new JLabel("");
-		lblBackground.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/MetalBackground.jpg")));
-		lblBackground.setBounds(0, 0, 1366, 768);
-		lblBackground.isForegroundSet();
+		
 		
 		
 		calendarBtn.setForeground(Color.WHITE);
@@ -112,7 +109,10 @@ public class MainMenu extends JPanel {
 		calendarBtn.setBounds(688, 293, 378, 75);
 		add(calendarBtn);
 		
-	
+		JLabel lblBackground = new JLabel("");
+		lblBackground.setIcon(new ImageIcon(MainMenu.class.getResource("/Images/MetalBackground.jpg")));
+		lblBackground.setBounds(0, 0, 1366, 768);
+		lblBackground.isForegroundSet();
 		add(lblBackground);
 	}
 	//Adding actionlisteners

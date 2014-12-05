@@ -72,8 +72,8 @@ CREATE TABLE IF NOT EXISTS notes
 	cbsEventId varchar(255),
 	createdBy varchar(255) NOT NULL,
 	text text,
-	dateTime datetime NOT NULL,
-	active bit,
+	dateTime datetime NOT NULL DEFAULT NOW(),
+	active bit,	
 	PRIMARY KEY (noteid)
 );
 
@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS WeatherTable
 (
 	weatherid int NOT NULL AUTO_INCREMENT,
 	weatherDate varchar(255) NOT NULL, 
-	weatherDegrees DECIMAL (3, 2) NOT NULL,
+	weatherDegrees DECIMAL (10, 2) NOT NULL,
 	weatherDesc varchar(255) NOT NULL,
 	PRIMARY KEY (weatherid)
 );
@@ -150,6 +150,12 @@ ALTER TABLE userevents
 ALTER TABLE notes
 	ADD FOREIGN KEY (createdby)
 	REFERENCES users (userid)
+	ON UPDATE RESTRICT
+;
+
+ALTER TABLE notes
+	ADD FOREIGN KEY (eventid)
+	REFERENCES users (eventid)
 	ON UPDATE RESTRICT
 ;
 /* Create Dummy Account */

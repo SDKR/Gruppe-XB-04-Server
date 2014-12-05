@@ -17,6 +17,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Forecast.ForecastModel;
 import model.Forecast.ForecastTest;
 import model.QOTD.QOTDModel;
+import model.user.encryptionAES;
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
 
@@ -83,7 +84,7 @@ public class Logic {
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
 		System.out.println("Vi er inde i viewuser");
-		String[][] test = DC.arrayID();
+		String[][] test = DC.calendarData();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
@@ -112,6 +113,38 @@ public class Logic {
 					.setValueAt(test[4][arrayChecker], arrayChecker, 4);
 			CP.getUI().getTable()
 					.setValueAt(test[5][arrayChecker], arrayChecker, 5);
+			arrayChecker++;
+		}
+	}
+	
+	public void viewCalendar() {
+		// Creates an object of the class databaseconnection
+		DatabaseConnection DC = new DatabaseConnection();
+		DC.keyImporter();
+		// Get the size of an arraylist which a method from databaseConnection
+		// returns, and sets a int equals that
+		System.out.println("Vi er inde i viewuser");
+		String[][] test = DC.calendarData();
+		int arrayCounter = test[0].length;
+		// Creates an dint equals to 0
+		int arrayChecker = 0;
+
+		for (int reset = 1; reset < arrayCounter; reset++) {
+			System.out.println("Vi er inde i for-loop " + reset + ". gang");
+			// Sets every field in a Jtable equals nothing
+			CP.getCL().getCalendarTable().setValueAt(null, reset, 0);
+			CP.getCL().getCalendarTable().setValueAt(null, reset, 1);
+			CP.getCL().getCalendarTable().setValueAt(null, reset, 2);
+			CP.getCL().getCalendarTable().setValueAt(null, reset, 3);
+			CP.getCL().getCalendarTable().setValueAt(null, reset, 4);
+		}
+		// As long as there is something in the arraylists, add it to the Jtable
+		while (arrayChecker < arrayCounter) {
+			CP.getCL().getCalendarTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
+			CP.getCL().getCalendarTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
+			CP.getCL().getCalendarTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
+			CP.getCL().getCalendarTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
+			CP.getCL().getCalendarTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
 			arrayChecker++;
 		}
 	}
@@ -184,6 +217,7 @@ public class Logic {
 				break;
 			case "CalendarList":
 				CP.show(ContainerPanel.calendarList);
+				viewCalendar();
 				break;
 			}
 		}
@@ -202,16 +236,6 @@ public class Logic {
 			setComboDates();
 		}
 
-	}
-
-	private class CreateUser implements ActionListener {
-		public void actionPerformed(ActionEvent e) {
-			CP.show(ContainerPanel.mainMenu);
-			DC.keyImporter();
-			CP.getUC().getEmailText().getText();
-			CP.getUC().getPass().getText();
-			CP.getUC().getRepeatPass().getText();
-		}
 	}
 
 	public long checkDate(String year, String month, String day, String hour,
@@ -339,16 +363,8 @@ public class Logic {
 		}
 	}
 
-	public static void main(String[] args) throws SQLException, ParseException {
-		DatabaseConnection DC = new DatabaseConnection();
-		Logic L = new Logic();
-		L.checkDate("2014", "9", "5", "6", "9");
-		L.checkDate("2014", "9", "6", "6", "9");
-		L.checkDate("2014", "12", "4", "6", "9");
-	}
-
 	// Create new user
-	private class activeChecker implements ActionListener {
+	private class createUser implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
 			// TODO Auto-generated method stub
@@ -375,7 +391,11 @@ public class Logic {
 				} else {
 					checkIfAdmin = 2;
 				}
-				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
+				try {
+					DC.CreatedUser(encryptionAES.encrypt(Email), pass1, checkIfActive, checkIfAdmin);
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
 
 			} else {
 				JOptionPane
@@ -418,7 +438,7 @@ public class Logic {
 						"No Email address detected", "Information",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				DC.deletesRow(killCalendar, "calendars", "Name");
+				DC.deletesRow(killCalendar, "calendar", "Name");
 			}
 		}
 	}
@@ -465,7 +485,7 @@ public class Logic {
 				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
 			else{
-				DC.activateUse(reActivate, "calendars", "Name");
+				DC.activateUse(reActivate, "calendar", "Name");
 				viewUser();
 			}
 		}
@@ -475,7 +495,7 @@ public class Logic {
 		public void actionPerformed(ActionEvent e) {
 			int pp = 0;
 			int act = 0;
-			String eventName = CP.getCL().getNameField().getText();
+			String calendarName = CP.getCL().getNameField().getText();
 			String publicPrivate = CP.getCL().getPPCombo().getSelectedItem().toString();
 			String active = CP.getCL().getActiveCombo().getSelectedItem().toString();
 			if(publicPrivate.equals("Public"))
@@ -494,11 +514,16 @@ public class Logic {
 			{
 				act=2;
 			}
-			if(DC.checkCalendarName(eventName) == true)
+			if(!calendarName.equals("Enter Name here...") && !calendarName.equals(""))
 			{
-				if(DC.createNewCalender(eventName, pp, act)== true)
+			if(DC.checkCalendarName(calendarName) == true)
+			{
+				if(DC.createNewCalender(calendarName, pp, act)== true)
 				{
 					JOptionPane.showMessageDialog (null, "The Calendar has been created!", "Information", JOptionPane.INFORMATION_MESSAGE);
+					CP.getCL().getNameField().setText("");
+					viewCalendar();
+					
 				}
 				else
 				{
@@ -509,6 +534,11 @@ public class Logic {
 			else
 			{
 				JOptionPane.showMessageDialog (null, "Invalid calendarname.", "Information", JOptionPane.INFORMATION_MESSAGE);
+			}
+			}
+			else
+			{
+				JOptionPane.showMessageDialog (null, "You have to enter a Calendarname", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
 		}
 	}
@@ -567,7 +597,7 @@ public class Logic {
 		CP.getAE().backListener(new backToEventList());
 		CP.getUC().goToMainMenu(new btnToMainMenu());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
-		CP.getUC().createUser(new activeChecker());
+		CP.getUC().createUser(new createUser());
 		CP.getUI().deluser(new deleteUser());
 		CP.getAE().createEventListener(new createNewEvent());
 		CP.getUI().activateUser(new activateUse());

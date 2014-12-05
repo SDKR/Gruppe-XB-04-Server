@@ -139,7 +139,7 @@ public class UserToCalendar extends Model{
 				if(!subscribedID.contains(" "+usernameID+","))
 				{
 					QB.insertInto("userevents", userEventsFields).values(userEventsValues).Execute();
-					stringToBeReturned = "You have succesfully subscribed an user to your calendar!";
+					stringToBeReturned = "You have s	uccesfully subscribed an user to your calendar!";
 				}
 				else
 				{
