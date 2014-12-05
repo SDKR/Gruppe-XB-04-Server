@@ -82,7 +82,6 @@ public class Logic {
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.arrayID();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
@@ -128,7 +127,6 @@ public class Logic {
 		int arrayChecker = 0;
 
 		for (int reset = 1; reset < arrayCounter; reset++) {
-			System.out.println("Vi er inde i for-loop " + reset + ". gang");
 			// Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
@@ -139,8 +137,6 @@ public class Logic {
 		}
 		// As long as there is something in the arraylists, add it to the Jtable
 		while (arrayChecker < arrayCounter) {
-			System.out.println("Vi er inde i while-loop " + arrayChecker
-					+ ". gang");
 			CP.getUI().getTable()
 					.setValueAt(test[0][arrayChecker], arrayChecker, 0);
 			CP.getUI().getTable()
@@ -275,14 +271,14 @@ public class Logic {
 							if (checkStartTime > date.getTime()) {
 								if (!Calendar.equals("Choose Calendar")) {
 									if (!infoText
-											.equals("If any, enter further information here...")) {
+											.equals("Enter further information here...")) {
 										DC.createNewEvent(type, location,
 												startTime, endTime, eventName,
 												infoText, Calendar);
 									} else {
 										JOptionPane
 												.showMessageDialog(null,
-														"The info text cannot be the default one.");
+														"You must elaborate on what the event is about");
 									}
 								} else {
 									JOptionPane
@@ -301,7 +297,6 @@ public class Logic {
 						}
 
 					} catch (ParseException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				} else {
@@ -351,7 +346,6 @@ public class Logic {
 	private class activeChecker implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
-			// TODO Auto-generated method stub
 			String Email = CP.getUC().getEmailText().getText();
 			String pass1 = CP.getUC().getPass().getText();
 			String pass2 = CP.getUC().getRepeatPass().getText();
@@ -376,12 +370,16 @@ public class Logic {
 					checkIfAdmin = 2;
 				}
 				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
+//				Clear fields email, pass, pass2
+				CP.getUC().getEmailText().setText("");
+				CP.getUC().getPass().setText("");
+				CP.getUC().getRepeatPass().setText("");
 
 			} else {
 				JOptionPane
 						.showMessageDialog(
 								null,
-								"Et felt er tomt eller password indtastningen er forkert",
+								"One of the inputs are empty or the password is incorrect",
 								"Information", JOptionPane.INFORMATION_MESSAGE);
 				System.out.println("Passwords Do not Match");
 			}
@@ -555,6 +553,14 @@ public class Logic {
 			CP.show(ContainerPanel.UserCreation);
 		}
 	}
+	
+	private class Back implements ActionListener {
+		public void actionPerformed(ActionEvent e) {
+			CP.show(ContainerPanel.userView);
+			viewUser();
+		}
+	}
+	
 
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
@@ -565,7 +571,7 @@ public class Logic {
 		CP.getNL().goToMainMenu(new btnToMainMenu());
 		CP.getQAW().goToMainMenu(new btnToMainMenu());
 		CP.getAE().backListener(new backToEventList());
-		CP.getUC().goToMainMenu(new btnToMainMenu());
+		CP.getUC().goToMainMenu(new Back());
 		CP.geteList().goToAddEvent(new goToCreateEvent());
 		CP.getUC().createUser(new activeChecker());
 		CP.getUI().deluser(new deleteUser());
