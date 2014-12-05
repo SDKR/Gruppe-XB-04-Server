@@ -109,10 +109,11 @@ public class UserToCalendar extends Model{
 		String subscriberString = "";
 		String subscribedID = "";
 		String calendarID = "";
-		String[] subscribedValue = {"userid"};
-		String[] creatorValue = {"CalendarIDm", "CreatedBy"};
+		String usernameID = "";
+		String[] creatorValue = {"CalendarID", "CreatedBy"};
 		String[] userEventsFields = {"userid", "CalendarID"};
-		String[] userEventsValues = {subscribedID, calendarID};
+		String[] userEventsValues = {usernameID, calendarID};
+		String[] subscriptionValues = {"userid"};
 		try {
 			resultSet = QB.selectFrom(creatorValue, "calendar").where("Name", "=", calendarName).ExecuteQuery();
 			while(resultSet.next())
@@ -120,23 +121,41 @@ public class UserToCalendar extends Model{
 				calendarID = resultSet.getString("CalendarID");
 				subscriberString = resultSet.getString("CreatedBy");
 			}
+			if(!calendarID.equals(""))
+			{
 			if(subscriberString.equals(subscriber))
 			{
-				
-				resultSet = QB.selectFrom(subscribedValue, "users").where("email", "=", username).ExecuteQuery();
+				resultSet = QB.selectFrom(subscriptionValues, "users").where("email", "=", username).ExecuteQuery();
 				while(resultSet.next())
 				{
-					subscribedID = resultSet.getString("userid");
+					usernameID = resultSet.getString("userid");
 				}
-				QB.insertInto("userevents", userEventsFields).values(userEventsValues).Execute();
-				stringToBeReturned = "You have succesfully subscribed an user to your calendar!";
+				resultSet = QB.selectFrom(subscriptionValues, "userevents"). where("CalendarID", "=", calendarID).ExecuteQuery();
+				while(resultSet.next())
+				{
+					subscribedID = subscribedID+" "+resultSet.getString("userid")+", ";
+				}
+				
+				if(!subscribedID.contains(" "+usernameID+","))
+				{
+					QB.insertInto("userevents", userEventsFields).values(userEventsValues).Execute();
+					stringToBeReturned = "You have succesfully subscribed an user to your calendar!";
+				}
+				else
+				{
+					stringToBeReturned = "The user is already subscribed to this calendar";
+				}
 			}
 			else
 			{
 				stringToBeReturned = "You cannot subscribe other people to calendars you do not own";
 			}
+			}
+			else
+			{
+				stringToBeReturned = "The calendar does not exists";
+			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return stringToBeReturned;
