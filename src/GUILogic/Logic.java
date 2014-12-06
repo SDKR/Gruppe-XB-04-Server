@@ -49,6 +49,7 @@ public class Logic {
 				if (DC.checkPassword(emailInput, passwordInput) == true) {
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
+						setAllKnowingName(emailInput);
 						CP.show(ContainerPanel.mainMenu);
 						saveWeather();
 						displayWeather();
@@ -148,6 +149,38 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
+	public void viewNotes() {
+		// Creates an object of the class databaseconnection
+		DatabaseConnection DC = new DatabaseConnection();
+		DC.keyImporter();
+		// Get the size of an arraylist which a method from databaseConnection
+		// returns, and sets a int equals that
+		String[][] test = DC.noteID();
+		int arrayCounter = test[0].length;
+		// Creates an dint equals to 0
+		int arrayChecker = 0;
+
+		for (int reset = 1; reset < arrayCounter; reset++) {
+			// Sets every field in a Jtable equals nothing
+			
+			CP.getNL().getNoteTable().setValueAt(null, reset, 0);
+			CP.getNL().getNoteTable().setValueAt(null, reset, 1);
+			CP.getNL().getNoteTable().setValueAt(null, reset, 2);
+			CP.getNL().getNoteTable().setValueAt(null, reset, 3);
+			CP.getNL().getNoteTable().setValueAt(null, reset, 4);
+		}
+		// As long as there is something in the arraylists, add it to the Jtable
+		while (arrayChecker < arrayCounter) {
+			CP.getNL().getNoteTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
+			CP.getNL().getNoteTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
+			CP.getNL().getNoteTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
+			CP.getNL().getNoteTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
+			CP.getNL().getNoteTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
+			arrayChecker++;
+		}
+	}
+	
+	
 
 	public void viewEvents() {
 		// Creates an object of the class databaseconnection
@@ -186,7 +219,40 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
-
+	private class manipulateNotes implements ActionListener{
+		public void actionPerformed (ActionEvent e)
+		{
+			String btnClicked = e.getActionCommand();
+			switch (btnClicked){
+			case "editNote":
+				System.out.println("editNote");
+				break;
+			case "addNote":
+				System.out.println("addNote");
+				break;
+			case "deleteNote":
+				System.out.println("deleteNote");
+				deleteNote();
+				break;
+			default:
+				break;
+			}
+		}
+	}
+	private void deleteNote()
+	{
+		String eventID = JOptionPane.showInputDialog("Enter EventID of note to delete");
+		if(!eventID.equals(""))
+		{
+			String stringToBeReturned = DC.deleteNote(eventID, allKnowingName);
+			JOptionPane.showMessageDialog(CP, stringToBeReturned);
+			
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(CP, "No Note has been deleted");
+		}
+	}
 	private class LogOut implements ActionListener {
 		// When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
@@ -207,6 +273,7 @@ public class Logic {
 
 			case "NoteList":
 				CP.show(ContainerPanel.noteView);
+				viewNotes();
 				break;
 
 			case "QAWList":
@@ -615,4 +682,9 @@ public class Logic {
 		CP.getCL().reActivateListener(new activateCalendar());
 		CP.getCL().goToMainMenu(new btnToMainMenu());
 		}
+
+	public void setAllKnowingName(String allKnowingName) {
+		this.allKnowingName = allKnowingName;
+	}
+	
 }

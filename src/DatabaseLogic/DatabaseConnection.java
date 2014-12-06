@@ -2,8 +2,11 @@ package DatabaseLogic;
 
 import java.io.PrintStream;
 import java.sql.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.JOptionPane;
@@ -346,6 +349,43 @@ public class DatabaseConnection extends Model {
 				stmt = conn.createStatement();
 				rs = stmt.executeQuery("select " + headerNames[headerCounter]
 						+ " from cbscalendar.events");
+				while (rs.next()) {
+					doubleArray[headerCounter][otherCounter] = rs
+							.getString(headerNames[headerCounter]);
+					otherCounter++;
+				}
+				closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			System.out.println("inde I slutningen af for loopet "
+					+ headerCounter + ". gang");
+		}
+		return doubleArray;
+	}
+	
+	public String[][] noteID() {
+		String[] headerNames = { "noteid", "createdBy", "text", "dateTime",
+				"eventid"};
+		int rowCounter = 0;
+		try {
+			resultSet = QB.selectFrom("notes").all().ExecuteQuery();
+			while (resultSet.next()) {
+				rowCounter++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String[][] doubleArray = new String[5][rowCounter];
+		for (int headerCounter = 0; headerCounter < 5; headerCounter++) {
+			System.out.println("inde I starten af for loopet " + headerCounter
+					+ ". gang");
+			try {
+				int otherCounter = 0;
+				getConnection();
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select " + headerNames[headerCounter]
+						+ " from cbscalendar.notes");
 				while (rs.next()) {
 					doubleArray[headerCounter][otherCounter] = rs
 							.getString(headerNames[headerCounter]);
@@ -733,16 +773,33 @@ return stringToBeReturned;
 		return arrayToBeReturned;
 	}
 	
-
-
-
 	public void weatherToDB(String celsius, String date, String desc) {
 		try {
 			doUpdate("insert into cbscalendar.weathertable (weatherdate, weatherdegrees, weatherdesc) values ('"+date+"', '"+celsius+"','"+desc+"' );");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 	}
-
+	
+	private String getTime() {
+		String timeStamp = "";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		timeStamp = dateFormat.format(date);
+		return timeStamp;
+	}
+	
+	public String deleteNote(String eventID, String allKnowingName) {
+		String stringToBeReturned = "";
+		String[] deleteValues = {allKnowingName, "There is no note added to this event", getTime()};
+		String[] deleteFields = {"createdBy", "text", "dateTime"};
+		try {
+			QB.update("notes", deleteFields, deleteValues).where("eventid", "=", eventID).Execute();
+			stringToBeReturned = "Note succesfully deleted";
+		} catch (SQLException e) {
+			stringToBeReturned = "There is no event with this ID";
+			e.printStackTrace();
+		}
+		return stringToBeReturned;
+	}
 }
