@@ -239,6 +239,21 @@ public class Logic {
 			}
 		}
 	}
+	private void addNote()
+	{
+		String eventID = JOptionPane.showInputDialog("Enter EventID of event to commit note:");
+		JFrame addFrame = new JFrame();
+		addFrame.setBounds(0, 0, 300, 300);
+		
+		if(!eventID.equals(""))
+		{
+			String newNote = JOptionPane.
+		}
+		else
+		{
+			JOptionPane.showMessageDialog(CP, "You have to enter an eventID");
+		}
+	}
 	private void deleteNote()
 	{
 		String eventID = JOptionPane.showInputDialog("Enter EventID of note to delete");
