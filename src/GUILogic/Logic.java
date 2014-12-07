@@ -41,22 +41,30 @@ public class Logic {
 		CP.setVisible(true);
 	}
 
+	//Fuction to test the login of a user in the backend
 	private class loginBtn implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			//Gets the user input and sets equal a string
 			String emailInput = CP.getLI().getTextFieldUsername().getText();
 			String passwordInput = CP.getLI().getTextFieldPassword().getText();
+			//Checks if fields are empty
 			if (!emailInput.equals("") || !passwordInput.equals("")) {
+				//If password is true
 				if (DC.checkPassword(emailInput, passwordInput) == true) {
+					//checks if user is admin
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
 						setAllKnowingName(emailInput);
 						CP.show(ContainerPanel.mainMenu);
+						//Runs weather and quote functions, and sets input fields equal nothing
 						saveWeather();
 						displayWeather();
 						displayQuote();
 						CP.getLI().getTextFieldUsername().setText("");
 						CP.getLI().getTextFieldPassword().setText("");
-					} else {
+					}
+					//if something goes wrong, print error message in pop-up
+					else {
 						JOptionPane.showMessageDialog(CP,
 								"You do not have sufficient access to login");
 					}
@@ -71,6 +79,7 @@ public class Logic {
 		}
 	}
 
+	//Private class which implements Action listner.
 	private class btnToMainMenu implements ActionListener {
 		// When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
@@ -78,6 +87,7 @@ public class Logic {
 		}
 	}
 
+	//View all user function
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
@@ -515,6 +525,7 @@ public class Logic {
 						"No Email address detected", "Information",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
+				JOptionPane.showMessageDialog(CP, DC.deletesRow(killCalendar, "calendar", "Name"));
 				DC.deletesRow(killCalendar, "calendar", "Name");
 			}
 		}

@@ -594,40 +594,36 @@ while(rs.next()){
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt
-
-			.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
+			rs = stmt.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
 					+ killRow + "';");
 			while (rs.next()) {
 
 				stringResultChecker = rs.getString(columnName);
 				stringIsAllreadyOff = rs.getString("active");
-
+				
 			}
 
 			if (stringResultChecker.equals("")) {
 
-				JOptionPane.showMessageDialog(null, "The "+columnName+" doesn't exist",
-						"Error", JOptionPane.ERROR_MESSAGE);
-
+				stringToBeReturned = "The "+columnName+" doesn't exist";
+				
 			} else if (stringIsAllreadyOff.equals("2")) {
-				JOptionPane.showMessageDialog(null,
-						"The "+columnName+" is already inactive", "Error",
-						JOptionPane.ERROR_MESSAGE);
+				
+				stringToBeReturned = "The "+columnName+" is already inactive";
 			}
-
+			else if()
+			{
+				
+			}
 			else {
 
 				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
 						+ killRow + "';");
-				JOptionPane.showMessageDialog(null, "The "+killRow+" is now inactive",
-						"Error", JOptionPane.INFORMATION_MESSAGE);
-
+				stringToBeReturned = "The "+killRow+" is now inactive";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return stringToBeReturned;
 	}
 	
