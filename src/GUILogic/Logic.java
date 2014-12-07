@@ -253,7 +253,7 @@ public class Logic {
 		
 		if(!eventID.equals(""))
 		{
-			String newNote = JOptionPane.
+			String newNote = JOptionPane.showInputDialog("TEST");
 		}
 		else
 		{
