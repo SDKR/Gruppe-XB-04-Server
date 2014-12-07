@@ -84,14 +84,12 @@ public class Logic {
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println("Vi er inde i viewuser");
-		String[][] test = DC.calendarData();
+		String[][] test = DC.userData();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
 
 		for (int reset = 1; reset < arrayCounter; reset++) {
-			System.out.println("Vi er inde i for-loop " + reset + ". gang");
 			// Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
@@ -180,12 +178,10 @@ public class Logic {
 		}
 	}
 	
-	
-
 	public void viewEvents() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
-		DC.keyImporter();
+		DC.keyImporter(); 
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
 		String[][] test = DC.eventID();

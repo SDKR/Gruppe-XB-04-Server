@@ -321,7 +321,37 @@ public class DatabaseConnection extends Model {
 		return doubleArray;
 	}
 	
-	
+	public String[][] userData() {
+		String[] headerNames = { "userid", "email", "active", "created",
+				"password", "admin"};
+		int rowCounter = 0;
+		String[] useridValue = {"userid"};
+		try {
+			resultSet = QB.selectFrom(useridValue, "users").all().ExecuteQuery();
+			while (resultSet.next()) {
+				rowCounter++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String[][] doubleArray = new String[6][rowCounter];
+		for (int headerCounter = 0; headerCounter < 6; headerCounter++) {
+			try {
+				int otherCounter = 0;
+				getConnection();
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from cbscalendar.users");
+				while (rs.next()) {
+					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
+					otherCounter++;
+				}
+				closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return doubleArray;
+	}
 
 	public String[][] eventID() {
 		String[] headerNames = { "eventid", "type", "location", "createdby",
