@@ -55,6 +55,7 @@ public class DatabaseConnection extends Model {
 		setSqlPasswd(KC.getSqlPasswd());
 	}
 
+//	#
 	public void clearOldCBSData() {
 		try {
 			QB.deleteSoftFrom("events").where("customevent", "=", "1").Execute();
@@ -63,6 +64,8 @@ public class DatabaseConnection extends Model {
 		}
 	}
 	
+//	Takes variables processed in logic and writes them to database
+//	Thus removing user from calendar
 	public boolean deleteFromCalendar(String resultSetStringCalendarID, String resultSetStringEmailID){
 		boolean booleanToBeReturned = false;
 		try{
@@ -76,6 +79,8 @@ public class DatabaseConnection extends Model {
 		return booleanToBeReturned;
 }
 
+//	Takes variables processed in logic and writes them to database
+//	Here a calendar is added to the database.
 	public void addingCBSCalendarToDB(String activityId, String eventid, String type, String location,
 			String start, String end, String name, String text)
 			throws SQLException {
@@ -88,17 +93,18 @@ public class DatabaseConnection extends Model {
 		String locationIDS = Integer.toString(locationID);
 		String calendarIDS = Integer.toString(calendarID);
 		if (!start.contains("9-31") && !end.contains("9-31")) {
+//	If true try writing to database
 			try {
 				getConnection();
 				String[] fields = {"activityid", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
 				String[] values = {activityId, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
 				QB.insertInto("events", fields).values(values).Execute();		
 			}
-
+//	If error found throw 
 			catch (SQLException e) {
 				e.printStackTrace();
 				if (e.getErrorCode() == 1292) {
-					throw new SQLException("Date does not exists");
+					throw new SQLException("Date does not exist");
 				}
 				// Else throw normal exception
 				else {
@@ -110,6 +116,7 @@ public class DatabaseConnection extends Model {
 		}
 	}
 	
+//	#
 	private boolean checkIfActiveOrNot(String userID){
 		if(userID.equals("1")){
 		}	
@@ -132,6 +139,7 @@ public class DatabaseConnection extends Model {
 		return intToBeReturned;
 	}
 
+//	Sets cbs calendar id's for database.
 	private int determineCalendarID(String course) {
 		int intToBeReturned = 0;
 		switch (course) {
@@ -165,6 +173,7 @@ public class DatabaseConnection extends Model {
 		return intToBeReturned;
 	}
 
+//	Sets location id's for database 
 	private int determineLocationID(String location) {
 		int intToBeReturned = 0;
 		char position1 = location.charAt(0);
@@ -190,6 +199,7 @@ public class DatabaseConnection extends Model {
 		return intToBeReturned;
 	}
 
+//	Takes event variables processed in logic and writes them to database
 	public void createNewEvent(String type, String location, String start,
 			String end, String name, String text, String calendarString){
 		String calendarID = "";
@@ -226,6 +236,7 @@ public class DatabaseConnection extends Model {
 		}
 	}
 
+//	Takes the user authenticate variables processed in logic and writes them to database
 	public boolean userAuthenticating(String userName, String password,
 			String isActive) {
 		boolean booleanToBeReturned = false;
@@ -245,6 +256,7 @@ public class DatabaseConnection extends Model {
 		return booleanToBeReturned;
 	}
 
+//	Takes user is active variables processed in logic and writes them to database 
 	public boolean userIsActive(String userName, String isActive) {
 		boolean activeChecker = false;
 		try {
@@ -258,7 +270,7 @@ public class DatabaseConnection extends Model {
 				if (isAccountActive.equals("1")) {
 					activeChecker = true;
 				} else {
-					System.out.println("Din bruger virker ikke fuckhovede!");
+					System.out.println("The user is not on");
 				}
 			}
 		} catch (SQLException e) {
@@ -267,6 +279,8 @@ public class DatabaseConnection extends Model {
 		return activeChecker;
 	}
 
+//	After the input is checked in GUI.Logic the login information in matched against the database
+//	Errors are printed if it fails
 	public boolean userPasswordCheck(String userName, String password) {
 		boolean passwordChecker = false;
 		try {
@@ -280,7 +294,7 @@ public class DatabaseConnection extends Model {
 				if (accountPassword.equals(password)) {
 					passwordChecker = true;
 				} else {
-					System.out.println("Password'et var forkert tard!");
+					System.out.println("The password is incorrect");
 				}
 			}
 		} catch (SQLException e) {
@@ -288,7 +302,8 @@ public class DatabaseConnection extends Model {
 		}
 		return passwordChecker;
 	}
-
+	
+//	Gets all the calendar data from the database and returns it as doubleArray#
 	// Creates a method returning a array list, and receives nothing
 	public String[][] calendarData() {
 		String[] headerNames = { "CalendarID", "Name", "Active", "CreatedBy",
@@ -328,6 +343,8 @@ public class DatabaseConnection extends Model {
 		return doubleArray;
 	}
 	
+
+//	Gets all the events from the database and returns it as doubleArray
 	public String[][] userData() {
 		String[] headerNames = { "userid", "email", "active", "created",
 				"password", "admin"};
@@ -401,6 +418,7 @@ public class DatabaseConnection extends Model {
 		return doubleArray;
 	}
 	
+//	Gets all the notes from the database and returns it as doubleArray
 	public String[][] noteID() {
 		String[] headerNames = { "noteid", "createdBy", "text", "dateTime",
 				"eventid"};
@@ -436,6 +454,7 @@ public class DatabaseConnection extends Model {
 		return doubleArray;
 	}
 
+//	#
 	// Creates a method which returns a int, and recieves one input
 	public int doUpdate(String Update) throws SQLException {
 		// Establish connection to database
@@ -486,6 +505,9 @@ public class DatabaseConnection extends Model {
 		stmt.close();
 	}
 
+//	Checks if password is correct
+//	Pulls password from database where input email is found, 
+//	and matches it with user input. Error is printed if it dosen't match.
 	public boolean checkPassword(String emailInput, String passwordInput) {
 		boolean passwordChecker = false;
 		try {
@@ -504,7 +526,9 @@ public class DatabaseConnection extends Model {
 		}
 		return passwordChecker;
 	}
-	
+
+//	Checks if user is set to inactive in database by looking at the active number (1 or 2)
+//	Active = 1, Inactive = 2.
 	public String checkIfInactive(String emailInput){
 		String activeMaybe = "";
 		try{
@@ -524,15 +548,15 @@ while(rs.next()){
 		return activeMaybe;
 	}
 
+//	Checks if a user is admin by looking at the admin number (1 or 2)
+//	Admin = 1, User = 2.
 	public boolean checkIfAdmin(String emailInput) {
 		boolean isAdmin = false;
 		String adminID = "";
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt
-					.executeQuery("select Admin from cbscalendar.users where email = '"
-							+ emailInput + "';");
+			rs = stmt.executeQuery("select Admin from cbscalendar.users where email = '"	+ emailInput + "';");
 			while (rs.next()) {
 				adminID = rs.getString("Admin");
 			}
@@ -548,6 +572,8 @@ while(rs.next()){
 	}
 
 	// Create user
+//	Takes processed input from logic and inserts it into database.users
+//	Also checks if input is empty and returns error/information message
 	public String CreatedUser(String EmailText, String pass, int checkIfActive,
 			int checkIfAdmin) {
 		String stringToBeReturned = "";
@@ -631,6 +657,9 @@ while(rs.next()){
 	}
 
 	// Delete user (soft)
+	// Soft deletes a user by input from admin.
+	// Checks if input eqals anything and if user is already deactivated.
+	// Returns error or information message
 	public String deletesRow(String killRow, String table, String columnName) {
 		String stringResultChecker = "";
 		String stringIsAllreadyOff = "";
@@ -657,6 +686,7 @@ while(rs.next()){
 				
 				stringToBeReturned = "The "+columnName+" is already inactive";
 			}
+
 			else {
 
 				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
@@ -670,6 +700,9 @@ while(rs.next()){
 	}
 	
 //	Activate user
+	// Activates a user by input from admin.
+	// Checks if input eqals anything and if user is already activated.
+	// Returns error or information message
 	public String activateUse(String reActivate, String table, String column){
 
 	
@@ -713,6 +746,10 @@ return stringToBeReturned;
 		
 	}
 	
+//	Activate event
+	// Activates an event by input.
+	// Checks if input eqals anything and if event is already activated.
+	// Returns error or information message	
 	public String activatesEvent(String reActivate){
 		String stringResultChecker = "";
 		String stringIsAllreadyOn = "";
@@ -754,6 +791,8 @@ return stringToBeReturned;
 		
 	}
 
+//	Cheks if a calendar name is already used.
+//	If input equals zero nothing is done 
 	public boolean checkCalendarName(String eventName) {
 		boolean booleanToBeReturned = false;
 		String resultSetHolder ="";
@@ -811,6 +850,9 @@ return stringToBeReturned;
 			return false;
 		}
 
+//		Creates new calendar 
+//		# gutter hardcoder vi ikke hvem kalendereen er created af?
+//		Takes userinput and inputs new calendar variables into the database
 	public boolean createNewCalender(String eventName, int publicPrivate,
 			int active) {
 		boolean booleanToBeReturned = false;
@@ -823,6 +865,7 @@ return stringToBeReturned;
 		return booleanToBeReturned;
 	}
 	
+//	Gets all information in the database regarding weather and returns it.
 	public ArrayList<String> weatherArray(){
 		ArrayList<String> arrayToBeReturned = new ArrayList<String>();
 		String resultSetHolder = "";
@@ -841,6 +884,7 @@ return stringToBeReturned;
 		return arrayToBeReturned;
 	}
 	
+//	Gets the weather from logic class, which in turn comes from the online service, and writes it to the database 
 	public void weatherToDB(String celsius, String date, String desc) {
 		try {
 			doUpdate("insert into cbscalendar.weathertable (weatherdate, weatherdegrees, weatherdesc) values ('"+date+"', '"+celsius+"','"+desc+"' );");
@@ -849,6 +893,7 @@ return stringToBeReturned;
 		}
 	}
 	
+//	Gets the time from built in java function
 	private String getTime() {
 		String timeStamp = "";
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -857,6 +902,9 @@ return stringToBeReturned;
 		return timeStamp;
 	}
 	
+//	delete note 
+//	Takes userinput and deletes relevant event if it existis
+//	Returns appropriate string depending on result
 	public String deleteNote(String eventID, String allKnowingName) {
 		String stringToBeReturned = "";
 		String[] deleteValues = {allKnowingName, "There is no note added to this event", getTime()};

@@ -39,7 +39,6 @@ class TCPServer{
 			ClientWorker client= new ClientWorker(connectionSocket);
 			Thread thread = new Thread(client, "client");
 			thread.start();
-			/*HUSK AT �NDRE DATABASE SCRIPTET, S� DET PASSER MED DEN NUV�RENDE DATABASE STRUKTUR!*/
 		}
 		
 	}
