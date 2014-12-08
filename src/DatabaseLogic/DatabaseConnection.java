@@ -28,9 +28,10 @@ public class DatabaseConnection extends Model {
 	UserCreation UC = new UserCreation();
 	ForecastModel FM = new ForecastModel();
 
-	 private String sqlUrl = "jdbc:mysql://localhost:3306/";
-	 private String sqlUser = "root";
+	 private String sqlUrl = "";
+	 private String sqlUser = "";
 	 private String sqlPasswd = "";
+	 private String dbNAme = "cbscalendar";
 
 //	private String sqlUrl = "";
 //	private String sqlUser = "";
@@ -70,7 +71,7 @@ public class DatabaseConnection extends Model {
 		boolean booleanToBeReturned = false;
 		try{
 			getConnection();
-			doUpdate("delete from cbscalendar.userevents where userid='"+resultSetStringEmailID+"' and CalendarID='"+resultSetStringCalendarID+"';");
+			doUpdate("delete from "+getDbNAme()+".userevents where userid='"+resultSetStringEmailID+"' and CalendarID='"+resultSetStringCalendarID+"';");
 			booleanToBeReturned = true;
 		}
 			catch (SQLException e) {
@@ -218,7 +219,7 @@ public class DatabaseConnection extends Model {
 		System.out.println(calendarString);
 		System.out.println(calendarID);
 		try {
-			doUpdate("insert into cbscalendar.events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
+			doUpdate("insert into "+getDbNAme()+".events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
 					+ typeID
 					+ "', '"
 					+ locationID
@@ -245,7 +246,7 @@ public class DatabaseConnection extends Model {
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					.executeQuery("select password, active from cbscalendar.users where email = '"
+					.executeQuery("select password, active from "+getDbNAme()+".users where email = '"
 							+ userName + "';");
 			while (rs.next()) {
 				booleanToBeReturned = true;
@@ -263,7 +264,7 @@ public class DatabaseConnection extends Model {
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					.executeQuery("select active from cbscalendar.users where email = '"
+					.executeQuery("select active from "+getDbNAme()+".users where email = '"
 							+ userName + "';");
 			while (rs.next()) {
 				String isAccountActive = rs.getString("Active");
@@ -287,7 +288,7 @@ public class DatabaseConnection extends Model {
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					.executeQuery("select password from cbscalendar.users where email = '"
+					.executeQuery("select password from "+getDbNAme()+".users where email = '"
 							+ userName + "';");
 			while (rs.next()) {
 				String accountPassword = rs.getString("password");
@@ -321,14 +322,14 @@ public class DatabaseConnection extends Model {
 		System.out.println(rowCounter);
 		String[][] doubleArray = new String[5][rowCounter];
 		System.out.println("Lige efter String array er blevet oprettet");
-		for (int headerCounter = 0; headerCounter < 6; headerCounter++) {
+		for (int headerCounter = 0; headerCounter < 5; headerCounter++) {
 			System.out.println("inde I starten af for loopet " + headerCounter
 					+ ". gang");
 			try {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from cbscalendar.calendar");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from "+getDbNAme()+".calendar");
 				while (rs.next()) {
 					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					otherCounter++;
@@ -364,7 +365,7 @@ public class DatabaseConnection extends Model {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from cbscalendar.users");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from "+getDbNAme()+".users");
 				while (rs.next()) {
 					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					otherCounter++;
@@ -378,42 +379,34 @@ public class DatabaseConnection extends Model {
 	}
 
 	public String[][] eventID() {
-		String[] headerNames = { "eventid", "type", "location", "createdby",
-				"start", "end", "name", "text", "customevent", "CalenderID" };
+		String[] headerNames = { "eventid", "type", "locationName", "createdby",
+				"start", "end", "name", "text", "customevent", "CalendarID", "active" };
 		int rowCounter = 0;
 		try {
-			getConnection();
-			stmt = conn.createStatement();
-			rs = stmt.executeQuery("SELECT eventid FROM cbscalendar.events;");
-			while (rs.next()) {
+			resultSet = QB.selectFrom("events").all().ExecuteQuery();	
+			while (resultSet.next()) {
 				rowCounter++;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		System.out.println(rowCounter);
-		String[][] doubleArray = new String[10][rowCounter];
+		String[][] doubleArray = new String[11][rowCounter];
 		System.out.println("Lige efter String array er blevet oprettet");
-		for (int headerCounter = 0; headerCounter < 10; headerCounter++) {
-			System.out.println("inde I starten af for loopet " + headerCounter
-					+ ". gang");
+		for (int headerCounter = 0; headerCounter < 11; headerCounter++) {
 			try {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter]
-						+ " from cbscalendar.events");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from "+getDbNAme()+".events");
 				while (rs.next()) {
-					doubleArray[headerCounter][otherCounter] = rs
-							.getString(headerNames[headerCounter]);
+					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					otherCounter++;
 				}
 				closeConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("inde I slutningen af for loopet "
-					+ headerCounter + ". gang");
 		}
 		return doubleArray;
 	}
@@ -437,7 +430,7 @@ public class DatabaseConnection extends Model {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from cbscalendar.notes order by noteid desc;");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from "+getDbNAme()+".notes order by noteid desc;");
 				while (rs.next()) {
 					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					
@@ -534,7 +527,7 @@ public class DatabaseConnection extends Model {
 		try{
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select active from cbscalendar.users where email = '"
+			rs = stmt.executeQuery("select active from "+getDbNAme()+".users where email = '"
 							+ emailInput + "';");
 while(rs.next()){
 	activeMaybe = rs.getString("active");
@@ -556,7 +549,7 @@ while(rs.next()){
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select Admin from cbscalendar.users where email = '"	+ emailInput + "';");
+			rs = stmt.executeQuery("select Admin from "+getDbNAme()+".users where email = '"	+ emailInput + "';");
 			while (rs.next()) {
 				adminID = rs.getString("Admin");
 			}
@@ -583,7 +576,7 @@ while(rs.next()){
 			getConnection();
 			stmt = conn.createStatement();
 			rs = stmt
-					.executeQuery("select * from cbscalendar.users where email = '"
+					.executeQuery("select * from "+getDbNAme()+".users where email = '"
 							+ EmailText + "';");
 			while (rs.next()) {
 
@@ -595,7 +588,7 @@ while(rs.next()){
 				JOptionPane.showMessageDialog(null, "The Email already exists",
 						"Error", JOptionPane.ERROR_MESSAGE);
 			} else {
-				doUpdate("insert into cbscalendar.users(email, active, password, admin) values('"
+				doUpdate("insert into "+getDbNAme()+".users(email, active, password, admin) values('"
 						+ EmailText
 						+ "', '"
 						+ checkIfActive
@@ -646,7 +639,7 @@ while(rs.next()){
 			}
 			else {
 
-				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
+				doUpdate("update "+getDbNAme()+"."+table+" set active='2' where "+columnName+"='"
 						+ killRow + "';");
 				stringToBeReturned = "The "+killRow+" is now inactive";
 			}
@@ -669,7 +662,7 @@ while(rs.next()){
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
+			rs = stmt.executeQuery("select * from "+getDbNAme()+"."+table+" where "+columnName+" = '"
 					+ killRow + "';");
 			while (rs.next()) {
 
@@ -689,7 +682,7 @@ while(rs.next()){
 
 			else {
 
-				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
+				doUpdate("update "+getDbNAme()+"."+table+" set active='2' where "+columnName+"='"
 						+ killRow + "';");
 				stringToBeReturned = "The "+killRow+" is now inactive";
 			}
@@ -714,7 +707,7 @@ while(rs.next()){
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar."+table+" where "+column+" = '"
+			rs = stmt.executeQuery("select * from "+getDbNAme()+"."+table+" where "+column+" = '"
 					+ reActivate + "';");
 	while (rs.next()) {
 
@@ -734,7 +727,7 @@ while(rs.next()){
 	
 	else{
 			
-			doUpdate("update cbscalendar."+table+" set active='1' where "+column+"='"+reActivate+"';");
+			doUpdate("update "+getDbNAme()+"."+table+" set active='1' where "+column+"='"+reActivate+"';");
 			JOptionPane.showMessageDialog (null, "The "+column+" is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
 			
 	}
@@ -759,7 +752,7 @@ return stringToBeReturned;
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar.events where EventID = '"
+			rs = stmt.executeQuery("select * from "+getDbNAme()+".events where EventID = '"
 					+ reActivate + "';");
 	while (rs.next()) {
 
@@ -779,7 +772,7 @@ return stringToBeReturned;
 	
 	else{
 			
-			doUpdate("update cbscalendar.event set active='1' where eventID='"+reActivate+"';");
+			doUpdate("update "+getDbNAme()+".event set active='1' where eventID='"+reActivate+"';");
 			JOptionPane.showMessageDialog (null, "The Event is now active", "Error", JOptionPane.INFORMATION_MESSAGE);
 			
 	}
@@ -799,7 +792,7 @@ return stringToBeReturned;
 		try{
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt.executeQuery("select * from cbscalendar.calendar where Name = '"
+			rs = stmt.executeQuery("select * from "+getDbNAme()+".calendar where Name = '"
 						+ eventName + "';");
 				while (rs.next()) {
 					resultSetHolder = rs.getString("Name");
@@ -857,7 +850,7 @@ return stringToBeReturned;
 			int active) {
 		boolean booleanToBeReturned = false;
 		try {
-			doUpdate("insert into cbscalendar.calendar (Name, Active, CreatedBy, PrivatePublic) Values ('"+eventName+"', '"+active+"', '1', '"+publicPrivate+"');");
+			doUpdate("insert into "+getDbNAme()+".calendar (Name, Active, CreatedBy, PrivatePublic) Values ('"+eventName+"', '"+active+"', '1', '"+publicPrivate+"');");
 			booleanToBeReturned = true;
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -872,7 +865,7 @@ return stringToBeReturned;
 		try{
 		getConnection();
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select * from cbscalendar.weathertable;");
+		rs = stmt.executeQuery("select * from "+getDbNAme()+".weathertable;");
 			while (rs.next()) {
 				resultSetHolder = "WeatherID: "+rs.getString("weatherid") +" WeatherDate: "+rs.getString("weatherdate")+" Weatherdesc: "+rs.getString("weatherdesc")+" WeatherDegrees: "+rs.getString("weatherDegrees");
 				arrayToBeReturned.add(resultSetHolder);
@@ -887,7 +880,7 @@ return stringToBeReturned;
 //	Gets the weather from logic class, which in turn comes from the online service, and writes it to the database 
 	public void weatherToDB(String celsius, String date, String desc) {
 		try {
-			doUpdate("insert into cbscalendar.weathertable (weatherdate, weatherdegrees, weatherdesc) values ('"+date+"', '"+celsius+"','"+desc+"' );");
+			doUpdate("insert into "+getDbNAme()+".weathertable (weatherdate, weatherdegrees, weatherdesc) values ('"+date+"', '"+celsius+"','"+desc+"' );");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -988,12 +981,15 @@ return stringToBeReturned;
 	}
 	public void clearWeatherQuote() {
 		try {
-			doUpdate("truncate cbscalendar.qotd;");
-			doUpdate("truncate cbscalendar.weathertable;");
+			doUpdate("truncate "+getDbNAme()+".qotd;");
+			doUpdate("truncate "+getDbNAme()+".weathertable;");
 		} catch (SQLException e) {
 			System.out.println("Weather could not be updated due to unstable weather API");
 			e.printStackTrace();
 		}
 		
+	}
+	public String getDbNAme() {
+		return dbNAme;
 	}
 }

@@ -38,8 +38,12 @@ public class QuoteAndWeather extends JPanel {
 	private JLabel quoteLabel = new JLabel("Quote");
 	private JTextArea weatherTextArea = new JTextArea();
 	private JTextArea qTextArea = new JTextArea();
+	
+    private JLabel lblWeather = new JLabel("Weather");
     
-    public QuoteAndWeather() throws SQLException {
+
+
+	public QuoteAndWeather() throws SQLException {
     	
     	ForecastModel FM = new ForecastModel();
 //    	System.out.println(FM.getForecast());
@@ -93,6 +97,10 @@ public class QuoteAndWeather extends JPanel {
         add(weatherTextArea);
         add(qTextArea);
         
+        JLabel lblWeather = new JLabel("Weather");
+        lblWeather.setBounds(538, 134, 483, 16);
+        add(lblWeather);
+        
       
     
         JLabel lblBackground = new JLabel("Background");
@@ -122,5 +130,8 @@ public class QuoteAndWeather extends JPanel {
 
 	public void setqTextArea(JTextArea qTextArea) {
 		this.qTextArea = qTextArea;
+	}
+    public JLabel getWeatherLabel() {
+		return weatherLabel;
 	}
 }

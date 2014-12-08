@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -30,7 +31,7 @@ public class Logic {
 	ForecastModel FM = new ForecastModel();
 	QOTDModel QModel = new QOTDModel();
 	GetCalendarData GCD = new GetCalendarData();
-
+	
 
 	public Logic() throws SQLException {
 		CP = new ContainerPanel();
@@ -48,7 +49,20 @@ public class Logic {
 	     t.scheduleAtFixedRate(mTask, 0, 180000);
 	     //3600000
 	}
-
+	private class MyTask extends TimerTask{
+		   public void run() {
+		     try {
+				//GCD.getDataFromCalendar();
+				DC.clearWeatherQuote();
+				saveWeather();
+				displayWeather();
+				displayQuote();
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		   }
+	}
 
 //	Login button action
 //	Checks if login data is correct and shows error message if it's not. 
@@ -101,7 +115,7 @@ public class Logic {
 		}
 	}
 
-//	View user function for GUI
+	//View user function for GUI
 	//View all user function
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
@@ -141,6 +155,51 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
+	
+	//View user function for GUI
+		//View all user function
+		public void viewEvents() {
+			// Creates an object of the class databaseconnection
+			DatabaseConnection DC = new DatabaseConnection();
+			DC.keyImporter();
+			// Get the size of an arraylist which a method from databaseConnection
+			// returns, and sets a int equals that
+
+			String[][] test = DC.eventID();
+			int arrayCounter = test[0].length;
+			// Creates an dint equals to 0
+			int arrayChecker = 0;
+
+			for (int reset = 1; reset < arrayCounter; reset++) {
+				// Sets every field in a Jtable equals nothing
+				CP.geteList().getTable().setValueAt(null, reset, 0);
+				CP.geteList().getTable().setValueAt(null, reset, 1);
+				CP.geteList().getTable().setValueAt(null, reset, 2);
+				CP.geteList().getTable().setValueAt(null, reset, 3);
+				CP.geteList().getTable().setValueAt(null, reset, 4);
+				CP.geteList().getTable().setValueAt(null, reset, 5);
+				CP.geteList().getTable().setValueAt(null, reset, 6);
+				CP.geteList().getTable().setValueAt(null, reset, 7);
+				CP.geteList().getTable().setValueAt(null, reset, 8);
+				CP.geteList().getTable().setValueAt(null, reset, 9);
+				CP.geteList().getTable().setValueAt(null, reset, 10);
+			}
+			// As long as there is something in the arraylists, add it to the Jtable
+			while (arrayChecker < arrayCounter) {
+				CP.geteList().getTable().setValueAt(test[0][arrayChecker], arrayChecker, 0);
+				CP.geteList().getTable().setValueAt(test[1][arrayChecker], arrayChecker, 1);
+				CP.geteList().getTable().setValueAt(test[2][arrayChecker], arrayChecker, 2);
+				CP.geteList().getTable().setValueAt(test[3][arrayChecker], arrayChecker, 3);
+				CP.geteList().getTable().setValueAt(test[4][arrayChecker], arrayChecker, 4);
+				CP.geteList().getTable().setValueAt(test[5][arrayChecker], arrayChecker, 5);
+				CP.geteList().getTable().setValueAt(test[6][arrayChecker], arrayChecker, 6);
+				CP.geteList().getTable().setValueAt(test[7][arrayChecker], arrayChecker, 7);
+				CP.geteList().getTable().setValueAt(test[8][arrayChecker], arrayChecker, 8);
+				CP.geteList().getTable().setValueAt(test[9][arrayChecker], arrayChecker, 9);
+				CP.geteList().getTable().setValueAt(test[9][arrayChecker], arrayChecker, 10);
+				arrayChecker++;
+			}
+		}
 	
 //	View calendar function for GUI
 	public void viewCalendar() {
@@ -205,47 +264,7 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
-	
-
-//	View events function for GUI
-	public void viewEvents() {
-		// Creates an object of the class databaseconnection
-		DatabaseConnection DC = new DatabaseConnection();
-		DC.keyImporter(); 
-		// Get the size of an arraylist which a method from databaseConnection
-		// returns, and sets a int equals that
-		String[][] test = DC.eventID();
-		int arrayCounter = test[0].length;
-		// Creates an dint equals to 0
-		int arrayChecker = 0;
-
-		for (int reset = 1; reset < arrayCounter; reset++) {
-			// Sets every field in a Jtable equals nothing
-			CP.getUI().getTable().setValueAt(null, reset, 0);
-			CP.getUI().getTable().setValueAt(null, reset, 1);
-			CP.getUI().getTable().setValueAt(null, reset, 2);
-			CP.getUI().getTable().setValueAt(null, reset, 3);
-			CP.getUI().getTable().setValueAt(null, reset, 4);
-			CP.getUI().getTable().setValueAt(null, reset, 5);
-		}
-		// As long as there is something in the arraylists, add it to the Jtable
-		while (arrayChecker < arrayCounter) {
-			CP.getUI().getTable()
-					.setValueAt(test[0][arrayChecker], arrayChecker, 0);
-			CP.getUI().getTable()
-					.setValueAt(test[1][arrayChecker], arrayChecker, 1);
-			CP.getUI().getTable()
-					.setValueAt(test[2][arrayChecker], arrayChecker, 2);
-			CP.getUI().getTable()
-					.setValueAt(test[3][arrayChecker], arrayChecker, 3);
-			CP.getUI().getTable()
-					.setValueAt(test[4][arrayChecker], arrayChecker, 4);
-			CP.getUI().getTable()
-					.setValueAt(test[5][arrayChecker], arrayChecker, 5);
-			arrayChecker++;
-		}
-	}
-	
+		
 //	#
 	private class manipulateNotes implements ActionListener{
 		public void actionPerformed (ActionEvent e)
@@ -363,6 +382,7 @@ public class Logic {
 				break;
 
 			case "EventList":
+				viewEvents();
 				CP.show(ContainerPanel.eventView);
 				break;
 
@@ -782,6 +802,7 @@ public class Logic {
 //	Takes the weather input from forecast model class
 //	and sends it to database
 	public void saveWeather(){
+		System.out.println("Save weather");
 		int lenght = FM.requestForecast().size();
 	
 		for(int i = 0; i < lenght; i++) {
@@ -798,15 +819,20 @@ public class Logic {
 		String stringQText = QModel.getQuote();
 		System.out.println(stringQText);
 		CP.getQAW().getqTextArea().setText(stringQText);
+		System.out.println(stringQText);
+		System.out.println("dosspalsdf qoute");
 		}
 	
 //	Display weather
 //	Gets the weahter and writes it to the textarea
 	public void displayWeather(){
+		System.out.println("display weather");
 		int count = DC.weatherArray().size();
 		for(int i = 0; i < count; i ++){
-		String weatherString = CP.getQAW().getWeatherTextArea().getText();
-		CP.getQAW().getWeatherTextArea().setText(weatherString + DC.weatherArray().get(i));
+			String weatherString = CP.getQAW().getWeatherTextArea().getText();
+			System.out.println(weatherString + DC.weatherArray().get(i)+"isukhfnlasiufbaslifasiufaslibu");
+			CP.getQAW().getWeatherTextArea().setText(weatherString + DC.weatherArray().get(i));
+			CP.getQAW().getWeatherTextArea().setText(weatherString + DC.weatherArray().get(i));
 		}
 	}
 	
@@ -825,12 +851,7 @@ public class Logic {
 		}
 	}
 	
-<<<<<<< HEAD
-
-
-=======
 //	list of initialized listeners 
->>>>>>> origin/master
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
 		CP.getUI().goToAddUser(new goToUserCreation());
