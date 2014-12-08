@@ -17,8 +17,8 @@ public abstract class Model {
 //    private static String dbName = "cbscalendar";
 	
     private static String sqlUrl = "jdbc:mysql://localhost:3306/";
-    private static String sqlUser = "Asger";
-    private static String sqlPasswd = "1darkeldar";
+    private static String sqlUser = "Emil";
+    private static String sqlPasswd = "wak40336";
     private static String dbName = "cbscalendar";
     
     private Statement stmt;

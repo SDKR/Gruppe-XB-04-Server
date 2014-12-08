@@ -41,10 +41,13 @@ public class Logic {
 		CP.setVisible(true);
 	}
 
+//	Login button action
+//	Checks if login data is correct and shows error message if it's not. 
 	private class loginBtn implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String emailInput = CP.getLI().getTextFieldUsername().getText();
 			String passwordInput = CP.getLI().getTextFieldPassword().getText();
+//			Checking Login detalis
 			if (!emailInput.equals("") || !passwordInput.equals("")) {
 				if (DC.checkPassword(emailInput, passwordInput) == true) {
 					if (DC.checkIfAdmin(emailInput) == true) {
@@ -56,6 +59,7 @@ public class Logic {
 						displayQuote();
 						CP.getLI().getTextFieldUsername().setText("");
 						CP.getLI().getTextFieldPassword().setText("");
+//			Showing suitable error messages, depending on which if-statement failed
 					} else {
 						JOptionPane.showMessageDialog(CP,
 								"You do not have sufficient access to login");
@@ -78,20 +82,19 @@ public class Logic {
 		}
 	}
 
+//	View user function for GUI
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.calendarData();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
 
 		for (int reset = 1; reset < arrayCounter; reset++) {
-			System.out.println("Vi er inde i for-loop " + reset + ". gang");
 			// Sets every field in a Jtable equals nothing
 			CP.getUI().getTable().setValueAt(null, reset, 0);
 			CP.getUI().getTable().setValueAt(null, reset, 1);
@@ -118,13 +121,13 @@ public class Logic {
 		}
 	}
 	
+//	View calendar function for GUI
 	public void viewCalendar() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		System.out.println("Vi er inde i viewuser");
 		String[][] test = DC.calendarData();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
@@ -149,6 +152,8 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
+	
+//	View notes function for GUI
 	public void viewNotes() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
@@ -181,7 +186,7 @@ public class Logic {
 	}
 	
 	
-
+//	View events function for GUI
 	public void viewEvents() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
@@ -219,6 +224,8 @@ public class Logic {
 			arrayChecker++;
 		}
 	}
+	
+//	#
 	private class manipulateNotes implements ActionListener{
 		public void actionPerformed (ActionEvent e)
 		{
@@ -239,6 +246,8 @@ public class Logic {
 			}
 		}
 	}
+	
+//	#
 	private void addNote()
 	{
 		String eventID = JOptionPane.showInputDialog("Enter EventID of event to commit note:");
@@ -247,13 +256,15 @@ public class Logic {
 		
 		if(!eventID.equals(""))
 		{
-			String newNote = JOptionPane.
+//			String newNote = JOptionPane.
 		}
 		else
 		{
 			JOptionPane.showMessageDialog(CP, "You have to enter an eventID");
 		}
 	}
+	
+//	Recives input from user, checks if it is empty, and then sends it to the DatabaseConnection class
 	private void deleteNote()
 	{
 		String eventID = JOptionPane.showInputDialog("Enter EventID of note to delete");
@@ -268,6 +279,7 @@ public class Logic {
 			JOptionPane.showMessageDialog(CP, "No Note has been deleted");
 		}
 	}
+//	#
 	private class LogOut implements ActionListener {
 		// When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
@@ -302,12 +314,14 @@ public class Logic {
 		}
 	}
 
+//	On button push show event view panel
 	private class backToEventList implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.eventView);
 		}
 	}
 
+//	On button push show createEvent panel
 	private class goToCreateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 		
@@ -317,6 +331,7 @@ public class Logic {
 
 	}
 
+//	This formats the date so it will fit the database correctly
 	public long checkDate(String year, String month, String day, String hour,
 			String minute) throws ParseException {
 		long longToBeReturned = 0;
@@ -329,6 +344,8 @@ public class Logic {
 		return longToBeReturned;
 	}
 
+//	Create new event button. This takes all the inputs from the 
+//	user and puts them into a string
 	private class createNewEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			String eventName = CP.getAE().getNameField().getText();
@@ -365,6 +382,7 @@ public class Logic {
 			String startTime = startYear + "-" + startMonth + "-" + startDay
 					+ " " + startHour + ":" + startMinute + ":00";
 
+//		Here the inputs are checked to see if they are correct
 			if (!eventName.equals("Enter Event Name") || !eventName.equals("")) {
 				if (!type.equals("Choose Type")) {
 					try {
@@ -382,6 +400,7 @@ public class Logic {
 										DC.createNewEvent(type, location,
 												startTime, endTime, eventName,
 												infoText, Calendar);
+//		If the inputs are incorrect, an error message is shown
 									} else {
 										JOptionPane
 												.showMessageDialog(null,
@@ -417,6 +436,7 @@ public class Logic {
 		}
 	}
 
+//	Logic for the combo buttons in create event.
 	public void setComboDates() {
 		for (int yCount = 2014; yCount < 2038; yCount++) {
 
@@ -441,7 +461,7 @@ public class Logic {
 		}
 	}
 
-	// Create new user
+	// Create new user button, 
 	private class createUser implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 
@@ -453,7 +473,8 @@ public class Logic {
 			boolean activeCheck = CP.getUC().getChckbxActive().isSelected();
 			boolean adminCheck = CP.getUC().getChckbxAdministrator()
 					.isSelected();
-
+			
+//	Checks if the inputs are correct, and passwords matching
 			if (pass1.equals(pass2) && !Email.isEmpty() && !pass1.isEmpty()
 					&& !pass2.isEmpty()) {
 
@@ -474,10 +495,12 @@ public class Logic {
 					e1.printStackTrace();
 				}
 				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
-//				Clear fields email, pass, pass2
+//	Clears old input
 				CP.getUC().getEmailText().setText("");
 				CP.getUC().getPass().setText("");
 				CP.getUC().getRepeatPass().setText("");
+				
+//	If someting is incorrect show error message.
 			} else {
 				JOptionPane
 						.showMessageDialog(
@@ -489,13 +512,14 @@ public class Logic {
 		}
 	}
 
-	// Delete user
+	// Delete user function
+//	Uses input dialogs to receive email input 
 	private class deleteUser implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame = new JFrame("InputDialog");
 			String killUser = JOptionPane.showInputDialog(frame,
 					"Input Email of user to delete");
-
+//	Checks if input equals null, if not delete/deactivate user
 			if (killUser == null) {
 				JOptionPane.showMessageDialog(null,
 						"No Email address detected", "Information",
@@ -507,33 +531,38 @@ public class Logic {
 		}
 	}
 	
+//	Deactivate calendar
+//	Takes input from user 
 	private class calendarInactive implements ActionListener{
 		public void actionPerformed(ActionEvent e)
 		{
 			JFrame frame = new JFrame("InputDialog");
 			String killCalendar = JOptionPane.showInputDialog(frame,
 					"Input name of calendar to delete");
-
+//	If input equals null show error
 			if (killCalendar == null) {
 				JOptionPane.showMessageDialog(null,
 						"No Email address detected", "Information",
 						JOptionPane.INFORMATION_MESSAGE);
+//	Else deactivate from calendar		
 			} else {
 				DC.deletesRow(killCalendar, "calendar", "Name");
 			}
 		}
 	}
 
+//	Delte event
+//	Takes input from user i dialog
 	private class deleteEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			JFrame frame = new JFrame("InputDialog");
 			String killEvent = JOptionPane.showInputDialog(frame,
 					"Input ID of the event to be deleted");
-
+//	if input is empty show error
 			if (killEvent == null) {
 				JOptionPane.showMessageDialog(null, "No EventID detected","Information",
 						JOptionPane.INFORMATION_MESSAGE);
-
+//	Else delete event from database
 			} else {
 				DC.deletesRow(killEvent, "events", "eventid");
 			}
@@ -542,14 +571,16 @@ public class Logic {
 
 	
 //	activate user
+//	Takes input from user i dialog
 	private class activateUse implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JFrame frame = new JFrame("InputDialog");
 			String reActivate = JOptionPane.showInputDialog(frame, "Input Email of user activate");
-			
+//	if input is empty show error
 			if (reActivate == null){
 				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
+//	Else activate user in database
 			else{
 				DC.activateUse(reActivate, "users", "email");
 				viewUser();
@@ -557,14 +588,17 @@ public class Logic {
 		}
 	}
 	
+//	activate calendar
+//	Takes input from user i dialog
 	private class activateCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JFrame frame = new JFrame("InputDialog");
 			String reActivate = JOptionPane.showInputDialog(frame, "Input Email of user activate");
-			
+//	if input is empty show error
 			if (reActivate == null){
 				JOptionPane.showMessageDialog (null, "No Email address detected", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
+//	Else activate calendar i databse.
 			else{
 				DC.activateUse(reActivate, "calendar", "Name");
 				viewUser();
@@ -572,6 +606,8 @@ public class Logic {
 		}
 	}
 	
+//	Create calendar
+//	Takes inputs from textboxes 
 	private class createCalendar implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			int pp = 0;
@@ -579,6 +615,8 @@ public class Logic {
 			String calendarName = CP.getCL().getNameField().getText();
 			String publicPrivate = CP.getCL().getPPCombo().getSelectedItem().toString();
 			String active = CP.getCL().getActiveCombo().getSelectedItem().toString();
+			
+//	Formats inputs from GUI to usable inputs in database 
 			if(publicPrivate.equals("Public"))
 			{
 				pp = 1;
@@ -595,6 +633,8 @@ public class Logic {
 			{
 				act=2;
 			}
+			
+//	Checks if inputs are correct and sends inforation to database
 			if(!calendarName.equals("Enter Name here...") && !calendarName.equals(""))
 			{
 			if(DC.checkCalendarName(calendarName) == true)
@@ -606,6 +646,7 @@ public class Logic {
 					viewCalendar();
 					
 				}
+//	If inputs are incorrect display errormessage 
 				else
 				{
 					JOptionPane.showMessageDialog (null, "The calendar could not be created.", "Information", JOptionPane.INFORMATION_MESSAGE);
@@ -623,20 +664,27 @@ public class Logic {
 			}
 		}
 	}
+	
 	//Activate Event '
+//	Takes input from user via dialog
 	private class activateEvent implements ActionListener {
 		public void actionPerformed(ActionEvent e){
 			JFrame frame = new JFrame("InputDialog");
 			String reActivate = JOptionPane.showInputDialog(frame, "Input EventID of the Event to activate");
 			
+//	Checks if the input is equal to zero, and if displays error
 			if (reActivate == null){
 				JOptionPane.showMessageDialog (null, "No EventID detected", "Information", JOptionPane.INFORMATION_MESSAGE);
 			}
+//	If input is accepted, it is sent to database 
 			else{
 				DC.activatesEvent(reActivate);
 			}
 		}
 	}
+	
+//	Takes the weather input from forecast model class
+//	and sends it to database
 	public void saveWeather(){
 		int lenght = FM.requestForecast().size();
 	
@@ -646,6 +694,8 @@ public class Logic {
 		}
 	}
 	
+//	Display quote
+//	Gets qoute from QModel class and writes it to the textarea in the GUI
 	public void displayQuote(){
 		QModel.saveQuote();
 		QModel.updateQuote();
@@ -653,6 +703,9 @@ public class Logic {
 		System.out.println(stringQText);
 		CP.getQAW().getqTextArea().setText(stringQText);
 		}
+	
+//	Display weather
+//	Gets the weahter and writes it to the textarea
 	public void displayWeather(){
 		int count = DC.weatherArray().size();
 		for(int i = 0; i < count; i ++){
@@ -661,12 +714,14 @@ public class Logic {
 		}
 	}
 	
+//	Button to shhow the user creation panel
 	private class goToUserCreation implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.UserCreation);
 		}
 	}
 	
+//	Button to show the userView panel, also updates the Table
 	private class Back implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			CP.show(ContainerPanel.userView);
@@ -674,7 +729,7 @@ public class Logic {
 		}
 	}
 	
-
+//	list of initialized listeners 
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
 		CP.getUI().goToAddUser(new goToUserCreation());
@@ -698,6 +753,7 @@ public class Logic {
 		CP.getCL().goToMainMenu(new btnToMainMenu());
 		}
 
+//	Sets the allknowingName, this keeps track of who is logged in
 	public void setAllKnowingName(String allKnowingName) {
 		this.allKnowingName = allKnowingName;
 	}
