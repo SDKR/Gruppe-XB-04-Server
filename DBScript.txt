@@ -6,26 +6,16 @@ SET SESSION FOREIGN_KEY_CHECKS=0;
 
 CREATE TABLE IF NOT EXISTS calendar
 (
-	CalendarID int NOT NULL AUTO_INCREMENT,
+	CalendarID int(11) NOT NULL AUTO_INCREMENT,
 	Name varchar(255) NOT NULL,
-	Active tinyint(1) DEFAULT '1',
+	Active tinyint(1) NOT NULL DEFAULT '1',
 	CreatedBy varchar(255) NOT NULL,
 	-- 1 = public
 	-- 2 = private
 	PrivatePublic tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 = public
 	2 = private',
+	customid tinyint(1) DEFAULT '2',
 	PRIMARY KEY (CalendarID)
-);
-
-CREATE TABLE IF NOT EXISTS dailyupdate
-(
-	date datetime NOT NULL UNIQUE,
-	apparentTemperature double,
-	summary text,
-	qotd varchar(300) NOT NULL,
-	msg_type varchar (100) NOT NULL,
-	update_timestamp TIMESTAMP DEFAULT NOW() ON UPDATE NOW(),
-	PRIMARY KEY (date)
 );
 
 CREATE TABLE IF NOT EXISTS QOTD
@@ -50,6 +40,7 @@ CREATE TABLE IF NOT EXISTS events
 	end datetime NOT NULL DEFAULT NOW(),
 	name varchar(255) NOT NULL,
 	text text NOT NULL,
+	active tinyint(1) NOT NULL DEFAULT '1',
 	-- Decides wether the event is an import-event or user created
 	-- 
 	customevent tinyint(1) COMMENT 'Decides wether the event is an import-event or user created',
@@ -69,20 +60,13 @@ CREATE TABLE IF NOT EXISTS locationdata
 CREATE TABLE IF NOT EXISTS notes
 (
 	noteId int NOT NULL AUTO_INCREMENT,
-	cbsEventId varchar(255),
 	createdBy varchar(255) NOT NULL,
 	text text,
 	dateTime datetime NOT NULL DEFAULT NOW(),
-	active bit,	
+	active bit,
+	eventid int (11) NOT NULL,
+	FOREIGN KEY (eventid) REFERENCES events(eventid),
 	PRIMARY KEY (noteid)
-);
-
-CREATE TABLE IF NOT EXISTS roles
-(
-	roleid int NOT NULL AUTO_INCREMENT,
-	userid int NOT NULL,
-	type varchar(200) NOT NULL,
-	PRIMARY KEY (roleid)
 );
 
 CREATE TABLE IF NOT EXISTS WeatherTable
@@ -135,20 +119,8 @@ ALTER TABLE events
 	ON UPDATE RESTRICT
 ;
 
-ALTER TABLE roles
-	ADD FOREIGN KEY (userid)
-	REFERENCES users (userid)
-	ON UPDATE RESTRICT
-;
-
 ALTER TABLE userevents
 	ADD FOREIGN KEY (userid)
-	REFERENCES users (userid)
-	ON UPDATE RESTRICT
-;
-
-ALTER TABLE notes
-	ADD FOREIGN KEY (createdby)
 	REFERENCES users (userid)
 	ON UPDATE RESTRICT
 ;
@@ -159,6 +131,7 @@ ALTER TABLE notes
 	ON UPDATE RESTRICT
 ;
 /* Create Dummy Account */
+insert into users (email, active, password, admin) VALUES ('bb', '1', 'eiW/xOkfzRoYsGq+wu1E4Q==', '1');
 INSERT INTO `cbscalendar`.`users`(`email`,`password`, Admin) VALUES("admin@admin.dk","d6YSr320JnLXlp8YYxUcNQ==", '1');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.500160', '55.685454', 'Flintholm');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.529438', '55.681603', 'Solbjerg Plads');
@@ -169,15 +142,12 @@ INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('12.433252', '55.235522', 'Falkoner Bio');
 INSERT INTO cbscalendar.locationdata (longitude, latitude, location_Name) VALUES ('11.111111', '22.222222', 'Default');
 
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (XA)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (XB)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Makrooekonomi (LA)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Distribuerede Systemer (LA)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Ledelse af IS - forandring, innovation og viden (XB)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Ledelse af IS - forandring, innovation og viden (XA)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Ledelse af IS - forandring, innovation og viden (LA)', 'admin@admin.dk');
-INSERT INTO cbscalendar.calendar (Name, CreatedBy) VALUES ('Virksomhedens oekonomiske styring(3)(LA)', 'admin@admin.dk');
-
-INSERT INTO cbscalendar.users (email, password, Admin) VALUES ('aa', 'aa', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Makrooekonomi (XA)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Makrooekonomi (XB)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Makrooekonomi (LA)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Distribuerede Systemer (LA)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af IS - forandring, innovation og viden (XB)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af IS - forandring, innovation og viden (XA)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af IS - forandring, innovation og viden (LA)', 'admin@admin.dk', '1');
+INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Virksomhedens oekonomiske styring(3)(LA)', 'admin@admin.dk', '1');
 set global max_connections = 1000;
-

@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Timer;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -17,6 +18,7 @@ import javax.swing.table.DefaultTableModel;
 import model.Forecast.ForecastModel;
 import model.Forecast.ForecastTest;
 import model.QOTD.QOTDModel;
+import model.calendar.GetCalendarData;
 import model.user.encryptionAES;
 import DatabaseLogic.DatabaseConnection;
 import GUI.*;
@@ -25,9 +27,9 @@ public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
 	private ContainerPanel CP;
 	private String allKnowingName;
-	private int adminID;
 	ForecastModel FM = new ForecastModel();
 	QOTDModel QModel = new QOTDModel();
+	GetCalendarData GCD = new GetCalendarData();
 
 
 	public Logic() throws SQLException {
@@ -39,6 +41,12 @@ public class Logic {
 		DC.keyImporter();
 		CP.show(ContainerPanel.loginScreen);
 		CP.setVisible(true);
+		Timer t = new Timer();
+	     MyTask mTask = new MyTask();
+	     // This task is scheduled to run every 10 seconds
+
+	     t.scheduleAtFixedRate(mTask, 0, 180000);
+	     //3600000
 	}
 
 	//Fuction to test the login of a user in the backend
@@ -57,9 +65,7 @@ public class Logic {
 						setAllKnowingName(emailInput);
 						CP.show(ContainerPanel.mainMenu);
 						//Runs weather and quote functions, and sets input fields equal nothing
-						saveWeather();
-						displayWeather();
-						displayQuote();
+						
 						CP.getLI().getTextFieldUsername().setText("");
 						CP.getLI().getTextFieldPassword().setText("");
 					}
@@ -168,7 +174,7 @@ public class Logic {
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
 
-		for (int reset = 1; reset < arrayCounter; reset++) {
+		for (int reset = 0; reset < arrayCounter; reset++) {
 			// Sets every field in a Jtable equals nothing
 			
 			CP.getNL().getNoteTable().setValueAt(null, reset, 0);
@@ -231,48 +237,95 @@ public class Logic {
 			String btnClicked = e.getActionCommand();
 			switch (btnClicked){
 			case "editNote":
-				System.out.println("editNote");
+				editNote();
+				viewNotes();
 				break;
 			case "addNote":
-				System.out.println("addNote");
+				addNote();
+				viewNotes();
 				break;
 			case "deleteNote":
-				System.out.println("deleteNote");
 				deleteNote();
+				viewNotes();
 				break;
 			default:
 				break;
 			}
 		}
 	}
+	private void editNote()
+	{
+		String eventID = JOptionPane.showInputDialog("Enter EventID of event to edit note:");
+		try
+		{
+			if(!eventID.equals(""))
+			{
+				String noteChecker = DC.getExistingNote(eventID);;
+				String newNote = "";
+				if(noteChecker.equals("There is no note added to this eventid"))
+				{
+					JOptionPane.showMessageDialog(CP, DC.getExistingNote(eventID));
+				}
+				else
+				{
+					newNote = JOptionPane.showInputDialog(DC.getExistingNote(eventID));
+					JOptionPane.showMessageDialog(CP, DC.editNote(eventID, newNote, allKnowingName));
+				}
+						
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(CP, "You have to enter an eventid");
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(CP, "Something went wrong, please try again");
+		}
+	}
 	private void addNote()
 	{
 		String eventID = JOptionPane.showInputDialog("Enter EventID of event to commit note:");
-		JFrame addFrame = new JFrame();
-		addFrame.setBounds(0, 0, 300, 300);
-		
-		if(!eventID.equals(""))
+		try
 		{
-			String newNote = JOptionPane.showInputDialog("TEST");
+			if(!eventID.equals(""))
+			{
+				String newNote = JOptionPane.showInputDialog("Enter new note text:");
+				JOptionPane.showMessageDialog(CP, DC.addNewNote(eventID, newNote, allKnowingName));
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(CP, "You have to enter an eventID");
+			}
 		}
-		else
+		catch(Exception e)
 		{
-			JOptionPane.showMessageDialog(CP, "You have to enter an eventID");
+			JOptionPane.showMessageDialog(CP, "No note has been created");
+			e.printStackTrace();
 		}
 	}
 	private void deleteNote()
 	{
 		String eventID = JOptionPane.showInputDialog("Enter EventID of note to delete");
-		if(!eventID.equals(""))
+		try
 		{
-			String stringToBeReturned = DC.deleteNote(eventID, allKnowingName);
-			JOptionPane.showMessageDialog(CP, stringToBeReturned);
-			
+			if(!eventID.isEmpty())
+			{
+				String stringToBeReturned = DC.deleteNote(eventID, allKnowingName);
+				JOptionPane.showMessageDialog(CP, stringToBeReturned);
+				
+			}
+			else
+			{
+				JOptionPane.showMessageDialog(CP, "No Note has been deleted");
+			}
 		}
-		else
+		catch(Exception e)
 		{
 			JOptionPane.showMessageDialog(CP, "No Note has been deleted");
 		}
+		
 	}
 	private class LogOut implements ActionListener {
 		// When button pushed, show login screen
@@ -388,6 +441,7 @@ public class Logic {
 										DC.createNewEvent(type, location,
 												startTime, endTime, eventName,
 												infoText, Calendar);
+										clearFieldsAddEventMethod();
 									} else {
 										JOptionPane
 												.showMessageDialog(null,
@@ -420,6 +474,31 @@ public class Logic {
 				JOptionPane.showMessageDialog(null,
 						"You have to enter an eventname");
 			}
+		}
+	}
+	private void clearFieldsAddEventMethod ()
+	{
+		CP.getAE().getNameField().setText("");
+		CP.getAE().getTypeCombo().setSelectedIndex(0);
+		CP.getAE().getLocationField().setText("");
+		CP.getAE().getStartYear().setSelectedIndex(0);
+		CP.getAE().getStartMonth().setSelectedIndex(0);
+		CP.getAE().getStartDay().setSelectedIndex(0);
+		CP.getAE().getStartHour().setSelectedIndex(0);
+		CP.getAE().getStartMinute().setSelectedIndex(0);
+		CP.getAE().getEndYear().setSelectedIndex(0);
+		CP.getAE().getEndMonth().setSelectedIndex(0);
+		CP.getAE().getEndDay().setSelectedIndex(0);
+		CP.getAE().getEndhour().setSelectedIndex(0);
+		CP.getAE().getEndMinute().setSelectedIndex(0);
+		CP.getAE().getCalendarCombo().setSelectedIndex(0);
+		CP.getAE().getInfoBox().setText("Enter further information here...");
+	}
+	//Clear fields at addEvent
+	private class clearFieldsAddEvent implements ActionListener{
+		public void actionPerformed (ActionEvent e)
+		{
+			clearFieldsAddEventMethod();
 		}
 	}
 
@@ -525,8 +604,7 @@ public class Logic {
 						"No Email address detected", "Information",
 						JOptionPane.INFORMATION_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(CP, DC.deletesRow(killCalendar, "calendar", "Name"));
-				DC.deletesRow(killCalendar, "calendar", "Name");
+				JOptionPane.showMessageDialog(CP, DC.deletesRowCalendar(killCalendar, "calendar", "Name"));
 			}
 		}
 	}
@@ -543,6 +621,7 @@ public class Logic {
 
 			} else {
 				DC.deletesRow(killEvent, "events", "eventid");
+				JOptionPane.showMessageDialog(CP, "The event "+killEvent+" has been set to inactive");
 			}
 		}
 	}
@@ -682,6 +761,7 @@ public class Logic {
 	}
 	
 
+
 	private void initializeListeners() {
 		CP.getLI().addActionListenerWelcomeScreen(new loginBtn());
 		CP.getUI().goToAddUser(new goToUserCreation());
@@ -703,6 +783,8 @@ public class Logic {
 		CP.getCL().deleteCalendarListener(new calendarInactive());
 		CP.getCL().reActivateListener(new activateCalendar());
 		CP.getCL().goToMainMenu(new btnToMainMenu());
+		CP.getAE().clearFieldListener(new clearFieldsAddEvent());
+		CP.getNL().noteListener(new manipulateNotes());
 		}
 
 	public void setAllKnowingName(String allKnowingName) {

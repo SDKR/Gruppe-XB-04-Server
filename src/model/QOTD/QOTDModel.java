@@ -12,8 +12,6 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 public class QOTDModel {
-
-	
 	public static void main (String [] args ){
 		QOTDModel q = new QOTDModel();
 		q.saveQuote();

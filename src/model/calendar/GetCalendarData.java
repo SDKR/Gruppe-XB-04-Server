@@ -8,7 +8,11 @@ import com.google.gson.GsonBuilder;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by jesperbruun on 13/10/14.
@@ -16,6 +20,7 @@ import java.util.ArrayList;
 public class GetCalendarData {
 	
 	EncryptUserID e = new EncryptUserID();
+	private long cbsTimeStamp;
 
 	//henter data fra URL og l??er ind til en string
     private static String readUrl(String urlString) throws Exception {
@@ -44,6 +49,36 @@ public class GetCalendarData {
      * @throws Exception
      */
     private static int arrayRows; 
+    
+    public void checkTimeSinceLastUpdate()
+    {
+    	Calendar dateCal = Calendar.getInstance();
+    	// make it tomorrow
+    	dateCal.add(Calendar.DAY_OF_YEAR, 1);
+    	long lastUpdate = getCbsTimeStamp();
+    	DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    	Date date = new Date();
+    	long todayDateStamp = date.getTime();
+    	System.out.println(todayDateStamp);
+    	System.out.println(getCbsTimeStamp());
+    	System.out.println((todayDateStamp-getCbsTimeStamp()));
+    	if((todayDateStamp-getCbsTimeStamp())>3600)
+    	{
+    		try {
+				getDataFromCalendar();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+    		setCbsTimeStamp(todayDateStamp);
+    		System.out.println(todayDateStamp);
+    		System.out.println(getCbsTimeStamp());
+    	}
+    	else
+    	{
+    		System.out.println("Well.. we'll wait a little bit more.");
+    	}
+    }
+ 
     public void getDataFromCalendar() throws Exception {
     	
     	Gson gson1 = new GsonBuilder().create();
@@ -77,16 +112,14 @@ public class GetCalendarData {
 		String stringToBeReturned = (arrayList.get(0)+"-"+arrayList.get(1)+"-"+arrayList.get(2)+" "+arrayList.get(3)+":"+arrayList.get(4)+":00");
 		return stringToBeReturned;
 }
-	public static void main (String []args)
-	{
-		GetCalendarData GCD = new GetCalendarData();
-		try {
-			GCD.getDataFromCalendar();
-		} catch (Exception e) {
-			e.printStackTrace();		
-	}}
 
 	public static void setArrayRows(int arrayRows) {
 		GetCalendarData.arrayRows = arrayRows;
+	}
+	public void setCbsTimeStamp(long cbsTimeStamp) {
+		this.cbsTimeStamp = cbsTimeStamp;
+	}
+	public long getCbsTimeStamp() {
+		return cbsTimeStamp;
 	}
 	}

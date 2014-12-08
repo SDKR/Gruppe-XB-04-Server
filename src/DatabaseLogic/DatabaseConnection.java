@@ -57,7 +57,7 @@ public class DatabaseConnection extends Model {
 
 	public void clearOldCBSData() {
 		try {
-			QB.deleteHardFrom("events").where("customevent", "=", "1").Execute();
+			QB.deleteSoftFrom("events").where("customevent", "=", "1").Execute();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -90,8 +90,8 @@ public class DatabaseConnection extends Model {
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 			try {
 				getConnection();
-				String[] fields = {"activityid", "cbsEventId", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
-				String[] values = {activityId, eventid, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
+				String[] fields = {"activityid", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
+				String[] values = {activityId, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
 				QB.insertInto("events", fields).values(values).Execute();		
 			}
 
@@ -192,9 +192,21 @@ public class DatabaseConnection extends Model {
 
 	public void createNewEvent(String type, String location, String start,
 			String end, String name, String text, String calendarString){
-		int calendarID = determineCalendarID(calendarString);
+		String calendarID = "";
+		String[] idValues = {"CalendarID"};
+		try {
+			resultSet = QB.selectFrom(idValues, "calendar").where("name", "=", calendarString).ExecuteQuery();
+			while(resultSet.next())
+			{
+				calendarID = resultSet.getString("CalendarID");
+				
+			}
+		} catch (SQLException e1) {
+		}	
 		int locationID = determineLocationID(location);
 		int typeID = determineTypeID(type);
+		System.out.println(calendarString);
+		System.out.println(calendarID);
 		try {
 			doUpdate("insert into cbscalendar.events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
 					+ typeID
@@ -213,8 +225,6 @@ public class DatabaseConnection extends Model {
 			e.printStackTrace();
 		}
 	}
-
-	
 
 	public boolean userAuthenticating(String userName, String password,
 			String isActive) {
@@ -405,25 +415,23 @@ public class DatabaseConnection extends Model {
 		}
 		String[][] doubleArray = new String[5][rowCounter];
 		for (int headerCounter = 0; headerCounter < 5; headerCounter++) {
-			System.out.println("inde I starten af for loopet " + headerCounter
-					+ ". gang");
 			try {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter]
-						+ " from cbscalendar.notes");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from cbscalendar.notes order by noteid desc;");
 				while (rs.next()) {
-					doubleArray[headerCounter][otherCounter] = rs
-							.getString(headerNames[headerCounter]);
+					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
+					
+					System.out.println(doubleArray[headerCounter][otherCounter]+" " + headerCounter+" "+otherCounter);
+					
 					otherCounter++;
+					
 				}
 				closeConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-			System.out.println("inde I slutningen af for loopet "
-					+ headerCounter + ". gang");
 		}
 		return doubleArray;
 	}
@@ -580,6 +588,47 @@ while(rs.next()){
 
 		return stringToBeReturned;
 	}
+	
+	public String deletesRowCalendar(String killRow, String table, String columnName) {
+		String stringResultChecker = "";
+		String stringIsAllreadyOff = "";
+		String stringToBeReturned = "";
+		String customID = "";
+
+		try {
+			String[] calendarValues = {"Name", "active","customid"};
+			resultSet = QB.selectFrom(calendarValues, "calendar").where("Name", "=", killRow).ExecuteQuery();
+			while (resultSet.next()) {
+
+				stringResultChecker = resultSet.getString(columnName);
+				stringIsAllreadyOff = resultSet.getString("active");
+				customID = resultSet.getString("customid");
+				System.out.println(customID);
+			}
+
+			if (stringResultChecker.equals("")) {
+
+				stringToBeReturned = "The "+columnName+" doesn't exist";
+				
+			} else if (stringIsAllreadyOff.equals("2")) {
+				
+				stringToBeReturned = "The "+columnName+" is already inactive";
+			}
+			else if(customID.equals("1"))
+			{
+				stringToBeReturned = "You cannot delete calendars imported from cbs!";
+			}
+			else {
+
+				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
+						+ killRow + "';");
+				stringToBeReturned = "The "+killRow+" is now inactive";
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stringToBeReturned;
+	}
 
 	// Delete user (soft)
 	public String deletesRow(String killRow, String table, String columnName) {
@@ -607,10 +656,6 @@ while(rs.next()){
 			} else if (stringIsAllreadyOff.equals("2")) {
 				
 				stringToBeReturned = "The "+columnName+" is already inactive";
-			}
-			else if()
-			{
-				
 			}
 			else {
 
@@ -824,5 +869,83 @@ return stringToBeReturned;
 			e.printStackTrace();
 		}
 		return stringToBeReturned;
+	}
+	public String addNewNote(String eventID, String newNote,
+		String allKnowingName) {
+		String stringToBeReturned = "";
+		String eventIDFromDB = "";
+		String[] newNoteFields = {"createdBy", "text", "dateTime", "eventid"};
+		String[] newNoteValues = {allKnowingName, newNote, getTime(), eventID};
+		String[] checkIfNoteExists = {"eventid"};
+		try {
+			resultSet = QB.selectFrom(checkIfNoteExists, "notes").where("eventid", "=", eventID).ExecuteQuery();
+			while(resultSet.next())
+			{
+				eventIDFromDB = resultSet.getString("eventID");
+			}
+			if(eventIDFromDB.equals(""))
+			{
+				QB.insertInto("notes", newNoteFields).values(newNoteValues).Execute();
+				stringToBeReturned = "NotSe has been updated";
+			}
+			else
+			{
+				stringToBeReturned = "Note does already exists. please use edit note insted.";
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			stringToBeReturned = "Note has not been created, because something went wrong. Please try again";
+		}
+		return stringToBeReturned;
+	}
+	public String getExistingNote(String eventID) {
+		String stringToBeReturned = "";
+		String existingNote = "";
+		String[] noteValues = {"text"};
+		try {
+			resultSet = QB.selectFrom(noteValues, "notes").where("eventid", "=", eventID).ExecuteQuery();
+		
+		while(resultSet.next())
+		{
+			existingNote = resultSet.getString("text");
+		}
+		if(existingNote.equals(""))
+		{
+			stringToBeReturned = "There is no note added to this eventid";
+		}
+		else
+		{
+			stringToBeReturned = "Existing note of "+eventID+" is:\n"+existingNote;
+		}
+		
+		} catch (SQLException e) {
+			e.printStackTrace();
+			stringToBeReturned = "There is no note added to this eventid";
+		}
+		return stringToBeReturned;
+	}
+	public String editNote(String eventID, String newNote, String allKnowingName) {
+		String stringToBeReturned = "";
+		String[] updateValues = {allKnowingName, newNote, getTime()};
+		String[] updateFields = {"createdBy", "text", "dateTime"};
+		try {
+			QB.update("notes", updateFields, updateValues).where("eventid", "=", eventID).Execute();
+			stringToBeReturned = "Note has succesfully been updated";
+		} catch (SQLException e) {
+			e.printStackTrace();
+			stringToBeReturned = "There is no note with this eventid";
+		}
+		return stringToBeReturned;
+	}
+	public void clearWeatherQuote() {
+		try {
+			doUpdate("truncate cbscalendar.qotd;");
+			doUpdate("truncate cbscalendar.weathertable;");
+		} catch (SQLException e) {
+			System.out.println("Weather could not be updated due to unstable weather API");
+			e.printStackTrace();
+		}
+		
 	}
 }

@@ -224,16 +224,10 @@ public class NoteList extends JPanel {
 		btnMainMenu.addActionListener(l);
 	}
 
-	public void addNoteListener (ActionListener l)
+	public void noteListener (ActionListener l)
 	{
 		btnAdd.addActionListener(l);
-	}
-	public void deleteNoteListener (ActionListener l)
-	{
 		btnDelete.addActionListener(l);
-	}
-	public void editNoteListener (ActionListener l)
-	{
 		btnEdit.addActionListener(l);
 	}
 	/*
