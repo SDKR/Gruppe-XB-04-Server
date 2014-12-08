@@ -41,26 +41,38 @@ public class Logic {
 		CP.setVisible(true);
 	}
 
+
 //	Login button action
 //	Checks if login data is correct and shows error message if it's not. 
+
+	//Fuction to test the login of a user in the backend
 	private class loginBtn implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
+			//Gets the user input and sets equal a string
 			String emailInput = CP.getLI().getTextFieldUsername().getText();
 			String passwordInput = CP.getLI().getTextFieldPassword().getText();
+
 //			Checking Login detalis
+			//Checks if fields are empty
 			if (!emailInput.equals("") || !passwordInput.equals("")) {
+				//If password is true
 				if (DC.checkPassword(emailInput, passwordInput) == true) {
+					//checks if user is admin
 					if (DC.checkIfAdmin(emailInput) == true) {
 						JOptionPane.showMessageDialog(CP, "Login succesfull!");
 						setAllKnowingName(emailInput);
 						CP.show(ContainerPanel.mainMenu);
+						//Runs weather and quote functions, and sets input fields equal nothing
 						saveWeather();
 						displayWeather();
 						displayQuote();
 						CP.getLI().getTextFieldUsername().setText("");
 						CP.getLI().getTextFieldPassword().setText("");
+
 //			Showing suitable error messages, depending on which if-statement failed
-					} else {
+					}
+					//if something goes wrong, print error message in pop-up
+					else {
 						JOptionPane.showMessageDialog(CP,
 								"You do not have sufficient access to login");
 					}
@@ -75,6 +87,7 @@ public class Logic {
 		}
 	}
 
+	//Private class which implements Action listner.
 	private class btnToMainMenu implements ActionListener {
 		// When button pushed, show login screen
 		public void actionPerformed(ActionEvent e) {
@@ -83,13 +96,15 @@ public class Logic {
 	}
 
 //	View user function for GUI
+	//View all user function
 	public void viewUser() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
 		DC.keyImporter();
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
-		String[][] test = DC.calendarData();
+
+		String[][] test = DC.userData();
 		int arrayCounter = test[0].length;
 		// Creates an dint equals to 0
 		int arrayChecker = 0;
@@ -185,12 +200,12 @@ public class Logic {
 		}
 	}
 	
-	
+
 //	View events function for GUI
 	public void viewEvents() {
 		// Creates an object of the class databaseconnection
 		DatabaseConnection DC = new DatabaseConnection();
-		DC.keyImporter();
+		DC.keyImporter(); 
 		// Get the size of an arraylist which a method from databaseConnection
 		// returns, and sets a int equals that
 		String[][] test = DC.eventID();
@@ -256,7 +271,7 @@ public class Logic {
 		
 		if(!eventID.equals(""))
 		{
-//			String newNote = JOptionPane.
+			String newNote = JOptionPane.showInputDialog("TEST");
 		}
 		else
 		{
@@ -546,6 +561,7 @@ public class Logic {
 						JOptionPane.INFORMATION_MESSAGE);
 //	Else deactivate from calendar		
 			} else {
+				JOptionPane.showMessageDialog(CP, DC.deletesRow(killCalendar, "calendar", "Name"));
 				DC.deletesRow(killCalendar, "calendar", "Name");
 			}
 		}

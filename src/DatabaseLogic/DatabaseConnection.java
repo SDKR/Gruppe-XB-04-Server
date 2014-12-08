@@ -27,17 +27,14 @@ public class DatabaseConnection extends Model {
 	QueryBuilder QB = new QueryBuilder();
 	UserCreation UC = new UserCreation();
 	ForecastModel FM = new ForecastModel();
-	
 
-	// Creates the needed information to connect to the database
-	// Brug til manuel indtastning af connect info.
-	// private String sqlUrl = "jdbc:mysql://localhost:3306/";
-	// private String sqlUser = "Asger";
-	// private String sqlPasswd = "1darkeldar";
+	 private String sqlUrl = "jdbc:mysql://localhost:3306/";
+	 private String sqlUser = "root";
+	 private String sqlPasswd = "";
 
-	private String sqlUrl = "";
-	private String sqlUser = "";
-	private String sqlPasswd = "";
+//	private String sqlUrl = "";
+//	private String sqlUser = "";
+//	private String sqlPasswd = "";
 
 	// Creates a statement, resultest and connection
 	private java.sql.Statement stmt;
@@ -335,8 +332,40 @@ public class DatabaseConnection extends Model {
 		return doubleArray;
 	}
 	
-	
+
 //	Gets all the events from the database and returns it as doubleArray
+	public String[][] userData() {
+		String[] headerNames = { "userid", "email", "active", "created",
+				"password", "admin"};
+		int rowCounter = 0;
+		String[] useridValue = {"userid"};
+		try {
+			resultSet = QB.selectFrom(useridValue, "users").all().ExecuteQuery();
+			while (resultSet.next()) {
+				rowCounter++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		String[][] doubleArray = new String[6][rowCounter];
+		for (int headerCounter = 0; headerCounter < 6; headerCounter++) {
+			try {
+				int otherCounter = 0;
+				getConnection();
+				stmt = conn.createStatement();
+				rs = stmt.executeQuery("select " + headerNames[headerCounter] + " from cbscalendar.users");
+				while (rs.next()) {
+					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
+					otherCounter++;
+				}
+				closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return doubleArray;
+	}
+
 	public String[][] eventID() {
 		String[] headerNames = { "eventid", "type", "location", "createdby",
 				"start", "end", "name", "text", "customevent", "CalenderID" };
@@ -590,40 +619,33 @@ while(rs.next()){
 
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt
-
-			.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
+			rs = stmt.executeQuery("select * from cbscalendar."+table+" where "+columnName+" = '"
 					+ killRow + "';");
 			while (rs.next()) {
 
 				stringResultChecker = rs.getString(columnName);
 				stringIsAllreadyOff = rs.getString("active");
-
+				
 			}
 
 			if (stringResultChecker.equals("")) {
 
-				JOptionPane.showMessageDialog(null, "The "+columnName+" doesn't exist",
-						"Error", JOptionPane.ERROR_MESSAGE);
-
+				stringToBeReturned = "The "+columnName+" doesn't exist";
+				
 			} else if (stringIsAllreadyOff.equals("2")) {
-				JOptionPane.showMessageDialog(null,
-						"The "+columnName+" is already inactive", "Error",
-						JOptionPane.ERROR_MESSAGE);
+				
+				stringToBeReturned = "The "+columnName+" is already inactive";
 			}
 
 			else {
 
 				doUpdate("update cbscalendar."+table+" set active='2' where "+columnName+"='"
 						+ killRow + "';");
-				JOptionPane.showMessageDialog(null, "The "+killRow+" is now inactive",
-						"Error", JOptionPane.INFORMATION_MESSAGE);
-
+				stringToBeReturned = "The "+killRow+" is now inactive";
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-
 		return stringToBeReturned;
 	}
 	
