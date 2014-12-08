@@ -1,10 +1,8 @@
 package model.calendar;
 
 import DatabaseLogic.DatabaseConnection;
-
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;

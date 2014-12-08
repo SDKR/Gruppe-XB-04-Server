@@ -1,5 +1,4 @@
 import java.net.*;
-
 import GUILogic.Logic;
 
 class TCPServer{    

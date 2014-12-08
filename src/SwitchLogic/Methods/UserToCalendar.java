@@ -1,9 +1,6 @@
 package SwitchLogic.Methods;
 
 import java.sql.SQLException;
-
-import org.bouncycastle.jcajce.provider.asymmetric.RSA;
-
 import model.Model;
 import model.QueryBuild.QueryBuilder;
 import model.QueryBuild.Where;

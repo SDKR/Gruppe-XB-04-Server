@@ -3,7 +3,6 @@ package GUILogic;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,16 +12,13 @@ import java.util.TimerTask;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import model.Forecast.ForecastModel;
-import model.Forecast.ForecastTest;
 import model.QOTD.QOTDModel;
 import model.calendar.GetCalendarData;
 import model.user.encryptionAES;
 import DatabaseLogic.DatabaseConnection;
-import GUI.*;
+import GUI.ContainerPanel;
 
 public class Logic {
 	DatabaseConnection DC = new DatabaseConnection();
