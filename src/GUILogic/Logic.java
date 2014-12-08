@@ -46,13 +46,12 @@ public class Logic {
 	     MyTask mTask = new MyTask();
 	     // This task is scheduled to run every 10 seconds
 
-	     t.scheduleAtFixedRate(mTask, 0, 180000);
-	     //3600000
+	     t.scheduleAtFixedRate(mTask, 0, 3600000);
 	}
 	private class MyTask extends TimerTask{
 		   public void run() {
 		     try {
-				//GCD.getDataFromCalendar();
+				GCD.getDataFromCalendar();
 				DC.clearWeatherQuote();
 				saveWeather();
 				displayWeather();

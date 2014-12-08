@@ -392,13 +392,12 @@ public class DatabaseConnection extends Model {
 		}
 		System.out.println(rowCounter);
 		String[][] doubleArray = new String[11][rowCounter];
-		System.out.println("Lige efter String array er blevet oprettet");
 		for (int headerCounter = 0; headerCounter < 11; headerCounter++) {
 			try {
 				int otherCounter = 0;
 				getConnection();
 				stmt = conn.createStatement();
-				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from "+getDbNAme()+".events");
+				rs = stmt.executeQuery("select " + headerNames[headerCounter]+ " from "+getDbNAme()+".events where active = '1'");
 				while (rs.next()) {
 					doubleArray[headerCounter][otherCounter] = rs.getString(headerNames[headerCounter]);
 					otherCounter++;
