@@ -5,7 +5,7 @@ import DatabaseLogic.DatabaseConnection;
 public class UserLogin {
 	
 	DatabaseConnection DBC = new DatabaseConnection();
-	public String authenticateUser(String userName, String password, String isActive) {
+	public String authenticateUser(String userName, String password, String isActive) throws Exception {
 		String stringToBeReturned = "";
 		if(DBC.userAuthenticating(userName, password, isActive))
 		{

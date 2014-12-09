@@ -25,7 +25,7 @@ public class Events {
 				//String values from SQL database (must be created)
 				int eventID = rs.getInt("eventid");
 				int type = rs.getInt("type");
-				int location = rs.getInt("location");
+				String location = rs.getString("location");
 				int createdby = rs.getInt("createdby");
 				
 				Date startDate = rs.getDate("start");
@@ -35,7 +35,6 @@ public class Events {
 				Time endTime = rs.getTime("end");
 				
 				String nameEvent = rs.getString("name");
-				String text = rs.getString("text");
 				
 				String stringEventID = String.valueOf(eventID);
 				String stringType = String.valueOf(type);

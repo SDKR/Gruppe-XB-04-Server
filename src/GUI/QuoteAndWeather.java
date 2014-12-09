@@ -89,20 +89,19 @@ public class QuoteAndWeather extends JPanel {
         qTextArea.setBounds(73, 248, 1219, 139);
         add(qTextArea);
         
-
         JScrollBar scrollBar = new JScrollBar();
         setVisible(true);
-        weatherTextArea.setBounds(73, 465, 1219, 139);
-        
-        add(weatherTextArea);
         add(qTextArea);
+        
+        JScrollPane scrollPane = new JScrollPane();
+        scrollPane.setBounds(71, 466, 1221, 139);
+        add(scrollPane);
+        scrollPane.setViewportView(weatherTextArea);
         
         JLabel lblWeather = new JLabel("Weather");
         lblWeather.setBounds(538, 134, 483, 16);
         add(lblWeather);
         
-      
-    
         JLabel lblBackground = new JLabel("Background");
         lblBackground.setBounds(0, 0, 1376, 768);
         lblBackground.setIcon(new ImageIcon(UserList.class.getResource("/Images/MetalBackground.jpg")));

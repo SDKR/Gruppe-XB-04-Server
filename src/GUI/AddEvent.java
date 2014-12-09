@@ -36,8 +36,8 @@ public class AddEvent extends JPanel {
 	private JComboBox<Object> endhour = new JComboBox<Object>();
 	private JComboBox<Object> endDay = new JComboBox<Object>();
 	private JComboBox<Object> endMonth = new JComboBox<Object>();
-	private JComboBox<Object> calendarCombo = new JComboBox<Object>();
 	private JTextField locationField = new JTextField();
+	private JTextField calendarField = new JTextField();
 
 	/**
 	 * Create the panel.
@@ -214,22 +214,18 @@ public class AddEvent extends JPanel {
 		endMonth.setBounds(619, 295, 51, 22);
 		endMonth.addItem("MM");
 		add(endMonth);
-		calendarCombo.setModel(new DefaultComboBoxModel(new String[] {"Choose Calendar", "Ledelse af IS - forandring, innovation og viden (XA)", "Ledelse af IS - forandring, innovation og viden (LA)", "Ledelse af IS - forandring, innovation og viden (XB)", "Makro\u00F8konomi (LA)", "Makro\u00F8konomi (XA)", "Makro\u00F8konomi (XB)", "Virksomhedens \u00F8konomiske styring (3) (LA)", "Distribuerede systemer (LA)"}));
-		
-		calendarCombo.setBounds(560, 330, 266, 22);
-		calendarCombo.addItem("Choose Calendar");
-		add(calendarCombo);
-		
-		
 		
 		/*
 		 * Images
-		 */
-		
-		
+		 */		
 		locationField.setBounds(560, 225, 266, 22);
 		add(locationField);
 		locationField.setColumns(10);
+		
+		
+		calendarField.setBounds(554, 330, 275, 22);
+		add(calendarField);
+		calendarField.setColumns(10);
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(EventList.class
 				.getResource("/Images/MetalBackground.jpg")));
@@ -305,7 +301,7 @@ public class AddEvent extends JPanel {
 	public JTextField getLocationField() {
 		return locationField;
 	}
-	public JComboBox<Object> getCalendarCombo() {
-		return calendarCombo;
+	public JTextField getCalendarField() {
+		return calendarField;
 	}
 }

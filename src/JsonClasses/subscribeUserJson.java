@@ -2,7 +2,7 @@ package JsonClasses;
 
 public class subscribeUserJson implements java.io.Serializable{	
 		private  final long serialVersionUID = 1L;
-		private String overallID = "getAllCalendars";
+		private String overallID = "addOtherUserToCalendar";
 		private String username;
 		private String calendarName;
 		private String subscriber;

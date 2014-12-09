@@ -2,14 +2,6 @@
 /DØK4ever_server API
 /ERMaster.erm
 /Images
-/Img
-/slf4j-api-1.7.5.jar
-/struts.jar
-/uploadbean.jar
-/velocity-1.7.jar
-/xmlsec-1.5.6.jar
-/xmltooling-1.4.3.jar
-/cos.jar
 /endorsed
 /esapi-2.0.1.jar
 /fileupload.jar
@@ -24,6 +16,12 @@
 /not-yet-commons-ssl-0.3.9.jar
 /opensaml-2.6.3.jar
 /openws-1.5.3.jar
+/slf4j-api-1.7.5.jar
+/struts.jar
+/uploadbean.jar
+/velocity-1.7.jar
+/xmlsec-1.5.6.jar
+/xmltooling-1.4.3.jar
 /.keep
 /AdminWorker.class
 /ClientWorker.class
@@ -43,5 +41,6 @@
 /commons-lang-2.6.jar
 /commons-lang3-3.3.2-javadoc.jar
 /commons-lang3-3.3.2.jar
+/cos.jar
 /keyKeeper
 /model

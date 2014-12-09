@@ -31,30 +31,18 @@ CREATE TABLE IF NOT EXISTS events
 (
 	eventid int NOT NULL AUTO_INCREMENT,
 	activityid varchar(20),
-	cbsEventId varchar(255) Unique,
 	type int NOT NULL,
-	location int,
-	locationName varchar(255),
+	location varchar(255),
 	createdby int NOT NULL,
 	start datetime NOT NULL DEFAULT NOW(),
 	end datetime NOT NULL DEFAULT NOW(),
 	name varchar(255) NOT NULL,
-	text text NOT NULL,
 	active tinyint(1) NOT NULL DEFAULT '1',
 	-- Decides wether the event is an import-event or user created
 	-- 
 	customevent tinyint(1) COMMENT 'Decides wether the event is an import-event or user created',
 	CalendarID int NOT NULL,
 	PRIMARY KEY (eventid)
-);
-
-CREATE TABLE IF NOT EXISTS locationdata
-(
-	locationdataid int NOT NULL AUTO_INCREMENT,
-	longitude decimal (8,6) NOT NULL,
-	latitude decimal (8,6) NOT NULL,
-	location_name varchar(255),
-	PRIMARY KEY (locationdataid)
 );
 
 CREATE TABLE IF NOT EXISTS notes
@@ -108,12 +96,6 @@ ALTER TABLE userevents
 ;
 
 ALTER TABLE events
-	ADD FOREIGN KEY (location)
-	REFERENCES locationdata (locationdataid)
-	ON UPDATE RESTRICT
-;
-
-ALTER TABLE events
 	ADD FOREIGN KEY (createdby)
 	REFERENCES users (userid)
 	ON UPDATE RESTRICT
@@ -150,4 +132,4 @@ INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af
 INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af IS - forandring, innovation og viden (XA)', 'admin@admin.dk', '1');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Ledelse af IS - forandring, innovation og viden (LA)', 'admin@admin.dk', '1');
 INSERT INTO cbscalendar.calendar (Name, CreatedBy, customid) VALUES ('Virksomhedens oekonomiske styring(3)(LA)', 'admin@admin.dk', '1');
-set global max_connections = 1000;
+set global max_connections = 100000;

@@ -24,7 +24,7 @@ public class eventsToUserWeek extends Model {
 		ArrayList<String> calendarIDs = new ArrayList<String>();
 		String[] values1 = {"userid"};
 		String[] values2 = {"CalendarID"};
-		String[] eventValues = {"type", "locationName", "start", "end", "name"};
+		String[] eventValues = {"type", "location", "start", "end", "name", "active"};
 		try {
 			resultSet = QB.selectFrom(values1, "users").where("email", "=", authUserEmail).ExecuteQuery();
 			while(resultSet.next())
@@ -50,10 +50,12 @@ public class eventsToUserWeek extends Model {
 				resultSet = QB.selectFrom(eventValues, "events").where("CalendarID", "=", calendarIDs.get(i)).ExecuteQuery();
 				while(resultSet.next())
 				{
+					if(resultSet.getString("active").equals("1"))
+					{
 					if(checkDate(resultSet.getString("start"))== true)
 					{
 						eventsToJson[0][arrayCounter] = resultSet.getString("type");
-						eventsToJson[1][arrayCounter] = resultSet.getString("locationName");
+						eventsToJson[1][arrayCounter] = resultSet.getString("location");
 						eventsToJson[2][arrayCounter] = resultSet.getString("start");
 						eventsToJson[3][arrayCounter] = resultSet.getString("end");
 						eventsToJson[4][arrayCounter] = resultSet.getString("name");
@@ -63,6 +65,11 @@ public class eventsToUserWeek extends Model {
 						System.out.println("Its not the correct date");
 					}
 					arrayCounter++;
+					}
+					else
+					{
+						System.out.println("nope. Does not work");
+					}
 				}
 			}
 			stringToBeReturned = gson.toJson(eventsToJson);

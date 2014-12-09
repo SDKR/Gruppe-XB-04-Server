@@ -13,6 +13,7 @@ import JsonClasses.UnSubscribeCalendarJson;
 import JsonClasses.WeatherJson;
 import JsonClasses.EventsDayJson;
 import JsonClasses.EventsWeekJson;
+import JsonClasses.deleteEventJson;
 import JsonClasses.subscribeUserJson;
 import JsonClasses.userToCalendarJson;
 import SwitchLogic.Methods.*;
@@ -36,7 +37,8 @@ public class GiantSwitch {
 		NoteFunctions NF = new NoteFunctions();
 		Quote quote = new Quote();
 		Events eve = new Events();
-
+		DeleteEvent DE = new DeleteEvent();
+		
 		unsubFromCalendar USC = new unsubFromCalendar();
 		UserToCalendar UTC = new UserToCalendar();
 		eventsToUserDay ETUD = new eventsToUserDay();
@@ -125,6 +127,9 @@ public class GiantSwitch {
 			
 		case "deleteEvent":
 			System.out.println("Recieved deleteEvent");
+			deleteEventJson DEJ = gson.fromJson(jsonString, deleteEventJson.class);
+			answer = DE.deleteEvent(DEJ.getCalendarID(), DEJ.getUserName());
+			break;
 		
 		case "saveNote":
 			System.out.println("Recieved saveNote");
@@ -202,8 +207,8 @@ public class GiantSwitch {
 			return "getQuote";
 		} else if (ID.contains("logIn")) {
 			return "logIn";
-		} else if (ID.contains("logOut")) {
-			return "logOut";
+		} else if (ID.contains("addOtherUserToCalendar")) {
+			return "addOtherUserToCalendar";
 		} else if (ID.contains("getCalender")) {
 			return "getCalender";
 		} else if (ID.contains("createEvent")) {

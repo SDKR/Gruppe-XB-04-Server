@@ -32,6 +32,7 @@ public class Execute extends Model {
     protected Where getWhere() {
         return where;
     }
+   
 
     protected Values getValues() {
         return values;
@@ -75,6 +76,7 @@ public class Execute extends Model {
                 e.printStackTrace();
             }
        } 
+        
         else {
             sql = SELECT + getQueryBuilder().getSelectValue() +
                     FROM + getQueryBuilder().getTableName() +

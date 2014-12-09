@@ -51,9 +51,9 @@ public class Logic {
 	private class MyTask extends TimerTask{
 		   public void run() {
 		     try {
-				GCD.getDataFromCalendar();
-				DC.clearWeatherQuote();
-				saveWeather();
+				//GCD.getDataFromCalendar();
+		    	 //DC.clearWeatherQuote();
+		    	 //saveWeather();
 				displayWeather();
 				displayQuote();
 				
@@ -171,6 +171,7 @@ public class Logic {
 
 			for (int reset = 1; reset < arrayCounter; reset++) {
 				// Sets every field in a Jtable equals nothing
+				System.out.println(reset+" første gang");
 				CP.geteList().getTable().setValueAt(null, reset, 0);
 				CP.geteList().getTable().setValueAt(null, reset, 1);
 				CP.geteList().getTable().setValueAt(null, reset, 2);
@@ -180,8 +181,6 @@ public class Logic {
 				CP.geteList().getTable().setValueAt(null, reset, 6);
 				CP.geteList().getTable().setValueAt(null, reset, 7);
 				CP.geteList().getTable().setValueAt(null, reset, 8);
-				CP.geteList().getTable().setValueAt(null, reset, 9);
-				CP.geteList().getTable().setValueAt(null, reset, 10);
 			}
 			// As long as there is something in the arraylists, add it to the Jtable
 			while (arrayChecker < arrayCounter) {
@@ -194,8 +193,6 @@ public class Logic {
 				CP.geteList().getTable().setValueAt(test[6][arrayChecker], arrayChecker, 6);
 				CP.geteList().getTable().setValueAt(test[7][arrayChecker], arrayChecker, 7);
 				CP.geteList().getTable().setValueAt(test[8][arrayChecker], arrayChecker, 8);
-				CP.geteList().getTable().setValueAt(test[9][arrayChecker], arrayChecker, 9);
-				CP.geteList().getTable().setValueAt(test[9][arrayChecker], arrayChecker, 10);
 				arrayChecker++;
 			}
 		}
@@ -461,8 +458,7 @@ public class Logic {
 					.toString();
 			String endMinute = CP.getAE().getEndMinute().getSelectedItem()
 					.toString();
-			String Calendar = CP.getAE().getCalendarCombo().getSelectedItem()
-					.toString();
+			String Calendar = CP.getAE().getCalendarField().getText();
 			String infoText = CP.getAE().getInfoBox().getText();
 			String endTime = endYear + "-" + endMonth + "-" + endDay + " "
 					+ endHour + ":" + endMinute + ":00";
@@ -481,12 +477,10 @@ public class Logic {
 						if (checkStartTime < checkEndTime) {
 							Date date = new Date();
 							if (checkStartTime > date.getTime()) {
-								if (!Calendar.equals("Choose Calendar")) {
-									if (!infoText
-											.equals("Enter further information here...")) {
-										DC.createNewEvent(type, location,
-												startTime, endTime, eventName,
-												infoText, Calendar);
+								if (!Calendar.equals("")) {
+									if (!infoText.equals("Enter further information here...")) {
+										String calendarID = DC.getCalendarID(Calendar);
+										DC.createNewEvent(type, location, startTime, endTime, eventName, infoText, Calendar);
 										clearFieldsAddEventMethod();
 //		If the inputs are incorrect, an error message is shown
 
@@ -539,7 +533,7 @@ public class Logic {
 		CP.getAE().getEndDay().setSelectedIndex(0);
 		CP.getAE().getEndhour().setSelectedIndex(0);
 		CP.getAE().getEndMinute().setSelectedIndex(0);
-		CP.getAE().getCalendarCombo().setSelectedIndex(0);
+		CP.getAE().getCalendarField().setText("");
 		CP.getAE().getInfoBox().setText("Enter further information here...");
 	}
 	//Clear fields at addEvent
@@ -585,8 +579,7 @@ public class Logic {
 			int checkIfActive;
 			int checkIfAdmin;
 			boolean activeCheck = CP.getUC().getChckbxActive().isSelected();
-			boolean adminCheck = CP.getUC().getChckbxAdministrator()
-					.isSelected();
+			boolean adminCheck = CP.getUC().getChckbxAdministrator().isSelected();
 			
 //	Checks if the inputs are correct, and passwords matching
 			if (pass1.equals(pass2) && !Email.isEmpty() && !pass1.isEmpty()
@@ -604,11 +597,10 @@ public class Logic {
 					checkIfAdmin = 2;
 				}
 				try {
-					DC.CreatedUser(encryptionAES.encrypt(Email), pass1, checkIfActive, checkIfAdmin);
+					DC.CreatedUser(Email, encryptionAES.encrypt(pass1), checkIfActive, checkIfAdmin);
 				} catch (Exception e1) {
 					e1.printStackTrace();
 				}
-				DC.CreatedUser(Email, pass1, checkIfActive, checkIfAdmin);
 //	Clears old input
 				CP.getUC().getEmailText().setText("");
 				CP.getUC().getPass().setText("");
@@ -661,6 +653,7 @@ public class Logic {
 //	Else deactivate from calendar		
 			} else {
 				JOptionPane.showMessageDialog(CP, DC.deletesRowCalendar(killCalendar, "calendar", "Name"));
+				viewCalendar();
 			}
 		}
 	}

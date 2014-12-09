@@ -82,24 +82,23 @@ public class DatabaseConnection extends Model {
 
 //	Takes variables processed in logic and writes them to database
 //	Here a calendar is added to the database.
-	public void addingCBSCalendarToDB(String activityId, String eventid, String type, String location,
-			String start, String end, String name, String text)
+	public void addingCBSCalendarToDB(String activityId, String type, String location,
+			String start, String end, String name)
 			throws SQLException {
 		// Her skal v�re 2 switches til at bestemme Hvilken calendar event
 		// tilh�rer, og hvilken lokation.
-		int locationID = determineLocationID(location);
 		int calendarID = determineCalendarID(activityId);
 		int typeID = determineTypeID(type);
 		String typeIDS = Integer.toString(typeID);
-		String locationIDS = Integer.toString(locationID);
 		String calendarIDS = Integer.toString(calendarID);
 		if (!start.contains("9-31") && !end.contains("9-31")) {
 //	If true try writing to database
 			try {
 				getConnection();
-				String[] fields = {"activityid", "type", "location", "locationName", "createdby", "start", "end", "name", "text", "customevent", "CalendarID"};
-				String[] values = {activityId, typeIDS, locationIDS, location, "1", start, end, name, text, "1", calendarIDS};
-				QB.insertInto("events", fields).values(values).Execute();		
+				String[] fields = {"activityid", "type", "location", "createdby", "start", "end", "name", "customevent", "CalendarID"};
+				String[] values = {activityId, typeIDS, location, "1", start, end, name, "1", calendarIDS};
+				QB.insertInto("events", fields).values(values).Execute();
+				
 			}
 //	If error found throw 
 			catch (SQLException e) {
@@ -214,23 +213,18 @@ public class DatabaseConnection extends Model {
 			}
 		} catch (SQLException e1) {
 		}	
-		int locationID = determineLocationID(location);
 		int typeID = determineTypeID(type);
 		System.out.println(calendarString);
 		System.out.println(calendarID);
 		try {
-			doUpdate("insert into "+getDbNAme()+".events (type, location, locationName, createdby, start, end, name, text, customevent, CalendarID) VALUES ('"
+			doUpdate("insert into "+getDbNAme()+".events (type, location, createdby, start, end, name, customevent, CalendarID) VALUES ('"
 					+ typeID
-					+ "', '"
-					+ locationID
 					+ "', '"+location+"', '1', '"
 					+ start
 					+ "', '"
 					+ end
 					+ "', '"
 					+ name
-					+ "', '"
-					+ text
 					+ "', '2', '" + calendarID + "');");
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -282,17 +276,15 @@ public class DatabaseConnection extends Model {
 
 //	After the input is checked in GUI.Logic the login information in matched against the database
 //	Errors are printed if it fails
-	public boolean userPasswordCheck(String userName, String password) {
+	public boolean userPasswordCheck(String userName, String password) throws Exception {
 		boolean passwordChecker = false;
 		try {
 			getConnection();
 			stmt = conn.createStatement();
-			rs = stmt
-					.executeQuery("select password from "+getDbNAme()+".users where email = '"
-							+ userName + "';");
+			rs = stmt.executeQuery("select password from "+getDbNAme()+".users where email = '"+ userName + "';");
 			while (rs.next()) {
 				String accountPassword = rs.getString("password");
-				if (accountPassword.equals(password)) {
+				if (accountPassword.equals(encryptionAES.encrypt(password))) {
 					passwordChecker = true;
 				} else {
 					System.out.println("The password is incorrect");
@@ -379,11 +371,11 @@ public class DatabaseConnection extends Model {
 	}
 
 	public String[][] eventID() {
-		String[] headerNames = { "eventid", "type", "locationName", "createdby",
-				"start", "end", "name", "text", "customevent", "CalendarID", "active" };
+		String[] headerNames = { "eventid", "type", "location", "createdby",
+				"start", "end", "name", "customevent", "CalendarID", "active" };
 		int rowCounter = 0;
 		try {
-			resultSet = QB.selectFrom("events").all().ExecuteQuery();	
+			resultSet = QB.selectFrom("events").where("active", "=", "1").ExecuteQuery();	
 			while (resultSet.next()) {
 				rowCounter++;
 			}
@@ -391,8 +383,8 @@ public class DatabaseConnection extends Model {
 			e.printStackTrace();
 		}
 		System.out.println(rowCounter);
-		String[][] doubleArray = new String[11][rowCounter];
-		for (int headerCounter = 0; headerCounter < 11; headerCounter++) {
+		String[][] doubleArray = new String[9][rowCounter];
+		for (int headerCounter = 0; headerCounter < 9; headerCounter++) {
 			try {
 				int otherCounter = 0;
 				getConnection();
@@ -866,7 +858,7 @@ return stringToBeReturned;
 		stmt = conn.createStatement();
 		rs = stmt.executeQuery("select * from "+getDbNAme()+".weathertable;");
 			while (rs.next()) {
-				resultSetHolder = "WeatherID: "+rs.getString("weatherid") +" WeatherDate: "+rs.getString("weatherdate")+" Weatherdesc: "+rs.getString("weatherdesc")+" WeatherDegrees: "+rs.getString("weatherDegrees");
+				resultSetHolder = "WeatherID: "+rs.getString("weatherid") +" WeatherDate: "+rs.getString("weatherdate")+" Weatherdesc: "+rs.getString("weatherdesc")+" WeatherDegrees: "+rs.getString("weatherDegrees")+"\n";
 				arrayToBeReturned.add(resultSetHolder);
 			}
 		}
@@ -990,5 +982,19 @@ return stringToBeReturned;
 	}
 	public String getDbNAme() {
 		return dbNAme;
+	}
+	public String getCalendarID(String calendar) {
+		String stringToBeReturned = "";
+		String[] calendarIDValue = {"CalendarID"};
+		try {
+			resultSet = QB.selectFrom(calendarIDValue, "calendar").where("Name", "=", calendar).ExecuteQuery();
+			while(resultSet.next())
+			{
+				stringToBeReturned = resultSet.getString("CalendarID");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stringToBeReturned;
 	}
 }

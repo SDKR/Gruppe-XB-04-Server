@@ -21,7 +21,7 @@ public abstract class Model {
     private static String sqlPasswd = "1darkeldar";
     private static String dbName = "cbscalendar";
     
-    private Statement stmt;
+    protected Statement stmt;
     protected Connection conn = null;
     protected PreparedStatement sqlStatement;
     protected ResultSet resultSet;
